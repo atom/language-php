@@ -99,7 +99,7 @@
   '<?php echo $this->… ?>':
     'prefix': 'ethis'
     'body': '<?php echo \\$this->$0 ?>'
-'.text.html.php':
+'.text.html.basic':
   '<?php … ?>':
     'prefix': 'php'
     'body': '<?php $0 ?>'

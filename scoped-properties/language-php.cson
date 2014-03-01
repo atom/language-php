@@ -1,4 +1,4 @@
-'.source.php':
+'.text.html.php':
   'editor':
     'commentStart': '// '
     'completions': [
