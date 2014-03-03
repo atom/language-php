@@ -15,7 +15,7 @@
 'foldingStartMarker': '(/\\*|\\{\\s*$|<<<HTML)'
 'foldingStopMarker': '(\\*/|^\\s*\\}|^HTML;)'
 'injections':
-  'text.html.php - (meta.embedded | meta.tag), L:text.html.php meta.tag, L:source.js.embedded.html':
+  'source.php - (meta.embedded | meta.tag), L:text.html.php meta.tag, L:source.js.embedded.html':
     'patterns': [
       {
         'begin': '(^\\s*)(?=<\\?(?![^?]*\\?>))'
