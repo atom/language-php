@@ -468,7 +468,7 @@
       'heredoc_interior':
         'patterns': [
           {
-            'begin': '(<<<)\\s*([\'"]?)(HTML)(\\2)([ \\t]*)$'
+            'begin': '(<<<)\\s*([\'"]?)(HTML)(\\2)([ \\t]+)?$'
             'beginCaptures':
               '0':
                 'name': 'punctuation.section.embedded.begin.php'
@@ -493,7 +493,7 @@
             ]
           }
           {
-            'begin': '(<<<)\\s*([\'"]?)(XML)(\\2)([ \\t]*)$'
+            'begin': '(<<<)\\s*([\'"]?)(XML)(\\2)([ \\t]+)?$'
             'beginCaptures':
               '0':
                 'name': 'punctuation.section.embedded.begin.php'
@@ -518,7 +518,7 @@
             ]
           }
           {
-            'begin': '(<<<)\\s*([\'"]?)(SQL)(\\2)([ \\t]*)$'
+            'begin': '(<<<)\\s*([\'"]?)(SQL)(\\2)([ \\t]+)?$'
             'beginCaptures':
               '0':
                 'name': 'punctuation.section.embedded.begin.php'
@@ -543,7 +543,7 @@
             ]
           }
           {
-            'begin': '(<<<)\\s*([\'"]?)(JAVASCRIPT)(\\2)([ \\t]*)$'
+            'begin': '(<<<)\\s*([\'"]?)(JAVASCRIPT)(\\2)([ \\t]+)?$'
             'beginCaptures':
               '0':
                 'name': 'punctuation.section.embedded.begin.php'
@@ -568,7 +568,7 @@
             ]
           }
           {
-            'begin': '(<<<)\\s*([\'"]?)(JSON)(\\2)([ \\t]*)$'
+            'begin': '(<<<)\\s*([\'"]?)(JSON)(\\2)([ \\t]+)?$'
             'beginCaptures':
               '0':
                 'name': 'punctuation.section.embedded.begin.php'
@@ -593,7 +593,7 @@
             ]
           }
           {
-            'begin': '(<<<)\\s*([\'"]?)(CSS)(\\2)([ \\t]*)$'
+            'begin': '(<<<)\\s*([\'"]?)(CSS)(\\2)([ \\t]+)?$'
             'beginCaptures':
               '0':
                 'name': 'punctuation.section.embedded.begin.php'
@@ -618,7 +618,7 @@
             ]
           }
           {
-            'begin': '(<<<)\\s*([\'"]?)(REGEX)(\\2)([ \\t]*)$'
+            'begin': '(<<<)\\s*([\'"]?)(REGEX)(\\2)([ \\t]+)?$'
             'beginCaptures':
               '0':
                 'name': 'punctuation.section.embedded.begin.php'
@@ -683,7 +683,7 @@
             ]
           }
           {
-            'begin': '(<<<)\\s*([\'"]?)([a-zA-Z_]+[a-zA-Z0-9_]*)(\\2)([ \\t]*)'
+            'begin': '(<<<)\\s*([\'"]?)([a-zA-Z_]+[a-zA-Z0-9_]*)(\\2)([ \\t]+)?'
             'beginCaptures':
               '1':
                 'name': 'punctuation.definition.string.php'
