@@ -436,7 +436,8 @@
   'heredoc':
     'patterns': [
       {
-        'begin': '(?=<<<\\s*("?)([a-zA-Z_]+[a-zA-Z0-9_]*)(\\1)\\s*$)'
+        # [ \\t] was used instead of \\s because \\s will match a newline
+        'begin': '(?=<<<\\s*("?)([a-zA-Z_]+[a-zA-Z0-9_]*)(\\1)[ \\t]*$)'
         'end': '(?!\\G)'
         'injections':
           '*':
@@ -453,7 +454,7 @@
         ]
       }
       {
-        'begin': '(?=<<<\\s*(\'?)([a-zA-Z_]+[a-zA-Z0-9_]*)(\\1)\\s*$)'
+        'begin': '(?=<<<\\s*\'([a-zA-Z_]+[a-zA-Z0-9_]*)\'[ \\t]*$)'
         'end': '(?!\\G)'
         'name': 'string.unquoted.heredoc.nowdoc.php'
         'patterns': [
@@ -467,7 +468,7 @@
       'heredoc_interior':
         'patterns': [
           {
-            'begin': '(<<<)\\s*([\'"]?)(HTML)(\\2)\\s*$\\n?'
+            'begin': '(<<<)\\s*([\'"]?)(HTML)(\\2)([ \\t]+)?$'
             'beginCaptures':
               '0':
                 'name': 'punctuation.section.embedded.begin.php'
@@ -475,6 +476,8 @@
                 'name': 'punctuation.definition.string.php'
               '3':
                 'name': 'keyword.operator.heredoc.php'
+              '5':
+                'name': 'invalid.illegal.whitespace-in-end-of-line.php'
             'contentName': 'text.html'
             'end': '^(\\3)\\b'
             'endCaptures':
@@ -490,7 +493,7 @@
             ]
           }
           {
-            'begin': '(<<<)\\s*([\'"]?)(XML)(\\2)\\s*$\\n?'
+            'begin': '(<<<)\\s*([\'"]?)(XML)(\\2)([ \\t]+)?$'
             'beginCaptures':
               '0':
                 'name': 'punctuation.section.embedded.begin.php'
@@ -498,6 +501,8 @@
                 'name': 'punctuation.definition.string.php'
               '3':
                 'name': 'keyword.operator.heredoc.php'
+              '5':
+                'name': 'invalid.illegal.whitespace-in-end-of-line.php'
             'contentName': 'text.xml'
             'end': '^(\\3)\\b'
             'endCaptures':
@@ -513,7 +518,7 @@
             ]
           }
           {
-            'begin': '(<<<)\\s*([\'"]?)(SQL)(\\2)\\s*$\\n?'
+            'begin': '(<<<)\\s*([\'"]?)(SQL)(\\2)([ \\t]+)?$'
             'beginCaptures':
               '0':
                 'name': 'punctuation.section.embedded.begin.php'
@@ -521,6 +526,8 @@
                 'name': 'punctuation.definition.string.php'
               '3':
                 'name': 'keyword.operator.heredoc.php'
+              '5':
+                'name': 'invalid.illegal.whitespace-in-end-of-line.php'
             'contentName': 'source.sql'
             'end': '^(\\3)\\b'
             'endCaptures':
@@ -536,7 +543,7 @@
             ]
           }
           {
-            'begin': '(<<<)\\s*([\'"]?)(JAVASCRIPT)(\\2)\\s*$\\n?'
+            'begin': '(<<<)\\s*([\'"]?)(JAVASCRIPT)(\\2)([ \\t]+)?$'
             'beginCaptures':
               '0':
                 'name': 'punctuation.section.embedded.begin.php'
@@ -544,6 +551,8 @@
                 'name': 'punctuation.definition.string.php'
               '3':
                 'name': 'keyword.operator.heredoc.php'
+              '5':
+                'name': 'invalid.illegal.whitespace-in-end-of-line.php'
             'contentName': 'source.js'
             'end': '^(\\3)\\b'
             'endCaptures':
@@ -559,7 +568,7 @@
             ]
           }
           {
-            'begin': '(<<<)\\s*([\'"]?)(JSON)(\\2)\\s*$\\n?'
+            'begin': '(<<<)\\s*([\'"]?)(JSON)(\\2)([ \\t]+)?$'
             'beginCaptures':
               '0':
                 'name': 'punctuation.section.embedded.begin.php'
@@ -567,6 +576,8 @@
                 'name': 'punctuation.definition.string.php'
               '3':
                 'name': 'keyword.operator.heredoc.php'
+              '5':
+                'name': 'invalid.illegal.whitespace-in-end-of-line.php'
             'contentName': 'source.json'
             'end': '^(\\3)\\b'
             'endCaptures':
@@ -582,7 +593,7 @@
             ]
           }
           {
-            'begin': '(<<<)\\s*([\'"]?)(CSS)(\\2)\\s*$\\n?'
+            'begin': '(<<<)\\s*([\'"]?)(CSS)(\\2)([ \\t]+)?$'
             'beginCaptures':
               '0':
                 'name': 'punctuation.section.embedded.begin.php'
@@ -590,6 +601,8 @@
                 'name': 'punctuation.definition.string.php'
               '3':
                 'name': 'keyword.operator.heredoc.php'
+              '5':
+                'name': 'invalid.illegal.whitespace-in-end-of-line.php'
             'contentName': 'source.css'
             'end': '^(\\3)\\b'
             'endCaptures':
@@ -605,7 +618,7 @@
             ]
           }
           {
-            'begin': '(<<<)\\s*([\'"]?)(REGEX)(\\2)\\s*$\\n?'
+            'begin': '(<<<)\\s*([\'"]?)(REGEX)(\\2)([ \\t]+)?$'
             'beginCaptures':
               '0':
                 'name': 'punctuation.section.embedded.begin.php'
@@ -613,6 +626,8 @@
                 'name': 'punctuation.definition.string.php'
               '3':
                 'name': 'keyword.operator.heredoc.php'
+              '5':
+                'name': 'invalid.illegal.whitespace-in-end-of-line.php'
             'contentName': 'string.regexp.heredoc.php'
             'end': '^(\\3)\\b'
             'endCaptures':
@@ -668,12 +683,14 @@
             ]
           }
           {
-            'begin': '(<<<)\\s*([\'"]?)([a-zA-Z_]+[a-zA-Z0-9_]*)(\\2)'
+            'begin': '(<<<)\\s*([\'"]?)([a-zA-Z_]+[a-zA-Z0-9_]*)(\\2)([ \\t]+)?'
             'beginCaptures':
               '1':
                 'name': 'punctuation.definition.string.php'
               '3':
                 'name': 'keyword.operator.heredoc.php'
+              '5':
+                'name': 'invalid.illegal.whitespace-in-end-of-line.php'
             'end': '^(\\3)\\b'
             'endCaptures':
               '1':
