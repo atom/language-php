@@ -17,10 +17,10 @@
     "url": "https://github.com/atom/language-php/issues"
   },
   "devDependencies": {
+    "atom-syntax-tools": "^0.9.1",
+    "q": "^1.4.1",
     "coffeelint": "^1.10.1"
   },
   "dependencies": {
-    "atom-syntax-tools": "^0.7.0",
-    "q": "^1.4.1"
   }
 }
