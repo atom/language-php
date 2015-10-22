@@ -1,2 +1,4 @@
 /Support/generate/.phpdoc
 node_modules
+search-index.json
+tmp

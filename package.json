@@ -1,5 +1,6 @@
 {
   "name": "language-php",
+  "main": "./lib/php",
   "version": "0.30.0",
   "description": "PHP language support in Atom",
   "engines": {
@@ -17,5 +18,9 @@
   },
   "devDependencies": {
     "coffeelint": "^1.10.1"
+  },
+  "dependencies": {
+    "atom-syntax-tools": "^0.7.0",
+    "q": "^1.4.1"
   }
 }
