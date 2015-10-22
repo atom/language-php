@@ -1,6 +1,3 @@
-{TextEditor} = require 'atom'
-# grammar = require '../src/php-grammar'
-
 require('../src/php.coffee').createGrammarsCson()
 
 describe 'PHP grammar', ->
