@@ -467,15 +467,15 @@ describe 'PHP grammar', ->
         }
       """
 
-      expect(tokens[3][1]).toEqual  value: "/**", scopes: ["text.html.php","meta.embedded.block.php","source.php","comment.block.documentation.phpdoc.php","punctuation.definition.comment.php"]
-      expect(tokens[10][0]).toEqual value: "  ", scopes: ["text.html.php","meta.embedded.block.php","source.php","comment.block.documentation.phpdoc.php"]
+      expect(tokens[3][1]).toEqual  value: "/**", scopes: ["text.html.php", "meta.embedded.block.php", "source.php", "comment.block.documentation.phpdoc.php", "punctuation.definition.comment.php"]
+      expect(tokens[10][0]).toEqual value: "  ",  scopes: ["text.html.php", "meta.embedded.block.php", "source.php", "comment.block.documentation.phpdoc.php"]
 
       # TODO: make namespace be lexed in extends
-      #expect(tokens[1][6]).toEqual  value: "DAV", scopes: ["text.html.php","meta.embedded.block.php","source.php","meta.class.php","meta.other.inherited-class.php","support.other.namespace.php"]
+      #expect(tokens[1][6]).toEqual  value: "DAV",  scopes: ["text.html.php","meta.embedded.block.php","source.php","meta.class.php","meta.other.inherited-class.php","support.other.namespace.php"]
 
     it 'can tokenize an indented comment', ->
       path = require 'path'
       fs = require 'fs'
       content = fs.readFileSync path.resolve __dirname, "fixtures", "IMipPlugin.php"
       tokens = grammar.tokenizeLines content.toString()
-      expect(tokens[25][0]).toEqual  { value : '     *', scopes : [ 'text.html.php', 'meta.embedded.block.php', 'source.php', 'comment.block.documentation.phpdoc.php' ] }
+      expect(tokens[25][0]).toEqual {value : '     *', scopes : ['text.html.php', 'meta.embedded.block.php', 'source.php', 'comment.block.documentation.phpdoc.php']}
