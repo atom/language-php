@@ -1,4 +1,4 @@
-require('../src/php.coffee').createGrammarsCson()
+#require('../src/php.coffee').createGrammarsCson()
 
 describe 'PHP grammar', ->
   grammar = null
