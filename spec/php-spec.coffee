@@ -478,4 +478,4 @@ describe 'PHP grammar', ->
       fs = require 'fs'
       content = fs.readFileSync path.resolve __dirname, "fixtures", "IMipPlugin.php"
       tokens = grammar.tokenizeLines content.toString()
-      expect(tokens[25][0]).toEqual {value : '     *', scopes : ['text.html.php', 'meta.embedded.block.php', 'source.php', 'comment.block.documentation.phpdoc.php']}
+      expect(tokens[25][0]).toEqual {value: '     *', scopes: ['text.html.php', 'meta.embedded.block.php', 'source.php', 'comment.block.documentation.phpdoc.php']}
