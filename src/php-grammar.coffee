@@ -62,7 +62,6 @@ makeConstants = (name) ->
       filesystem
       parserTokens
     """.trim().split(/\s+/) )...
-    debugger
 
   if name is "parser-token"
     constants = [].concat CONSTANTS.parserTokens

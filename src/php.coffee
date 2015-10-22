@@ -22,7 +22,6 @@ module.exports = {createGrammarsCson}
 # module.exports = LanguagePhp =
 #   activate: (state) ->
 #     @subscriptions = new CompositeDisposable
-#     debugger
 #     @subscriptions.add atom.grammars.addGrammar grammar
 #
 #   deactivate: ->
