@@ -1,3 +1,5 @@
+#require('../src/php.coffee').createGrammarsCson()
+
 describe 'PHP grammar', ->
   grammar = null
 
@@ -435,3 +437,45 @@ describe 'PHP grammar', ->
         expect(tokens[1][9]).toEqual value: '{', scopes: ['text.html.php', 'meta.embedded.block.php', 'source.php', 'punctuation.section.scope.begin.php']
         expect(tokens[1][10]).toEqual value: '}', scopes: ['text.html.php', 'meta.embedded.block.php', 'source.php', 'punctuation.section.scope.end.php']
         expect(tokens[1][11]).toEqual value: ';', scopes: ['text.html.php', 'meta.embedded.block.php', 'source.php', 'punctuation.terminator.expression.php']
+
+  describe "complex samples", ->
+
+    it 'should tokenize a class definition', ->
+      # this sample is taken from SabreDAV
+      tokens = grammar.tokenizeLines """
+        <?php
+        class IMipPlugin extends DAV\\ServerPlugin {
+
+          /**
+           * Email address used in From: header.
+           *
+           * @var string
+           */
+          protected $senderEmail;
+
+          /**
+           * Creates the email handler.
+           *
+           * @param string $senderEmail. The 'senderEmail' is the email that shows up
+           *                             in the 'From:' address. This should
+           *                             generally be some kind of no-reply email
+           *                             address you own.
+           */
+          function __construct($senderEmail) {
+              $this->senderEmail = $senderEmail;
+          }
+        }
+      """
+
+      expect(tokens[3][1]).toEqual  value: "/**", scopes: ["text.html.php", "meta.embedded.block.php", "source.php", "comment.block.documentation.phpdoc.php", "punctuation.definition.comment.php"]
+      expect(tokens[10][0]).toEqual value: "  ",  scopes: ["text.html.php", "meta.embedded.block.php", "source.php", "comment.block.documentation.phpdoc.php"]
+
+      # TODO: make namespace be lexed in extends
+      #expect(tokens[1][6]).toEqual  value: "DAV",  scopes: ["text.html.php","meta.embedded.block.php","source.php","meta.class.php","meta.other.inherited-class.php","support.other.namespace.php"]
+
+    it 'can tokenize an indented comment', ->
+      path = require 'path'
+      fs = require 'fs'
+      content = fs.readFileSync path.resolve __dirname, "fixtures", "IMipPlugin.php"
+      tokens = grammar.tokenizeLines content.toString()
+      expect(tokens[25][0]).toEqual {value: '     *', scopes: ['text.html.php', 'meta.embedded.block.php', 'source.php', 'comment.block.documentation.phpdoc.php']}

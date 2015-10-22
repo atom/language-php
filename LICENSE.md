@@ -29,3 +29,9 @@ Permission to copy, use, modify, sell and distribute this
 software is granted. This software is provided "as is" without
 express or implied warranty, and with no claim as to its
 suitability for any purpose.
+
+--------------------------------------------------------------------
+
+IMipPlugin.php in spec/fixtures folder is taken from http://sabre.io
+and is licensed from fruux GmbH (https://fruux.com/) under three clause 
+BSD license, see http://sabre.io/license/.
