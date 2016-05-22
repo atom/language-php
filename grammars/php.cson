@@ -1,3 +1,7 @@
+# This is a language grammar using the TextMate standard, but in CSON format
+# Grammar Schema: https://manual.macromates.com/en/language_grammars
+# CSON format: https://github.com/bevry/cson
+
 scopeName   : 'text.html.php'
 name        : 'PHP'
 fileTypes   : [
@@ -8,10 +12,10 @@ fileTypes   : [
   'module'
   'php'       # Default file type
   'php_cs'    # Used by a PHP code formatting tool: https://github.com/FriendsOfPHP/PHP-CS-Fixer
-  'php3'
-  'php4'
-  'php5'
-  'phpt'
+  'php3'      # < These are typically used when a server runs multiple PHP versions,
+  'php4'      # < and you want to direct certain files to certain PHP versions
+  'php5'      # <
+  'phpt'      # PHP test files: https://qa.php.net/write-test.php
   'phtml'     # Like 'shtml' -- "server-side includes"
   'profile'
 ]
@@ -23,6 +27,7 @@ firstLineMatch      : '^#!.*(?<!-)php[0-9]{0,1}\\b'
 foldingStartMarker  : '(/\\*|\\{\\s*$|<<<HTML)'
 foldingStopMarker   : '(\\*/|^\\s*\\}|^HTML;)'
 
+# This specifies the PHP script tags by which PHP is embedded within other languages:
 injections:
   'text.html.php - (meta.embedded | meta.tag), L:text.html.php meta.tag, L:source.js.embedded.html':
     patterns: [
@@ -46,6 +51,8 @@ injections:
             name: 'meta.embedded.block.php'
             patterns: [
               {
+                # This is where the PHP grammar gets to work
+                # (see the 'language' key in the Repository below)
                 include: '#language'
               }
             ]
@@ -64,6 +71,8 @@ injections:
         name: 'meta.embedded.block.php'
         patterns: [
           {
+            # This is where the PHP grammar gets to work
+            # (see the 'language' key in the Repository below)
             include: '#language'
           }
         ]
@@ -94,6 +103,8 @@ injections:
               1:  name: 'source.php'
             patterns: [
               {
+                # This is where the PHP grammar gets to work
+                # (see the 'language' key in the Repository below)
                 include: '#language'
               }
             ]
@@ -102,13 +113,24 @@ injections:
       }
     ]
 
+# It's important to note that PHP files are, by default, actually HTML files
+# and the PHP grammar is embedded via the script tags: `<?php ... ?>`
+
+# This basically says "This is an HTML file";
+# PHP grammar parsing can only occur within the PHP script tags
+# (detected and handled by the Injections section above)
 patterns: [
   {
     include: 'text.html.basic'
   }
 ]
 
+# The Repository is a collection of re-usable grammar snippets,
+# saving us from having to copy & paste pieces of regex hundreds of times.
+# An `include` key value refers to a base entry here in the repository
+
 repository:
+  # repository
   'class-builtin':
     patterns: [
       {
@@ -118,6 +140,8 @@ repository:
         name: 'support.class.builtin.php'
       }
     ]
+  
+  # repository
   'class-name':
     patterns: [
       {
@@ -146,6 +170,8 @@ repository:
         ]
       }
     ]
+    
+  # repository
   'comments':
     patterns: [
       {
@@ -203,6 +229,8 @@ repository:
         ]
       }
     ]
+    
+  # repository
   'constants':
     patterns: [
       {
@@ -268,6 +296,8 @@ repository:
         ]
       }
     ]
+  
+  # repository
   'function-arguments':
     patterns: [
       {
@@ -413,6 +443,8 @@ repository:
         ]
       }
     ]
+  
+  # repository
   'function-call':
     patterns: [
       {
@@ -453,6 +485,8 @@ repository:
         ]
       }
     ]
+  
+  # repository
   'heredoc':
     patterns: [
       {
@@ -662,6 +696,8 @@ repository:
               1:  name: 'keyword.operator.heredoc.php'
           }
         ]
+  
+  # repository
   'instantiation':
     begin: '(?i)(new)\\s+'
     beginCaptures:
@@ -679,6 +715,8 @@ repository:
         include: '#variable-name'
       }
     ]
+  
+  # repository
   'interpolation':
     comment: '''
       http://www.php.net/manual/en/language.types.string.php#language.types.string.parsing
@@ -713,12 +751,16 @@ repository:
         include: '#variable-name'
       }
     ]
+  
+  # repository
   'invoke-call':
     captures:
       1:  name: 'punctuation.definition.variable.php'
       2:  name: 'variable.other.php'
     match: '(?i)(\\$+)([a-z_][a-z_0-9]*)(?=\\s*\\()'
     name: 'meta.function-call.invoke.php'
+  
+  # repository
   'language':
     patterns: [
       {
@@ -1225,6 +1267,8 @@ repository:
         include: '#constants'
       }
     ]
+  
+  # repository
   'namespace':
     begin: '(?i)(?:(namespace)|[a-z0-9_]+)?(\\\\)(?=.*?[^a-z_0-9\\\\])'
     beginCaptures:
@@ -1239,9 +1283,13 @@ repository:
         match: '(?i)(\\\\)'
       }
     ]
+  
+  # repository
   'numbers':
     match: '\\b((0(x|X)[0-9a-fA-F]*)|(([0-9]+\\.?[0-9]*)|(\\.[0-9]+))((e|E)(\\+|-)?[0-9]+)?)\\b'
     name: 'constant.numeric.php'
+  
+  # repository
   'object':
     patterns: [
       {
@@ -1273,6 +1321,8 @@ repository:
           '''
       }
     ]
+  
+  # repository
   'parameter-default-types':
     patterns: [
       {
@@ -1338,6 +1388,8 @@ repository:
         include: '#constants'
       }
     ]
+  
+  # repository
   'php_doc':
     patterns: [
       {
@@ -1371,6 +1423,8 @@ repository:
         name: 'meta.tag.inline.phpdoc.php'
       }
     ]
+  
+  # repository
   'regex-double-quoted':
     begin: '''(?x)
       "/ (?= (\\\\.|[^"/])++/[imsxeADSUXu]*" )
@@ -1416,6 +1470,8 @@ repository:
         name: 'keyword.operator.regexp.php'
       }
     ]
+  
+  # repository
   'regex-single-quoted':
     begin: '''(?x)
       \'/ (?= ( \\\\ (?: \\\\ (?: \\\\ [\\\\\']? | [^\'] ) | . ) | [^\'/] )++/[imsxeADSUXu]*\' )
@@ -1463,6 +1519,8 @@ repository:
           \\\\ (?: \\\\ (?: \\\\ [\\\\\']? | [^\'] ) | . )
           '''
         name: 'constant.character.escape.php'
+  
+  # repository
   'sql-string-double-quoted':
     begin: '"\\s*(?=(SELECT|INSERT|UPDATE|DELETE|CREATE|REPLACE|ALTER)\\b)'
     beginCaptures:
@@ -1528,6 +1586,8 @@ repository:
         include: 'source.sql'
       }
     ]
+  
+  # repository
   'sql-string-single-quoted':
     begin: '\'\\s*(?=(SELECT|INSERT|UPDATE|DELETE|CREATE|REPLACE|ALTER)\\b)'
     beginCaptures:
@@ -1570,6 +1630,8 @@ repository:
         include: 'source.sql'
       }
     ]
+  
+  # repository
   'string-backtick':
     begin: '`'
     beginCaptures:
@@ -1587,6 +1649,8 @@ repository:
         include: '#interpolation'
       }
     ]
+  
+  # repository
   'string-double-quoted':
     begin: '"'
     beginCaptures:
@@ -1605,6 +1669,8 @@ repository:
         include: '#interpolation'
       }
     ]
+  
+  # repository
   'string-single-quoted':
     begin: '\''
     beginCaptures:
@@ -1620,6 +1686,8 @@ repository:
         name: 'constant.character.escape.php'
       }
     ]
+  
+  # repository
   'strings':
     patterns: [
       {
@@ -1641,6 +1709,8 @@ repository:
         include: '#string-single-quoted'
       }
     ]
+  
+  # repository
   'support':
     patterns: [
       {
@@ -2068,6 +2138,8 @@ repository:
         name: 'support.function.alias.php'
       }
     ]
+  
+  # repository
   'user-function-call':
     begin: '(?i)(?=[a-z_0-9\\\\]*[a-z_][a-z0-9_]*\\s*\\()'
     end: '(?i)[a-z_][a-z_0-9]*(?=\\s*\\()'
@@ -2077,6 +2149,8 @@ repository:
         include: '#namespace'
       }
     ]
+  
+  # repository
   'var_basic':
     patterns: [
       {
@@ -2089,16 +2163,22 @@ repository:
         name: 'variable.other.php'
       }
     ]
+  
+  # repository
   'var_global':
     captures:
       1:  name: 'punctuation.definition.variable.php'
     match: '(\\$)((_(COOKIE|FILES|GET|POST|REQUEST))|arg(v|c))\\b'
     name: 'variable.other.global.php'
+  
+  # repository
   'var_global_safer':
     captures:
       1:  name: 'punctuation.definition.variable.php'
     match: '(\\$)((GLOBALS|_(ENV|SERVER|SESSION)))'
     name: 'variable.other.global.safer.php'
+  
+  # repository
   'variable-name':
     patterns: [
       {
@@ -2146,6 +2226,8 @@ repository:
           '''
       }
     ]
+  
+  # repository
   'variables':
     patterns: [
       {
