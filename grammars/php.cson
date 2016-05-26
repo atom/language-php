@@ -178,11 +178,10 @@ repository:
         begin: '/\\*\\*(?:#@\\+)?\\s*$'
         captures:
           0:  name: 'punctuation.definition.comment.php'
-        comment: '''
-          This now only highlights a docblock if the first line contains only /**
-          - this is to stop highlighting everything as invalid when people do comment banners with /******** ...
-          - Now matches /**#@+ too - used for docblock templates: http://manual.phpdoc.org/HTMLframesConverter/default/phpDocumentor/tutorial_phpDocumentor.howto.pkg.html#basics.docblocktemplate
-          '''
+        # This now only highlights a docblock if the first line contains only /**
+        # - this is to stop highlighting everything as invalid when people do comment banners with /******** ...
+        # - Now matches /**#@+ too - used for docblock templates:
+        #   http://manual.phpdoc.org/HTMLframesConverter/default/phpDocumentor/tutorial_phpDocumentor.howto.pkg.html#basics.docblocktemplate
         end: '\\*/'
         name: 'comment.block.documentation.phpdoc.php'
         patterns: [
@@ -285,11 +284,9 @@ repository:
             name: 'support.constant.parser-token.php'
           }
           {
-            comment: '''
-              In PHP, any identifier which is not a variable is taken to be a constant.
-              However, if there is no constant defined with the given name then a notice
-              is generated and the constant is assumed to have the value of its name.
-              '''
+            # In PHP, any identifier which is not a variable is taken to be a constant.
+            # However, if there is no constant defined with the given name then a notice
+            # is generated and the constant is assumed to have the value of its name.
             match: '[a-zA-Z_\\x{7f}-\\x{ff}][a-zA-Z0-9_\\x{7f}-\\x{ff}]*'
             name: 'constant.other.php'
           }
@@ -449,9 +446,7 @@ repository:
     patterns: [
       {
         begin: '(?i)(?=\\\\?[a-z_0-9\\\\]+\\\\[a-z_][a-z0-9_]*\\s*\\()'
-        comment: '''
-          Functions in a user-defined namespace (overrides any built-ins)
-          '''
+        # Functions in a user-defined namespace (overrides any built-ins)
         end: '(?=\\s*\\()'
         patterns: [
           {
@@ -467,9 +462,7 @@ repository:
         begin: '(?i)(\\\\)?(?=\\b[a-z_][a-z_0-9]*\\s*\\()'
         beginCaptures:
           1:  name: 'punctuation.separator.inheritance.php'
-        comment: '''
-          Root namespace function calls (built-in or user)
-          '''
+        # Root namespace function calls (built-in or user)
         end: '(?=\\s*\\()'
         patterns: [
           {
@@ -718,9 +711,7 @@ repository:
   
   # repository
   'interpolation':
-    comment: '''
-      http://www.php.net/manual/en/language.types.string.php#language.types.string.parsing
-      '''
+    # http://www.php.net/manual/en/language.types.string.php#language.types.string.parsing
     patterns: [
       {
         match: '\\\\[0-7]{1,3}'
@@ -1393,9 +1384,7 @@ repository:
   'php_doc':
     patterns: [
       {
-        comment: '''
-          PHPDocumentor only recognises lines with an asterisk as the first non-whitespaces character
-          '''
+        # PHPDocumentor only recognises lines with an asterisk as the first non-whitespaces character
         match: '^(?!\\s*\\*).*$\\n?'
         name: 'invalid.illegal.missing-asterisk.phpdoc.php'
       }
@@ -1437,9 +1426,7 @@ repository:
     name: 'string.regexp.double-quoted.php'
     patterns: [
       {
-        comment: '''
-          Escaped from the regexp – there can also be 2 backslashes (since 1 will escape the first)
-          '''
+        # Escaped from the regexp – there can also be 2 backslashes (since 1 will escape the first)
         match: '(\\\\){1,2}[.$^\\[\\]{}]'
         name: 'constant.character.escape.regex.php'
       }
@@ -1512,9 +1499,7 @@ repository:
     ]
     repository:
       'single_quote_regex_escape':
-        comment: '''
-          Support both PHP string and regex escaping
-          '''
+        # Support both PHP string and regex escaping
         match: '''(?x)
           \\\\ (?: \\\\ (?: \\\\ [\\\\\']? | [^\'] ) | . )
           '''
@@ -1544,18 +1529,14 @@ repository:
         name: 'constant.character.escape.php'
       }
       {
-        comment: '''
-          Unclosed strings must be captured to avoid them eating the remainder of the PHP script
-          Sample case: $sql = "SELECT * FROM bar WHERE foo = '" . $variable . "'"
-          '''
+        # Unclosed strings must be captured to avoid them eating the remainder of the PHP script
+        # Sample case: $sql = "SELECT * FROM bar WHERE foo = '" . $variable . "'"
         match: '\'(?=((\\\\\')|[^\'"])*("|$))'
         name: 'string.quoted.single.unclosed.sql'
       }
       {
-        comment: '''
-          Unclosed strings must be captured to avoid them eating the remainder of the PHP script
-          Sample case: $sql = "SELECT * FROM bar WHERE foo = '" . $variable . "'"
-          '''
+        # Unclosed strings must be captured to avoid them eating the remainder of the PHP script
+        # Sample case: $sql = "SELECT * FROM bar WHERE foo = '" . $variable . "'"
         match: '`(?=((\\\\`)|[^`"])*("|$))'
         name: 'string.quoted.other.backtick.unclosed.sql'
       }
@@ -1611,18 +1592,14 @@ repository:
         name: 'constant.character.escape.php'
       }
       {
-        comment: '''
-          Unclosed strings must be captured to avoid them eating the remainder of the PHP script
-          Sample case: $sql = "SELECT * FROM bar WHERE foo = '" . $variable . "'"
-          '''
+        # Unclosed strings must be captured to avoid them eating the remainder of the PHP script
+        # Sample case: $sql = "SELECT * FROM bar WHERE foo = '" . $variable . "'"
         match: '`(?=((\\\\`)|[^`\'])*(\'|$))'
         name: 'string.quoted.other.backtick.unclosed.sql'
       }
       {
-        comment: '''
-          Unclosed strings must be captured to avoid them eating the remainder of the PHP script
-          Sample case: $sql = "SELECT * FROM bar WHERE foo = '" . $variable . "'"
-          '''
+        # Unclosed strings must be captured to avoid them eating the remainder of the PHP script
+        # Sample case: $sql = "SELECT * FROM bar WHERE foo = '" . $variable . "'"
         match: '"(?=((\\\\")|[^"\'])*(\'|$))'
         name: 'string.quoted.double.unclosed.sql'
       }
@@ -1655,10 +1632,8 @@ repository:
     begin: '"'
     beginCaptures:
       0:  name: 'punctuation.definition.string.begin.php'
-    comment: '''
-      This contentName is just to allow the usage of “select scope” to select the string contents first,
-      then the string with quotes
-      '''
+    # This contentName is just to allow the usage of “select scope” to select the string contents first,
+    # then the string with quotes
     contentName: 'meta.string-contents.quoted.double.php'
     end: '"'
     endCaptures:
@@ -2199,9 +2174,7 @@ repository:
           9:  name: 'punctuation.definition.variable.php'
           10: name: 'string.unquoted.index.php'
           11: name: 'punctuation.section.array.end.php'
-        comment: '''
-          Simple syntax: $foo, $foo[0], $foo[$bar], $foo->bar
-          '''
+        # Simple syntax: $foo, $foo[0], $foo[$bar], $foo->bar
         match: '''(?x)
           ((\\$)(?<name>[a-zA-Z_\\x{7f}-\\x{ff}][a-zA-Z0-9_\\x{7f}-\\x{ff}]*))
           (?:
@@ -2218,9 +2191,7 @@ repository:
           1:  name: 'variable.other.php'
           2:  name: 'punctuation.definition.variable.php'
           4:  name: 'punctuation.definition.variable.php'
-        comment: '''
-          Simple syntax with braces: "foo${bar}baz"
-          '''
+        # Simple syntax with braces: "foo${bar}baz"
         match: '''(?x)
           ((\\$\\{)(?<name>[a-zA-Z_\\x{7f}-\\x{ff}][a-zA-Z0-9_\\x{7f}-\\x{ff}]*)(\\}))
           '''
