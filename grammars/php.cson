@@ -2,6 +2,10 @@
 # Grammar Schema: https://manual.macromates.com/en/language_grammars
 # CSON format: https://github.com/bevry/cson
 
+# NOTE: Key names belonging to the TextMate schema go unquoted, e.g. patterns.
+#       User-defined keys -- those that belong to the language definition rather than the TextMate sechema,
+#       such as the IDs in the repository -- are quoted to highlight their non-standard, file-specific nature
+
 scopeName   : 'text.html.php'
 name        : 'PHP'
 fileTypes   : [
