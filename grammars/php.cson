@@ -6,9 +6,9 @@
 #       User-defined keys -- those that belong to the language definition rather than the TextMate sechema,
 #       such as the IDs in the repository -- are quoted to highlight their non-standard, file-specific nature
 
-scopeName   : 'text.html.php'
-name        : 'PHP'
-fileTypes   : [
+name: 'PHP'
+scopeName: 'text.html.php'
+fileTypes: [
   'aw'
   'ctp'
   'inc'       # "Include" file, typically used with PHP's `include` statement
@@ -26,10 +26,10 @@ fileTypes   : [
 
 # A shell script begins with a "shebang", specifying the execution environment
 # https://en.wikipedia.org/wiki/Shebang_(Unix)
-firstLineMatch      : '^#!.*(?<!-)php[0-9]{0,1}\\b'
+firstLineMatch: '^#!.*(?<!-)php[0-9]{0,1}\\b'
 
-foldingStartMarker  : '(/\\*|\\{\\s*$|<<<HTML)'
-foldingStopMarker   : '(\\*/|^\\s*\\}|^HTML;)'
+foldingStartMarker: '(/\\*|\\{\\s*$|<<<HTML)'
+foldingStopMarker: '(\\*/|^\\s*\\}|^HTML;)'
 
 # This specifies the PHP script tags by which PHP is embedded within other languages:
 injections:
@@ -38,20 +38,20 @@ injections:
       {
         begin: '(^\\s*)(?=<\\?(?![^?]*\\?>))'
         beginCaptures:
-          0:  name: 'punctuation.whitespace.embedded.leading.php'
+          0: name: 'punctuation.whitespace.embedded.leading.php'
         end: '(?!\\G)(\\s*$\\n)?'
         endCaptures:
-          0:  name: 'punctuation.whitespace.embedded.trailing.php'
+          0: name: 'punctuation.whitespace.embedded.trailing.php'
         patterns: [
           {
             begin: '<\\?(?i:php|=)?'
             beginCaptures:
-              0:  name: 'punctuation.section.embedded.begin.php'
+              0: name: 'punctuation.section.embedded.begin.php'
             contentName: 'source.php'
             end: '(\\?)>'
             endCaptures:
-              0:  name: 'punctuation.section.embedded.end.php'
-              1:  name: 'source.php'
+              0: name: 'punctuation.section.embedded.end.php'
+              1: name: 'source.php'
             name: 'meta.embedded.block.php'
             patterns: [
               {
@@ -66,12 +66,12 @@ injections:
       {
         begin: '<\\?(?i:php|=)?(?![^?]*\\?>)'
         beginCaptures:
-          0:  name: 'punctuation.section.embedded.begin.php'
+          0: name: 'punctuation.section.embedded.begin.php'
         contentName: 'source.php'
         end: '(\\?)>'
         endCaptures:
-          0:  name: 'punctuation.section.embedded.end.php'
-          1:  name: 'source.php'
+          0: name: 'punctuation.section.embedded.end.php'
+          1: name: 'source.php'
         name: 'meta.embedded.block.php'
         patterns: [
           {
@@ -84,17 +84,17 @@ injections:
       {
         begin: '<\\?(?i:php|=)?'
         beginCaptures:
-          0:  name: 'punctuation.section.embedded.begin.php'
+          0: name: 'punctuation.section.embedded.begin.php'
         end: '>'
         endCaptures:
-          0:  name: 'punctuation.section.embedded.end.php'
+          0: name: 'punctuation.section.embedded.end.php'
         name: 'meta.embedded.line.php'
         patterns: [
           {
             captures:
-              1:  name: 'source.php'
-              2:  name: 'punctuation.section.embedded.end.php'
-              3:  name: 'source.php'
+              1: name: 'source.php'
+              2: name: 'punctuation.section.embedded.end.php'
+              3: name: 'source.php'
             match: '\\G(\\s*)((\\?))(?=>)'
             name: 'meta.special.empty-tag.php'
           }
@@ -103,8 +103,8 @@ injections:
             contentName: 'source.php'
             end: '(\\?)(?=>)'
             endCaptures:
-              0:  name: 'punctuation.section.embedded.end.php'
-              1:  name: 'source.php'
+              0: name: 'punctuation.section.embedded.end.php'
+              1: name: 'source.php'
             patterns: [
               {
                 # This is where the PHP grammar gets to work
@@ -139,7 +139,7 @@ repository:
     patterns: [
       {
         captures:
-          1:  name: 'punctuation.separator.inheritance.php'
+          1: name: 'punctuation.separator.inheritance.php'
         match: '(?i)(\\\\)?\\b(st(dClass|reamWrapper)|R(RD(Graph|Creator|Updater)|untimeException|e(sourceBundle|cursive(RegexIterator|Ca(chingIterator|llbackFilterIterator)|TreeIterator|Iterator(Iterator)?|DirectoryIterator|FilterIterator|ArrayIterator)|flect(ion(Method|Class|ZendExtension|Object|P(arameter|roperty)|Extension|Function(Abstract)?)?|or)|gexIterator)|angeException)|G(ender\\Gender|lobIterator|magick(Draw|Pixel)?)|X(sltProcessor|ML(Reader|Diff\\\\(Memory|Base|DOM|File)|Writer)|SLTProcessor)|M(ysqlndUh(Connection|PreparedStatement)|ongo(Re(sultException|gex)|Grid(fsFile|FS(Cursor|File)?)|BinData|C(o(de|llection|mmandCursor)|ursor(Exception)?|lient)|Timestamp|I(n(sertBatch|t(32|64))|d)|D(B(Ref)?|eleteBatch|ate)|UpdateBatch|Pool|Write(Batch|ConcernException)|Log)?|u(tex|ltipleIterator)|e(ssageFormatter|mcache(d)?))|Bad(MethodCallException|FunctionCallException)|tidy(Node)?|S(ync(ReaderWriter|Mutex|Semaphore|Event)|impleXML(Iterator|Element)|oap(Server|Header|Client|Param|Var|Fault)|NMP|CA(_(SoapProxy|LocalProxy))?|p(hinxClient|oofchecker|l(M(inHeap|axHeap)|S(tack|ubject)|Heap|T(ype|empFileObject)|Ob(server|jectStorage)|DoublyLinkedList|PriorityQueue|Enum|Queue|Fi(le(Info|Object)|xedArray)))|e(ssionHandler(Interface)?|ekableIterator|rializable)|DO_(Model_(ReflectionDataObject|Type|Property)|Sequence|D(ata(Object|Factory)|AS_(Relational|XML(_Document)?|Setting|ChangeSummary|Data(Object|Factory)))|Exception|List)|wish(Result(s)?|Search)?|VM(Model)?|QLite(Result|3(Result|Stmt)?|Database|Unbuffered)|AM(Message|Connection))|H(RTime\\\\(StopWatch|PerformanceCounter)|ttp(Re(sponse|quest(Pool)?)|Message|InflateStream|DeflateStream|QueryString)|aru(Image|Outline|D(oc|estination)|Page|Encoder|Font|Annotation))|Ya(f_(R(oute(_(Re(write|gex)|Map|S(tatic|imple|upervar)|Interface)|r)|e(sponse_Abstract|quest_(Simple|Http|Abstract)|gistry))|Session|Con(troller_Abstract|fig_(Simple|Ini|Abstract))|Dispatcher|Plugin_Abstract|Exception|View_(Simple|Interface)|Loader|A(ction_Abstract|pplication))|r_(Server(_Exception)?|C(oncurrent_Client|lient(_Exception)?)))|N(o(RewindIterator|rmalizer)|umberFormatter)|C(o(nd|untable|ll(ectable|ator))|URLFile|a(chingIterator|llbackFilterIterator))|T(hread(ed)?|okyoTyrant(Table|Iterator|Query)?|ra(nsliterator|versable))|I(n(tl(RuleBasedBreakIterator|BreakIterator|C(odePointBreakIterator|alendar)|TimeZone|Iterator|DateFormatter|PartsIterator)|validArgumentException|finiteIterator)|terator(Iterator|Aggregate)?|magick(Draw|Pixel(Iterator)?)?)|php_user_filter|Z(MQ(Socket|Context|Device|Poll)?|ipArchive)|O(CI-(Collection|Lob)|ut(erIterator|Of(RangeException|BoundsException))|verflowException)|D(irectory(Iterator)?|omainException|OM(XPath|N(ode(list)?|amedNodeMap)|C(haracterData|omment|dataSection)|Text|Implementation|Document(Fragment)?|ProcessingInstruction|E(ntityReference|lement)|Attr)|ate(Time(I(nterface|mmutable)|Zone)?|Interval|Period))|U(n(derflowException|expectedValueException)|Converter)|JsonSerializable|finfo|P(har(Data|FileInfo)?|ool|DO(Statement)?|arentIterator)|E(v(S(tat|ignal)|Ch(ild|eck)|Timer|I(o|dle)|ent(B(uffer(Event)?|ase)|SslContext|Http(Request|Connection)?|Config|DnsBase|Util|Listener)?|P(eriodic|repare)|Embed|Fork|Watcher|Loop)?|rrorException|xception|mptyIterator)|V(8Js(Exception)?|arnish(Stat|Log|Admin))|KTaglib_(MPEG_(File|AudioProperties)|Tag|ID3v2_(Tag|Frame|AttachedPictureFrame))|QuickHash(StringIntHash|Int(S(tringHash|et)|Hash))|F(il(terIterator|esystemIterator)|ANNConnection)|mysqli(_(stmt|driver|warning|result))?|W(orker|eak(Map|ref))|L(imitIterator|o(cale|gicException)|ua(Closure)?|engthException|apack)|A(ppendIterator|PCIterator|rray(Iterator|Object|Access)))\\b'
         name: 'support.class.builtin.php'
       }
@@ -152,7 +152,7 @@ repository:
         begin: '(?i)(?=\\\\?[a-z_0-9]+\\\\)'
         end: '(?i)([a-z_][a-z_0-9]*)?(?=[^a-z0-9_\\\\])'
         endCaptures:
-          1:  name: 'support.class.php'
+          1: name: 'support.class.php'
         patterns: [
           {
             include: '#namespace'
@@ -166,7 +166,7 @@ repository:
         begin: '(?=[\\\\a-zA-Z_])'
         end: '(?i)([a-z_][a-z_0-9]*)?(?=[^a-z0-9_\\\\])'
         endCaptures:
-          1:  name: 'support.class.php'
+          1: name: 'support.class.php'
         patterns: [
           {
             include: '#namespace'
@@ -181,7 +181,7 @@ repository:
       {
         begin: '/\\*\\*(?:#@\\+)?\\s*$'
         captures:
-          0:  name: 'punctuation.definition.comment.php'
+          0: name: 'punctuation.definition.comment.php'
         # This now only highlights a docblock if the first line contains only /**
         # - this is to stop highlighting everything as invalid when people do comment banners with /******** ...
         # - Now matches /**#@+ too - used for docblock templates:
@@ -197,20 +197,20 @@ repository:
       {
         begin: '/\\*'
         captures:
-          0:  name: 'punctuation.definition.comment.php'
+          0: name: 'punctuation.definition.comment.php'
         end: '\\*/'
         name: 'comment.block.php'
       }
       {
         begin: '(^[ \\t]+)?(?=//)'
         beginCaptures:
-          1:  name: 'punctuation.whitespace.comment.leading.php'
+          1: name: 'punctuation.whitespace.comment.leading.php'
         end: '(?!\\G)'
         patterns: [
           {
             begin: '//'
             beginCaptures:
-              0:  name: 'punctuation.definition.comment.php'
+              0: name: 'punctuation.definition.comment.php'
             end: '\\n|(?=\\?>)'
             name: 'comment.line.double-slash.php'
           }
@@ -219,13 +219,13 @@ repository:
       {
         begin: '(^[ \\t]+)?(?=#)'
         beginCaptures:
-          1:  name: 'punctuation.whitespace.comment.leading.php'
+          1: name: 'punctuation.whitespace.comment.leading.php'
         end: '(?!\\G)'
         patterns: [
           {
             begin: '#'
             beginCaptures:
-              0:  name: 'punctuation.definition.comment.php'
+              0: name: 'punctuation.definition.comment.php'
             end: '\\n|(?=\\?>)'
             name: 'comment.line.number-sign.php'
           }
@@ -248,7 +248,7 @@ repository:
           '''
         end: '(?i)([a-z_][a-z_0-9]*)?(?=[^a-z0-9_\\\\])'
         endCaptures:
-          1:  name: 'constant.other.php'
+          1: name: 'constant.other.php'
         patterns: [
           {
             include: '#namespace'
@@ -265,25 +265,25 @@ repository:
           }
           {
             captures:
-              1:  name: 'punctuation.separator.inheritance.php'
+              1: name: 'punctuation.separator.inheritance.php'
             match: '(\\\\)?\\b(STD(IN|OUT|ERR)|ZEND_(THREAD_SAFE|DEBUG_BUILD)|DEFAULT_INCLUDE_PATH|P(HP_(R(OUND_HALF_(ODD|DOWN|UP|EVEN)|ELEASE_VERSION)|M(INOR_VERSION|A(XPATHLEN|JOR_VERSION))|BINDIR|S(HLIB_SUFFIX|YSCONFDIR|API)|CONFIG_FILE_(SCAN_DIR|PATH)|INT_(MAX|SIZE)|ZTS|O(S|UTPUT_HANDLER_(START|CONT|END))|D(EBUG|ATADIR)|URL_(SCHEME|HOST|USER|P(ORT|A(SS|TH))|QUERY|FRAGMENT)|PREFIX|E(XT(RA_VERSION|ENSION_DIR)|OL)|VERSION(_ID)?|WINDOWS_(NT_(SERVER|DOMAIN_CONTROLLER|WORKSTATION)|VERSION_(M(INOR|AJOR)|BUILD|S(UITEMASK|P_M(INOR|AJOR))|P(RODUCTTYPE|LATFORM)))|L(IBDIR|OCALSTATEDIR))|EAR_(INSTALL_DIR|EXTENSION_DIR))|E_(RECOVERABLE_ERROR|STRICT|NOTICE|CO(RE_(ERROR|WARNING)|MPILE_(ERROR|WARNING))|DEPRECATED|USER_(NOTICE|DEPRECATED|ERROR|WARNING)|PARSE|ERROR|WARNING|ALL))\\b'
             name: 'support.constant.core.php'
           }
           {
             captures:
-              1:  name: 'punctuation.separator.inheritance.php'
+              1: name: 'punctuation.separator.inheritance.php'
             match: '(\\\\)?\\b(RADIXCHAR|GROUPING|M(_(1_PI|SQRT(1_2|2|3|PI)|2_(SQRTPI|PI)|PI(_(2|4))?|E(ULER)?|L(N(10|2|PI)|OG(10E|2E)))|ON_(GROUPING|1(1|2|0)?|7|2|8|THOUSANDS_SEP|3|DECIMAL_POINT|9|4|5|6))|S(TR_PAD_(RIGHT|BOTH|LEFT)|ORT_(REGULAR|STRING|NUMERIC|DESC|LOCALE_STRING|ASC)|EEK_(SET|CUR|END))|H(TML_(SPECIALCHARS|ENTITIES)|ASH_HMAC)|YES(STR|EXPR)|N(_(S(IGN_POSN|EP_BY_SPACE)|CS_PRECEDES)|O(STR|EXPR)|EGATIVE_SIGN|AN)|C(R(YPT_(MD5|BLOWFISH|S(HA(256|512)|TD_DES|ALT_LENGTH)|EXT_DES)|NCYSTR|EDITS_(G(ROUP|ENERAL)|MODULES|SAPI|DOCS|QA|FULLPAGE|ALL))|HAR_MAX|O(NNECTION_(NORMAL|TIMEOUT|ABORTED)|DESET|UNT_(RECURSIVE|NORMAL))|URRENCY_SYMBOL|ASE_(UPPER|LOWER))|__COMPILER_HALT_OFFSET__|T(HOUS(EP|ANDS_SEP)|_FMT(_AMPM)?)|IN(T_(CURR_SYMBOL|FRAC_DIGITS)|I_(S(YSTEM|CANNER_(RAW|NORMAL))|USER|PERDIR|ALL)|F(O_(GENERAL|MODULES|C(REDITS|ONFIGURATION)|ENVIRONMENT|VARIABLES|LICENSE|ALL))?)|D(_(T_FMT|FMT)|IRECTORY_SEPARATOR|ECIMAL_POINT|A(Y_(1|7|2|3|4|5|6)|TE_(R(SS|FC(1(123|036)|2822|8(22|50)|3339))|COOKIE|ISO8601|W3C|ATOM)))|UPLOAD_ERR_(NO_(TMP_DIR|FILE)|CANT_WRITE|INI_SIZE|OK|PARTIAL|EXTENSION|FORM_SIZE)|P(M_STR|_(S(IGN_POSN|EP_BY_SPACE)|CS_PRECEDES)|OSITIVE_SIGN|ATH(_SEPARATOR|INFO_(BASENAME|DIRNAME|EXTENSION|FILENAME)))|E(RA(_(YEAR|T_FMT|D_(T_FMT|FMT)))?|XTR_(REFS|SKIP|IF_EXISTS|OVERWRITE|PREFIX_(SAME|I(NVALID|F_EXISTS)|ALL))|NT_(NOQUOTES|COMPAT|IGNORE|QUOTES))|FRAC_DIGITS|L(C_(M(ONETARY|ESSAGES)|NUMERIC|C(TYPE|OLLATE)|TIME|ALL)|O(G_(MAIL|SYSLOG|N(O(TICE|WAIT)|DELAY|EWS)|C(R(IT|ON)|ONS)|INFO|ODELAY|D(EBUG|AEMON)|U(SER|UCP)|P(ID|ERROR)|E(RR|MERG)|KERN|WARNING|L(OCAL(1|7|2|3|4|5|0|6)|PR)|A(UTH(PRIV)?|LERT))|CK_(SH|NB|UN|EX)))|A(M_STR|B(MON_(1(1|2|0)?|7|2|8|3|9|4|5|6)|DAY_(1|7|2|3|4|5|6))|SSERT_(BAIL|CALLBACK|QUIET_EVAL|WARNING|ACTIVE)|LT_DIGITS))\\b'
             name: 'support.constant.std.php'
           }
           {
             captures:
-              1:  name: 'punctuation.separator.inheritance.php'
+              1: name: 'punctuation.separator.inheritance.php'
             match: '(\\\\)?\\b(GLOB_(MARK|BRACE|NO(SORT|CHECK|ESCAPE)|ONLYDIR|ERR|AVAILABLE_FLAGS)|XML_(SAX_IMPL|HTML_DOCUMENT_NODE|N(OTATION_NODE|AMESPACE_DECL_NODE)|C(OMMENT_NODE|DATA_SECTION_NODE)|TEXT_NODE|OPTION_(SKIP_(TAGSTART|WHITE)|CASE_FOLDING|TARGET_ENCODING)|D(TD_NODE|OCUMENT_(NODE|TYPE_NODE|FRAG_NODE))|PI_NODE|E(RROR_(RECURSIVE_ENTITY_REF|MISPLACED_XML_PI|B(INARY_ENTITY_REF|AD_CHAR_REF)|SYNTAX|NO(NE|_(MEMORY|ELEMENTS))|TAG_MISMATCH|IN(CORRECT_ENCODING|VALID_TOKEN)|DUPLICATE_ATTRIBUTE|UN(CLOSED_(CDATA_SECTION|TOKEN)|DEFINED_ENTITY|KNOWN_ENCODING)|JUNK_AFTER_DOC_ELEMENT|PAR(TIAL_CHAR|AM_ENTITY_REF)|EXTERNAL_ENTITY_HANDLING|A(SYNC_ENTITY|TTRIBUTE_EXTERNAL_ENTITY_REF))|NTITY_(REF_NODE|NODE|DECL_NODE)|LEMENT_(NODE|DECL_NODE))|LOCAL_NAMESPACE|ATTRIBUTE_(N(MTOKEN(S)?|O(TATION|DE))|CDATA|ID(REF(S)?)?|DECL_NODE|EN(TITY|UMERATION)))|M(HASH_(RIPEMD(1(28|60)|256|320)|GOST|MD(2|4|5)|S(HA(1|2(24|56)|384|512)|NEFRU256)|HAVAL(1(28|92|60)|2(24|56))|CRC32(B)?|TIGER(1(28|60))?|WHIRLPOOL|ADLER32)|YSQL(_(BOTH|NUM|CLIENT_(SSL|COMPRESS|I(GNORE_SPACE|NTERACTIVE))|ASSOC)|I_(RE(PORT_(STRICT|INDEX|OFF|ERROR|ALL)|FRESH_(GRANT|MASTER|BACKUP_LOG|S(TATUS|LAVE)|HOSTS|T(HREADS|ABLES)|LOG)|AD_DEFAULT_(GROUP|FILE))|GROUP_FLAG|MULTIPLE_KEY_FLAG|B(INARY_FLAG|OTH|LOB_FLAG)|S(T(MT_ATTR_(CURSOR_TYPE|UPDATE_MAX_LENGTH|PREFETCH_ROWS)|ORE_RESULT)|E(RVER_QUERY_(NO_(GOOD_INDEX_USED|INDEX_USED)|WAS_SLOW)|T_(CHARSET_NAME|FLAG)))|N(O(_D(EFAULT_VALUE_FLAG|ATA)|T_NULL_FLAG)|UM(_FLAG)?)|C(URSOR_TYPE_(READ_ONLY|SCROLLABLE|NO_CURSOR|FOR_UPDATE)|LIENT_(SSL|NO_SCHEMA|COMPRESS|I(GNORE_SPACE|NTERACTIVE)|FOUND_ROWS))|T(YPE_(GEOMETRY|MEDIUM_BLOB|B(IT|LOB)|S(HORT|TRING|ET)|YEAR|N(ULL|EWD(ECIMAL|ATE))|CHAR|TI(ME(STAMP)?|NY(_BLOB)?)|INT(24|ERVAL)|D(OUBLE|ECIMAL|ATE(TIME)?)|ENUM|VAR_STRING|FLOAT|LONG(_BLOB|LONG)?)|IMESTAMP_FLAG)|INIT_COMMAND|ZEROFILL_FLAG|O(N_UPDATE_NOW_FLAG|PT_(NET_(READ_BUFFER_SIZE|CMD_BUFFER_SIZE)|CONNECT_TIMEOUT|INT_AND_FLOAT_NATIVE|LOCAL_INFILE))|D(EBUG_TRACE_ENABLED|ATA_TRUNCATED)|U(SE_RESULT|N(SIGNED_FLAG|IQUE_KEY_FLAG))|P(RI_KEY_FLAG|ART_KEY_FLAG)|ENUM_FLAG|A(S(SOC|YNC)|UTO_INCREMENT_FLAG)))|CRYPT_(R(C(2|6)|IJNDAEL_(1(28|92)|256)|AND)|GOST|XTEA|M(ODE_(STREAM|NOFB|C(BC|FB)|OFB|ECB)|ARS)|BLOWFISH(_COMPAT)?|S(ERPENT|KIPJACK|AFER(128|PLUS|64))|C(RYPT|AST_(128|256))|T(RIPLEDES|HREEWAY|WOFISH)|IDEA|3DES|DE(S|CRYPT|V_(RANDOM|URANDOM))|PANAMA|EN(CRYPT|IGNA)|WAKE|LOKI97|ARCFOUR(_IV)?))|S(TREAM_(REPORT_ERRORS|M(UST_SEEK|KDIR_RECURSIVE)|BUFFER_(NONE|FULL|LINE)|S(HUT_(RD(WR)?|WR)|OCK_(R(DM|AW)|S(TREAM|EQPACKET)|DGRAM)|ERVER_(BIND|LISTEN))|NOTIFY_(RE(SOLVE|DIRECTED)|MIME_TYPE_IS|SEVERITY_(INFO|ERR|WARN)|CO(MPLETED|NNECT)|PROGRESS|F(ILE_SIZE_IS|AILURE)|AUTH_RE(SULT|QUIRED))|C(RYPTO_METHOD_(SSLv(2(_(SERVER|CLIENT)|3_(SERVER|CLIENT))|3_(SERVER|CLIENT))|TLS_(SERVER|CLIENT))|LIENT_(CONNECT|PERSISTENT|ASYNC_CONNECT)|AST_(FOR_SELECT|AS_STREAM))|I(GNORE_URL|S_URL|PPROTO_(RAW|TCP|I(CMP|P)|UDP))|O(OB|PTION_(READ_(BUFFER|TIMEOUT)|BLOCKING|WRITE_BUFFER))|U(RL_STAT_(QUIET|LINK)|SE_PATH)|P(EEK|F_(INET(6)?|UNIX))|ENFORCE_SAFE_MODE|FILTER_(READ|WRITE|ALL))|UNFUNCS_RET_(STRING|TIMESTAMP|DOUBLE)|QLITE(_(R(OW|EADONLY)|MIS(MATCH|USE)|B(OTH|USY)|SCHEMA|N(O(MEM|T(FOUND|ADB)|LFS)|UM)|C(O(RRUPT|NSTRAINT)|ANTOPEN)|TOOBIG|I(NTER(RUPT|NAL)|OERR)|OK|DONE|P(ROTOCOL|ERM)|E(RROR|MPTY)|F(ORMAT|ULL)|LOCKED|A(BORT|SSOC|UTH))|3_(B(OTH|LOB)|NU(M|LL)|TEXT|INTEGER|OPEN_(READ(ONLY|WRITE)|CREATE)|FLOAT|ASSOC)))|CURL(M(SG_DONE|_(BAD_(HANDLE|EASY_HANDLE)|CALL_MULTI_PERFORM|INTERNAL_ERROR|O(UT_OF_MEMORY|K)))|SSH_AUTH_(HOST|NONE|DEFAULT|P(UBLICKEY|ASSWORD)|KEYBOARD)|CLOSEPOLICY_(SLOWEST|CALLBACK|OLDEST|LEAST_(RECENTLY_USED|TRAFFIC))|_(HTTP_VERSION_(1_(1|0)|NONE)|NETRC_(REQUIRED|IGNORED|OPTIONAL)|TIMECOND_(IF(MODSINCE|UNMODSINCE)|LASTMOD)|IPRESOLVE_(V(4|6)|WHATEVER)|VERSION_(SSL|IPV6|KERBEROS4|LIBZ))|INFO_(RE(DIRECT_(COUNT|TIME)|QUEST_SIZE)|S(SL_VERIFYRESULT|TARTTRANSFER_TIME|IZE_(DOWNLOAD|UPLOAD)|PEED_(DOWNLOAD|UPLOAD))|H(TTP_CODE|EADER_(SIZE|OUT))|NAMELOOKUP_TIME|C(ON(NECT_TIME|TENT_(TYPE|LENGTH_(DOWNLOAD|UPLOAD)))|ERTINFO)|TOTAL_TIME|PR(IVATE|ETRANSFER_TIME)|EFFECTIVE_URL|FILETIME)|OPT_(R(E(SUME_FROM|TURNTRANSFER|DIR_PROTOCOLS|FERER|AD(DATA|FUNCTION))|AN(GE|DOM_FILE))|MAX(REDIRS|CONNECTS)|B(INARYTRANSFER|UFFERSIZE)|S(S(H_(HOST_PUBLIC_KEY_MD5|P(RIVATE_KEYFILE|UBLIC_KEYFILE)|AUTH_TYPES)|L(CERT(TYPE|PASSWD)?|_(CIPHER_LIST|VERIFY(HOST|PEER))|ENGINE(_DEFAULT)?|VERSION|KEY(TYPE|PASSWD)?))|TDERR)|H(TTP(GET|HEADER|200ALIASES|_VERSION|PROXYTUNNEL|AUTH)|EADER(FUNCTION)?)|N(O(BODY|SIGNAL|PROGRESS)|ETRC)|C(RLF|O(NNECTTIMEOUT(_MS)?|OKIE(SESSION|JAR|FILE)?)|USTOMREQUEST|ERTINFO|LOSEPOLICY|A(INFO|PATH))|T(RANSFERTEXT|CP_NODELAY|IME(CONDITION|OUT(_MS)?|VALUE))|I(N(TERFACE|FILE(SIZE)?)|PRESOLVE)|DNS_(CACHE_TIMEOUT|USE_GLOBAL_CACHE)|U(RL|SER(PWD|AGENT)|NRESTRICTED_AUTH|PLOAD)|P(R(IVATE|O(GRESSFUNCTION|XY(TYPE|USERPWD|PORT|AUTH)?|TOCOLS))|O(RT|ST(REDIR|QUOTE|FIELDS)?)|UT)|E(GDSOCKET|NCODING)|VERBOSE|K(RB4LEVEL|EYPASSWD)|QUOTE|F(RESH_CONNECT|TP(SSLAUTH|_(S(SL|KIP_PASV_IP)|CREATE_MISSING_DIRS|USE_EP(RT|SV)|FILEMETHOD)|PORT|LISTONLY|APPEND)|ILE(TIME)?|O(RBID_REUSE|LLOWLOCATION)|AILONERROR)|WRITE(HEADER|FUNCTION)|LOW_SPEED_(TIME|LIMIT)|AUTOREFERER)|PRO(XY_(SOCKS(4|5)|HTTP)|TO_(S(CP|FTP)|HTTP(S)?|T(ELNET|FTP)|DICT|F(TP(S)?|ILE)|LDAP(S)?|ALL))|E_(RE(CV_ERROR|AD_ERROR)|GOT_NOTHING|MALFORMAT_USER|BAD_(C(ONTENT_ENCODING|ALLING_ORDER)|PASSWORD_ENTERED|FUNCTION_ARGUMENT)|S(S(H|L_(C(IPHER|ONNECT_ERROR|ERTPROBLEM|ACERT)|PEER_CERTIFICATE|ENGINE_(SETFAILED|NOTFOUND)))|HARE_IN_USE|END_ERROR)|HTTP_(RANGE_ERROR|NOT_FOUND|PO(RT_FAILED|ST_ERROR))|COULDNT_(RESOLVE_(HOST|PROXY)|CONNECT)|T(OO_MANY_REDIRECTS|ELNET_OPTION_SYNTAX)|O(BSOLETE|UT_OF_MEMORY|PERATION_TIMEOUTED|K)|U(RL_MALFORMAT(_USER)?|N(SUPPORTED_PROTOCOL|KNOWN_TELNET_OPTION))|PARTIAL_FILE|F(TP_(BAD_DOWNLOAD_RESUME|SSL_FAILED|C(OULDNT_(RETR_FILE|GET_SIZE|S(TOR_FILE|ET_(BINARY|ASCII))|USE_REST)|ANT_(RECONNECT|GET_HOST))|USER_PASSWORD_INCORRECT|PORT_FAILED|QUOTE_ERROR|W(RITE_ERROR|EIRD_(SERVER_REPLY|227_FORMAT|USER_REPLY|PAS(S_REPLY|V_REPLY)))|ACCESS_DENIED)|ILE(SIZE_EXCEEDED|_COULDNT_READ_FILE)|UNCTION_NOT_FOUND|AILED_INIT)|WRITE_ERROR|L(IBRARY_NOT_FOUND|DAP_(SEARCH_FAILED|CANNOT_BIND|INVALID_URL))|ABORTED_BY_CALLBACK)|VERSION_NOW|FTP(METHOD_(MULTICWD|SINGLECWD|NOCWD)|SSL_(NONE|CONTROL|TRY|ALL)|AUTH_(SSL|TLS|DEFAULT))|AUTH_(GSSNEGOTIATE|BASIC|NTLM|DIGEST|ANY(SAFE)?))|I(MAGETYPE_(GIF|XBM|BMP|SWF|COUNT|TIFF_(MM|II)|I(CO|FF)|UNKNOWN|J(B2|P(X|2|C|EG(2000)?))|P(SD|NG)|WBMP)|NPUT_(REQUEST|GET|SE(RVER|SSION)|COOKIE|POST|ENV)|CONV_(MIME_DECODE_(STRICT|CONTINUE_ON_ERROR)|IMPL|VERSION))|D(NS_(MX|S(RV|OA)|HINFO|N(S|APTR)|CNAME|TXT|PTR|A(NY|LL|AAA|6)?)|OM(STRING_SIZE_ERR|_(SYNTAX_ERR|HIERARCHY_REQUEST_ERR|N(O(_(MODIFICATION_ALLOWED_ERR|DATA_ALLOWED_ERR)|T_(SUPPORTED_ERR|FOUND_ERR))|AMESPACE_ERR)|IN(DEX_SIZE_ERR|USE_ATTRIBUTE_ERR|VALID_(MODIFICATION_ERR|STATE_ERR|CHARACTER_ERR|ACCESS_ERR))|PHP_ERR|VALIDATION_ERR|WRONG_DOCUMENT_ERR)))|JSON_(HEX_(TAG|QUOT|A(MP|POS))|NUMERIC_CHECK|ERROR_(S(YNTAX|TATE_MISMATCH)|NONE|CTRL_CHAR|DEPTH|UTF8)|FORCE_OBJECT)|P(REG_(RECURSION_LIMIT_ERROR|GREP_INVERT|BA(CKTRACK_LIMIT_ERROR|D_UTF8_(OFFSET_ERROR|ERROR))|S(PLIT_(NO_EMPTY|OFFSET_CAPTURE|DELIM_CAPTURE)|ET_ORDER)|NO_ERROR|INTERNAL_ERROR|OFFSET_CAPTURE|PATTERN_ORDER)|SFS_(PASS_ON|ERR_FATAL|F(EED_ME|LAG_(NORMAL|FLUSH_(CLOSE|INC))))|CRE_VERSION|OSIX_(R_OK|X_OK|S_IF(REG|BLK|SOCK|CHR|IFO)|F_OK|W_OK))|F(NM_(NOESCAPE|CASEFOLD|P(ERIOD|ATHNAME))|IL(TER_(REQUIRE_(SCALAR|ARRAY)|SANITIZE_(MAGIC_QUOTES|S(TRI(NG|PPED)|PECIAL_CHARS)|NUMBER_(INT|FLOAT)|URL|E(MAIL|NCODED)|FULL_SPECIAL_CHARS)|NULL_ON_FAILURE|CALLBACK|DEFAULT|UNSAFE_RAW|VALIDATE_(REGEXP|BOOLEAN|I(NT|P)|URL|EMAIL|FLOAT)|F(ORCE_ARRAY|LAG_(S(CHEME_REQUIRED|TRIP_(BACKTICK|HIGH|LOW))|HOST_REQUIRED|NO(NE|_(RES_RANGE|PRIV_RANGE|ENCODE_QUOTES))|IPV(4|6)|PATH_REQUIRED|E(MPTY_STRING_NULL|NCODE_(HIGH|LOW|AMP))|QUERY_REQUIRED|ALLOW_(SCIENTIFIC|HEX|THOUSAND|OCTAL|FRACTION))))|E(_(BINARY|SKIP_EMPTY_LINES|NO_DEFAULT_CONTEXT|TEXT|IGNORE_NEW_LINES|USE_INCLUDE_PATH|APPEND)|INFO_(RAW|MIME(_(TYPE|ENCODING))?|SYMLINK|NONE|CONTINUE|DEVICES|PRESERVE_ATIME)))|ORCE_(GZIP|DEFLATE))|LIBXML_(XINCLUDE|N(SCLEAN|O(XMLDECL|BLANKS|NET|CDATA|E(RROR|MPTYTAG|NT)|WARNING))|COMPACT|D(TD(VALID|LOAD|ATTR)|OTTED_VERSION)|PARSEHUGE|ERR_(NONE|ERROR|FATAL|WARNING)|VERSION|LOADED_VERSION))\\b'
             name: 'support.constant.ext.php'
           }
           {
             captures:
-              1:  name: 'punctuation.separator.inheritance.php'
+              1: name: 'punctuation.separator.inheritance.php'
             match: '(\\\\)?\\bT_(RE(TURN|QUIRE(_ONCE)?)|G(OTO|LOBAL)|XOR_EQUAL|M(INUS_EQUAL|OD_EQUAL|UL_EQUAL|ETHOD_C|L_COMMENT)|B(REAK|OOL(_CAST|EAN_(OR|AND))|AD_CHARACTER)|S(R(_EQUAL)?|T(RING(_(CAST|VARNAME))?|A(RT_HEREDOC|TIC))|WITCH|L(_EQUAL)?)|HALT_COMPILER|N(S_(SEPARATOR|C)|UM_STRING|EW|AMESPACE)|C(HARACTER|O(MMENT|N(ST(ANT_ENCAPSED_STRING)?|CAT_EQUAL|TINUE))|URLY_OPEN|L(O(SE_TAG|NE)|ASS(_C)?)|A(SE|TCH))|T(RY|HROW)|I(MPLEMENTS|S(SET|_(GREATER_OR_EQUAL|SMALLER_OR_EQUAL|NOT_(IDENTICAL|EQUAL)|IDENTICAL|EQUAL))|N(STANCEOF|C(LUDE(_ONCE)?)?|T(_CAST|ERFACE)|LINE_HTML)|F)|O(R_EQUAL|BJECT_(CAST|OPERATOR)|PEN_TAG(_WITH_ECHO)?|LD_FUNCTION)|D(NUMBER|I(R|V_EQUAL)|O(C_COMMENT|UBLE_(C(OLON|AST)|ARROW)|LLAR_OPEN_CURLY_BRACES)?|E(C(LARE)?|FAULT))|U(SE|NSET(_CAST)?)|P(R(I(NT|VATE)|OTECTED)|UBLIC|LUS_EQUAL|AAMAYIM_NEKUDOTAYIM)|E(X(TENDS|IT)|MPTY|N(CAPSED_AND_WHITESPACE|D(SWITCH|_HEREDOC|IF|DECLARE|FOR(EACH)?|WHILE))|CHO|VAL|LSE(IF)?)|VAR(IABLE)?|F(I(NAL|LE)|OR(EACH)?|UNC(_C|TION))|WHI(TESPACE|LE)|L(NUMBER|I(ST|NE)|OGICAL_(XOR|OR|AND))|A(RRAY(_CAST)?|BSTRACT|S|ND_EQUAL))\\b'
             name: 'support.constant.parser-token.php'
           }
@@ -318,17 +318,17 @@ repository:
           \\s*(\\()
           '''
         beginCaptures:
-          1:  name: 'storage.type.php'
-          2:  name: 'storage.modifier.reference.php'
-          3:  name: 'variable.other.php'
-          4:  name: 'punctuation.definition.variable.php'
-          5:  name: 'keyword.operator.assignment.php'
-          6:  name: 'support.function.construct.php'
-          7:  name: 'punctuation.definition.array.begin.php'
+          1: name: 'storage.type.php'
+          2: name: 'storage.modifier.reference.php'
+          3: name: 'variable.other.php'
+          4: name: 'punctuation.definition.variable.php'
+          5: name: 'keyword.operator.assignment.php'
+          6: name: 'support.function.construct.php'
+          7: name: 'punctuation.definition.array.begin.php'
         contentName: 'meta.array.php'
         end: '\\)'
         endCaptures:
-          0:  name: 'punctuation.definition.array.end.php'
+          0: name: 'punctuation.definition.array.end.php'
         name: 'meta.function.argument.array.php'
         patterns: [
           {
@@ -344,20 +344,19 @@ repository:
       }
       {
         captures:
-          1:  name: 'storage.type.php'
-          2:  name: 'storage.modifier.reference.php'
-          3:  name: 'variable.other.php'
-          4:  name: 'punctuation.definition.variable.php'
-          5:  name: 'keyword.operator.assignment.php'
-          6:  name: 'constant.language.php'
-          7:  name: 'punctuation.section.array.begin.php'
-          8:
-            patterns: [
+          1: name: 'storage.type.php'
+          2: name: 'storage.modifier.reference.php'
+          3: name: 'variable.other.php'
+          4: name: 'punctuation.definition.variable.php'
+          5: name: 'keyword.operator.assignment.php'
+          6: name: 'constant.language.php'
+          7: name: 'punctuation.section.array.begin.php'
+          8: patterns: [
               {
                 include: '#parameter-default-types'
               }
             ]
-          9:  name: 'punctuation.section.array.end.php'
+          9: name: 'punctuation.section.array.end.php'
           10: name: 'invalid.illegal.non-null-typehinted.php'
         match: '''(?xi)
           \\s*(array|callable)  # Typehint
@@ -386,13 +385,13 @@ repository:
           }
           {
             captures:
-              1:  name: 'support.class.php'
-              2:  name: 'storage.modifier.reference.php'
-              3:  name: 'variable.other.php'
-              4:  name: 'punctuation.definition.variable.php'
-              5:  name: 'keyword.operator.assignment.php'
-              6:  name: 'constant.language.php'
-              7:  name: 'invalid.illegal.non-null-typehinted.php'
+              1: name: 'support.class.php'
+              2: name: 'storage.modifier.reference.php'
+              3: name: 'variable.other.php'
+              4: name: 'punctuation.definition.variable.php'
+              5: name: 'keyword.operator.assignment.php'
+              6: name: 'constant.language.php'
+              7: name: 'invalid.illegal.non-null-typehinted.php'
             match: '''(?xi)
               \\s*([a-z_][a-z_0-9]*)? # Typehinted class name
               \\s*(&)?                # Reference
@@ -414,27 +413,26 @@ repository:
       }
       {
         captures:
-          1:  name: 'storage.modifier.reference.php'
-          2:  name: 'variable.other.php'
-          3:  name: 'punctuation.definition.variable.php'
+          1: name: 'storage.modifier.reference.php'
+          2: name: 'variable.other.php'
+          3: name: 'punctuation.definition.variable.php'
         match: '(?:\\s*(&))?\\s*(((?:\\.\\.\\.)?\\$+)[a-zA-Z_\\x{7f}-\\x{ff}][a-zA-Z0-9_\\x{7f}-\\x{ff}]*)\\s*(?=,|\\)|/[/*]|\\#)'
         name: 'meta.function.argument.no-default.php'
       }
       {
         begin: '(?:\\s*(&))?\\s*((\\$+)[a-zA-Z_\\x{7f}-\\x{ff}][a-zA-Z0-9_\\x{7f}-\\x{ff}]*)(?:\\s*(=)\\s*)\\s*(?:(\\[)((?>[^\\[\\]]+|\\[\\g<6>\\])*)(\\]))?'
         captures:
-          1:  name: 'storage.modifier.reference.php'
-          2:  name: 'variable.other.php'
-          3:  name: 'punctuation.definition.variable.php'
-          4:  name: 'keyword.operator.assignment.php'
-          5:  name: 'punctuation.section.array.begin.php'
-          6:
-            patterns: [
+          1: name: 'storage.modifier.reference.php'
+          2: name: 'variable.other.php'
+          3: name: 'punctuation.definition.variable.php'
+          4: name: 'keyword.operator.assignment.php'
+          5: name: 'punctuation.section.array.begin.php'
+          6: patterns: [
               {
                 include: '#parameter-default-types'
               }
             ]
-          7:  name: 'punctuation.section.array.end.php'
+          7: name: 'punctuation.section.array.end.php'
         end: '(?=,|\\)|/[/*]|\\#)'
         name: 'meta.function.argument.default.php'
         patterns: [
@@ -465,7 +463,7 @@ repository:
       {
         begin: '(?i)(\\\\)?(?=\\b[a-z_][a-z_0-9]*\\s*\\()'
         beginCaptures:
-          1:  name: 'punctuation.separator.inheritance.php'
+          1: name: 'punctuation.separator.inheritance.php'
         # Root namespace function calls (built-in or user)
         end: '(?=\\s*\\()'
         patterns: [
@@ -520,14 +518,14 @@ repository:
           {
             begin: '(<<<)\\s*([\'"]?)(HTML)(\\2)\\s*$\\n?'
             beginCaptures:
-              0:  name: 'punctuation.section.embedded.begin.php'
-              1:  name: 'punctuation.definition.string.php'
-              3:  name: 'keyword.operator.heredoc.php'
+              0: name: 'punctuation.section.embedded.begin.php'
+              1: name: 'punctuation.definition.string.php'
+              3: name: 'keyword.operator.heredoc.php'
             contentName: 'text.html'
             end: '^(\\3)\\b'
             endCaptures:
-              0:  name: 'punctuation.section.embedded.end.php'
-              1:  name: 'keyword.operator.heredoc.php'
+              0: name: 'punctuation.section.embedded.end.php'
+              1: name: 'keyword.operator.heredoc.php'
             name: 'meta.embedded.html'
             patterns: [
               {
@@ -538,14 +536,14 @@ repository:
           {
             begin: '(<<<)\\s*([\'"]?)(XML)(\\2)\\s*$\\n?'
             beginCaptures:
-              0:  name: 'punctuation.section.embedded.begin.php'
-              1:  name: 'punctuation.definition.string.php'
-              3:  name: 'keyword.operator.heredoc.php'
+              0: name: 'punctuation.section.embedded.begin.php'
+              1: name: 'punctuation.definition.string.php'
+              3: name: 'keyword.operator.heredoc.php'
             contentName: 'text.xml'
             end: '^(\\3)\\b'
             endCaptures:
-              0:  name: 'punctuation.section.embedded.end.php'
-              1:  name: 'keyword.operator.heredoc.php'
+              0: name: 'punctuation.section.embedded.end.php'
+              1: name: 'keyword.operator.heredoc.php'
             name: 'meta.embedded.xml'
             patterns: [
               {
@@ -556,14 +554,14 @@ repository:
           {
             begin: '(<<<)\\s*([\'"]?)(SQL)(\\2)\\s*$\\n?'
             beginCaptures:
-              0:  name: 'punctuation.section.embedded.begin.php'
-              1:  name: 'punctuation.definition.string.php'
-              3:  name: 'keyword.operator.heredoc.php'
+              0: name: 'punctuation.section.embedded.begin.php'
+              1: name: 'punctuation.definition.string.php'
+              3: name: 'keyword.operator.heredoc.php'
             contentName: 'source.sql'
             end: '^(\\3)\\b'
             endCaptures:
-              0:  name: 'punctuation.section.embedded.end.php'
-              1:  name: 'keyword.operator.heredoc.php'
+              0: name: 'punctuation.section.embedded.end.php'
+              1: name: 'keyword.operator.heredoc.php'
             name: 'meta.embedded.sql'
             patterns: [
               {
@@ -574,14 +572,14 @@ repository:
           {
             begin: '(<<<)\\s*([\'"]?)(JAVASCRIPT)(\\2)\\s*$\\n?'
             beginCaptures:
-              0:  name: 'punctuation.section.embedded.begin.php'
-              1:  name: 'punctuation.definition.string.php'
-              3:  name: 'keyword.operator.heredoc.php'
+              0: name: 'punctuation.section.embedded.begin.php'
+              1: name: 'punctuation.definition.string.php'
+              3: name: 'keyword.operator.heredoc.php'
             contentName: 'source.js'
             end: '^(\\3)\\b'
             endCaptures:
-              0:  name: 'punctuation.section.embedded.end.php'
-              1:  name: 'keyword.operator.heredoc.php'
+              0: name: 'punctuation.section.embedded.end.php'
+              1: name: 'keyword.operator.heredoc.php'
             name: 'meta.embedded.js'
             patterns: [
               {
@@ -592,14 +590,14 @@ repository:
           {
             begin: '(<<<)\\s*([\'"]?)(JSON)(\\2)\\s*$\\n?'
             beginCaptures:
-              0:  name: 'punctuation.section.embedded.begin.php'
-              1:  name: 'punctuation.definition.string.php'
-              3:  name: 'keyword.operator.heredoc.php'
+              0: name: 'punctuation.section.embedded.begin.php'
+              1: name: 'punctuation.definition.string.php'
+              3: name: 'keyword.operator.heredoc.php'
             contentName: 'source.json'
             end: '^(\\3)\\b'
             endCaptures:
-              0:  name: 'punctuation.section.embedded.end.php'
-              1:  name: 'keyword.operator.heredoc.php'
+              0: name: 'punctuation.section.embedded.end.php'
+              1: name: 'keyword.operator.heredoc.php'
             name: 'meta.embedded.json'
             patterns: [
               {
@@ -610,14 +608,14 @@ repository:
           {
             begin: '(<<<)\\s*([\'"]?)(CSS)(\\2)\\s*$\\n?'
             beginCaptures:
-              0:  name: 'punctuation.section.embedded.begin.php'
-              1:  name: 'punctuation.definition.string.php'
-              3:  name: 'keyword.operator.heredoc.php'
+              0: name: 'punctuation.section.embedded.begin.php'
+              1: name: 'punctuation.definition.string.php'
+              3: name: 'keyword.operator.heredoc.php'
             contentName: 'source.css'
             end: '^(\\3)\\b'
             endCaptures:
-              0:  name: 'punctuation.section.embedded.end.php'
-              1:  name: 'keyword.operator.heredoc.php'
+              0: name: 'punctuation.section.embedded.end.php'
+              1: name: 'keyword.operator.heredoc.php'
             name: 'meta.embedded.css'
             patterns: [
               {
@@ -628,14 +626,14 @@ repository:
           {
             begin: '(<<<)\\s*([\'"]?)(REGEX)(\\2)\\s*$\\n?'
             beginCaptures:
-              0:  name: 'punctuation.section.embedded.begin.php'
-              1:  name: 'punctuation.definition.string.php'
-              3:  name: 'keyword.operator.heredoc.php'
+              0: name: 'punctuation.section.embedded.begin.php'
+              1: name: 'punctuation.definition.string.php'
+              3: name: 'keyword.operator.heredoc.php'
             contentName: 'string.regexp.heredoc.php'
             end: '^(\\3)\\b'
             endCaptures:
-              0:  name: 'punctuation.section.embedded.end.php'
-              1:  name: 'keyword.operator.heredoc.php'
+              0: name: 'punctuation.section.embedded.end.php'
+              1: name: 'keyword.operator.heredoc.php'
             patterns: [
               {
                 comment: '''
@@ -646,15 +644,15 @@ repository:
               }
               {
                 captures:
-                  1:  name: 'punctuation.definition.arbitrary-repitition.php'
-                  3:  name: 'punctuation.definition.arbitrary-repitition.php'
+                  1: name: 'punctuation.definition.arbitrary-repitition.php'
+                  3: name: 'punctuation.definition.arbitrary-repitition.php'
                 match: '(\\{)\\d+(,\\d+)?(\\})'
                 name: 'string.regexp.arbitrary-repitition.php'
               }
               {
                 begin: '\\[(?:\\^?\\])?'
                 captures:
-                  0:  name: 'punctuation.definition.character-class.php'
+                  0: name: 'punctuation.definition.character-class.php'
                 end: '\\]'
                 name: 'string.regexp.character-class.php'
                 patterns: [
@@ -671,14 +669,14 @@ repository:
               {
                 begin: '(?<=^|\\s)(#)\\s(?=[[a-zA-Z0-9,. \\t?!-][^\\x{00}-\\x{7F}]]*$)'
                 beginCaptures:
-                  1:  name: 'punctuation.definition.comment.php'
+                  1: name: 'punctuation.definition.comment.php'
                 comment: '''
                   We are restrictive in what we allow to go after the comment character to avoid false positives,
                   since the availability of comments depend on regexp flags.
                   '''
                 end: '$\\n?'
                 endCaptures:
-                  0:  name: 'punctuation.definition.comment.php'
+                  0: name: 'punctuation.definition.comment.php'
                 name: 'comment.line.number-sign.php'
               }
             ]
@@ -686,11 +684,11 @@ repository:
           {
             begin: '(<<<)\\s*([\'"]?)([a-zA-Z_]+[a-zA-Z0-9_]*)(\\2)'
             beginCaptures:
-              1:  name: 'punctuation.definition.string.php'
-              3:  name: 'keyword.operator.heredoc.php'
+              1: name: 'punctuation.definition.string.php'
+              3: name: 'keyword.operator.heredoc.php'
             end: '^(\\3)\\b'
             endCaptures:
-              1:  name: 'keyword.operator.heredoc.php'
+              1: name: 'keyword.operator.heredoc.php'
           }
         ]
   
@@ -698,7 +696,7 @@ repository:
   'instantiation':
     begin: '(?i)(new)\\s+'
     beginCaptures:
-      1:  name: 'keyword.other.new.php'
+      1: name: 'keyword.other.new.php'
     end: '(?i)(?=[^$a-z0-9_\\\\])'
     patterns: [
       {
@@ -732,10 +730,10 @@ repository:
       {
         begin: '(\\{)(?=\\$.*?\\})'
         beginCaptures:
-          1:  name: 'punctuation.definition.variable.php'
+          1: name: 'punctuation.definition.variable.php'
         end: '(\\})'
         endCaptures:
-          1:  name: 'punctuation.definition.variable.php'
+          1: name: 'punctuation.definition.variable.php'
         patterns: [
           {
             include: '#language'
@@ -750,8 +748,8 @@ repository:
   # repository
   'invoke-call':
     captures:
-      1:  name: 'punctuation.definition.variable.php'
-      2:  name: 'variable.other.php'
+      1: name: 'punctuation.definition.variable.php'
+      2: name: 'variable.other.php'
     match: '(?i)(\\$+)([a-z_][a-z_0-9]*)(?=\\s*\\()'
     name: 'meta.function-call.invoke.php'
   
@@ -772,13 +770,12 @@ repository:
       {
         begin: '(?i)^\\s*(interface)\\s+([a-z0-9_]+)\\s*(extends)?\\s*'
         beginCaptures:
-          1:  name: 'storage.type.interface.php'
-          2:  name: 'entity.name.type.interface.php'
-          3:  name: 'storage.modifier.extends.php'
+          1: name: 'storage.type.interface.php'
+          2: name: 'entity.name.type.interface.php'
+          3: name: 'storage.modifier.extends.php'
         end: '((?:[a-zA-Z0-9_]+\\s*,\\s*)*)([a-zA-Z0-9_]+)?\\s*(?:(?=\\{)|$)'
         endCaptures:
-          1:
-            patterns: [
+          1: patterns: [
               {
                 match: '[a-zA-Z0-9_]+'
                 name: 'entity.other.inherited-class.php'
@@ -788,7 +785,7 @@ repository:
                 name: 'punctuation.separator.classes.php'
               }
             ]
-          2:  name: 'entity.other.inherited-class.php'
+          2: name: 'entity.other.inherited-class.php'
         name: 'meta.interface.php'
         patterns: [
           {
@@ -799,8 +796,8 @@ repository:
       {
         begin: '(?i)^\\s*(trait)\\s+([a-z0-9_]+)'
         beginCaptures:
-          1:  name: 'storage.type.trait.php'
-          2:  name: 'entity.name.type.trait.php'
+          1: name: 'storage.type.trait.php'
+          2: name: 'entity.name.type.trait.php'
         end: '(?=[{])'
         name: 'meta.trait.php'
         patterns: [
@@ -812,7 +809,7 @@ repository:
       {
         begin: '(?i)(?:^|(?<=<\\?php))\\s*(namespace)\\b\\s+(?=([a-z0-9_\\\\]+\\s*($|[;{]|(\\/[\\/*])))|$)'
         beginCaptures:
-          1:  name: 'keyword.other.namespace.php'
+          1: name: 'keyword.other.namespace.php'
         contentName: 'entity.name.type.namespace.php'
         end: '(?i)(?=\\s*$|[^a-z0-9_\\\\])'
         name: 'meta.namespace.php'
@@ -826,9 +823,9 @@ repository:
       {
         begin: '(?i)\\s*\\b(use)\\s+(?:((const)|(function))\\s+)?'
         beginCaptures:
-          1:  name: 'keyword.other.use.php'
-          3:  name: 'storage.type.const.php'
-          4:  name: 'storage.type.function.php'
+          1: name: 'keyword.other.use.php'
+          3: name: 'storage.type.const.php'
+          4: name: 'storage.type.function.php'
         end: '(?=;|(?:^\\s*$))'
         name: 'meta.use.php'
         patterns: [
@@ -844,8 +841,8 @@ repository:
               )
               '''
             endCaptures:
-              1:  name: 'keyword.other.use-as.php'
-              2:  name: 'support.other.namespace.use-as.php'
+              1: name: 'keyword.other.use-as.php'
+              2: name: 'support.other.namespace.use-as.php'
             patterns: [
               {
                 include: '#class-builtin'
@@ -871,9 +868,9 @@ repository:
       {
         begin: '(?i)^\\s*(abstract|final)?\\s*(class)\\s+([a-z0-9_]+)\\s*'
         beginCaptures:
-          1:  name: 'storage.modifier.abstract.php'
-          2:  name: 'storage.type.class.php'
-          3:  name: 'entity.name.type.class.php'
+          1: name: 'storage.modifier.abstract.php'
+          2: name: 'storage.type.class.php'
+          3: name: 'entity.name.type.class.php'
         end: '(?=[;{])'
         name: 'meta.class.php'
         patterns: [
@@ -883,7 +880,7 @@ repository:
           {
             begin: '(?i)(extends)\\s+'
             beginCaptures:
-              1:  name: 'storage.modifier.extends.php'
+              1: name: 'storage.modifier.extends.php'
             contentName: 'meta.other.inherited-class.php'
             end: '(?i)(?=[^a-z_0-9\\\\])'
             patterns: [
@@ -891,7 +888,7 @@ repository:
                 begin: '(?i)(?=\\\\?[a-z_0-9]+\\\\)'
                 end: '(?i)([a-z_][a-z_0-9]*)?(?=[^a-z0-9_\\\\])'
                 endCaptures:
-                  1:  name: 'entity.other.inherited-class.php'
+                  1: name: 'entity.other.inherited-class.php'
                 patterns: [
                   {
                     include: '#namespace'
@@ -913,7 +910,7 @@ repository:
           {
             begin: '(?i)(implements)\\s+'
             beginCaptures:
-              1:  name: 'storage.modifier.implements.php'
+              1: name: 'storage.modifier.implements.php'
             end: '(?i)(?=[;{])'
             patterns: [
               {
@@ -928,7 +925,7 @@ repository:
                     begin: '(?i)(?=\\\\?[a-z_0-9]+\\\\)'
                     end: '(?i)([a-z_][a-z_0-9]*)?(?=[^a-z0-9_\\\\])'
                     endCaptures:
-                      1:  name: 'entity.other.inherited-class.php'
+                      1: name: 'entity.other.inherited-class.php'
                     patterns: [
                       {
                         include: '#namespace'
@@ -953,13 +950,13 @@ repository:
       }
       {
         captures:
-          1:  name: 'keyword.control.php'
+          1: name: 'keyword.control.php'
         match: '\\s*\\b((break|c(ase|ontinue)|d(e(clare|fault)|ie|o)|e(lse(if)?|nd(declare|for(each)?|if|switch|while)|xit)|for(each)?|if|return|switch|use|while|yield))\\b'
       }
       {
         begin: '(?i)\\b((?:require|include)(?:_once)?)\\b\\s*'
         beginCaptures:
-          1:  name: 'keyword.control.import.include.php'
+          1: name: 'keyword.control.import.include.php'
         end: '(?=\\s|;|$)'
         name: 'meta.include.php'
         patterns: [
@@ -971,12 +968,12 @@ repository:
       {
         begin: '\\b(catch)\\b\\s*\\(\\s*'
         beginCaptures:
-          1:  name: 'keyword.control.exception.catch.php'
+          1: name: 'keyword.control.exception.catch.php'
         end: '([A-Za-z_][A-Za-z_0-9]*)\\s*((\\$+)[a-zA-Z_\\x{7f}-\\x{ff}][a-zA-Z0-9_\\x{7f}-\\x{ff}]*)\\s*\\)'
         endCaptures:
-          1:  name: 'support.class.exception.php'
-          2:  name: 'variable.other.php'
-          3:  name: 'punctuation.definition.variable.php'
+          1: name: 'support.class.exception.php'
+          2: name: 'variable.other.php'
+          3: name: 'punctuation.definition.variable.php'
         name: 'meta.catch.php'
         patterns: [
           {
@@ -991,19 +988,19 @@ repository:
       {
         begin: '(?i)\\b(function)\\s*(&\\s*)?(?=\\()'
         beginCaptures:
-          1:  name: 'storage.type.function.php'
-          2:  name: 'storage.modifier.reference.php'
+          1: name: 'storage.type.function.php'
+          2: name: 'storage.modifier.reference.php'
         end: '(?=\\{)'
         name: 'meta.function.closure.php'
         patterns: [
           {
             begin: '(\\()'
             beginCaptures:
-              1:  name: 'punctuation.definition.parameters.begin.php'
+              1: name: 'punctuation.definition.parameters.begin.php'
             contentName: 'meta.function.arguments.php'
             end: '(\\))'
             endCaptures:
-              1:  name: 'punctuation.definition.parameters.end.php'
+              1: name: 'punctuation.definition.parameters.end.php'
             patterns: [
               {
                 include: '#function-arguments'
@@ -1013,17 +1010,17 @@ repository:
           {
             begin: '(?i)(use)\\s*(\\()'
             beginCaptures:
-              1:  name: 'keyword.other.function.use.php'
-              2:  name: 'punctuation.definition.parameters.begin.php'
+              1: name: 'keyword.other.function.use.php'
+              2: name: 'punctuation.definition.parameters.begin.php'
             end: '(\\))'
             endCaptures:
-              1:  name: 'punctuation.definition.parameters.end.php'
+              1: name: 'punctuation.definition.parameters.end.php'
             patterns: [
               {
                 captures:
-                  1:  name: 'storage.modifier.reference.php'
-                  2:  name: 'variable.other.php'
-                  3:  name: 'punctuation.definition.variable.php'
+                  1: name: 'storage.modifier.reference.php'
+                  2: name: 'variable.other.php'
+                  3: name: 'punctuation.definition.variable.php'
                 match: '(?:\\s*(&))?\\s*((\\$+)[a-zA-Z_\\x{7f}-\\x{ff}][a-zA-Z0-9_\\x{7f}-\\x{ff}]*)\\s*(?=,|\\))'
                 name: 'meta.function.closure.use.php'
               }
@@ -1045,22 +1042,21 @@ repository:
           (\\()
           '''
         beginCaptures:
-          1:
-            patterns: [
+          1: patterns: [
               {
                 match: 'final|abstract|public|private|protected|static'
                 name: 'storage.modifier.php'
               }
             ]
-          2:  name: 'storage.type.function.php'
-          3:  name: 'storage.modifier.reference.php'
-          4:  name: 'support.function.magic.php'
-          5:  name: 'entity.name.function.php'
-          6:  name: 'punctuation.definition.parameters.begin.php'
+          2: name: 'storage.type.function.php'
+          3: name: 'storage.modifier.reference.php'
+          4: name: 'support.function.magic.php'
+          5: name: 'entity.name.function.php'
+          6: name: 'punctuation.definition.parameters.begin.php'
         contentName: 'meta.function.arguments.php'
         end: '(\\))'
         endCaptures:
-          1:  name: 'punctuation.definition.parameters.end.php'
+          1: name: 'punctuation.definition.parameters.end.php'
         name: 'meta.function.php'
         patterns: [
           {
@@ -1091,11 +1087,11 @@ repository:
           )?
           '''
         endCaptures:
-          1:  name: 'keyword.operator.class.php'
-          2:  name: 'meta.function-call.static.php'
-          3:  name: 'variable.other.class.php'
-          4:  name: 'punctuation.definition.variable.php'
-          5:  name: 'constant.other.class.php'
+          1: name: 'keyword.operator.class.php'
+          2: name: 'meta.function-call.static.php'
+          3: name: 'variable.other.class.php'
+          4: name: 'punctuation.definition.variable.php'
+          5: name: 'constant.other.class.php'
         patterns: [
           {
             match: '(self|static|parent)\\b'
@@ -1117,20 +1113,20 @@ repository:
       }
       {
         captures:
-          1:  name: 'support.function.construct.php'
-          2:  name: 'punctuation.definition.array.begin.php'
-          3:  name: 'punctuation.definition.array.end.php'
+          1: name: 'support.function.construct.php'
+          2: name: 'punctuation.definition.array.begin.php'
+          3: name: 'punctuation.definition.array.end.php'
         match: '(array)(\\()(\\))'
         name: 'meta.array.empty.php'
       }
       {
         begin: '(array)(\\()'
         beginCaptures:
-          1:  name: 'support.function.construct.php'
-          2:  name: 'punctuation.definition.array.begin.php'
+          1: name: 'support.function.construct.php'
+          2: name: 'punctuation.definition.array.begin.php'
         end: '\\)'
         endCaptures:
-          0:  name: 'punctuation.definition.array.end.php'
+          0: name: 'punctuation.definition.array.end.php'
         name: 'meta.array.php'
         patterns: [
           {
@@ -1140,7 +1136,7 @@ repository:
       }
       {
         captures:
-          1:  name: 'storage.type.php'
+          1: name: 'storage.type.php'
         match: '(?i)\\s*\\(\\s*(array|real|double|float|int(eger)?|bool(ean)?|string|object|binary|unset)\\s*\\)'
       }
       {
@@ -1171,9 +1167,9 @@ repository:
       }
       {
         captures:
-          1:  name: 'keyword.operator.assignment.php'
-          2:  name: 'storage.modifier.reference.php'
-          3:  name: 'storage.modifier.reference.php'
+          1: name: 'keyword.operator.assignment.php'
+          2: name: 'storage.modifier.reference.php'
+          3: name: 'storage.modifier.reference.php'
         match: '(?:(\\=)(&))|(&(?=[$A-Za-z_]))'
       }
       {
@@ -1214,7 +1210,7 @@ repository:
       {
         begin: '(?i)\\b(instanceof)\\b\\s+(?=[\\\\$a-z_])'
         beginCaptures:
-          1:  name: 'keyword.operator.type.php'
+          1: name: 'keyword.operator.type.php'
         end: '(?=[^\\\\$A-Za-z_0-9])'
         patterns: [
           {
@@ -1233,13 +1229,13 @@ repository:
       }
       {
         captures:
-          1:  name: 'keyword.control.goto.php'
-          2:  name: 'support.other.php'
+          1: name: 'keyword.control.goto.php'
+          2: name: 'support.other.php'
         match: '(?i)(goto)\\s+([a-z_][a-z_0-9]*)'
       }
       {
         captures:
-          1:  name: 'entity.name.goto-label.php'
+          1: name: 'entity.name.goto-label.php'
         match: '(?i)^\\s*([a-z_][a-z_0-9]*)\\s*:'
       }
       {
@@ -1248,10 +1244,10 @@ repository:
       {
         begin: '\\['
         beginCaptures:
-          0:  name: 'punctuation.section.array.begin.php'
+          0: name: 'punctuation.section.array.begin.php'
         end: '\\]'
         endCaptures:
-          0:  name: 'punctuation.section.array.end.php'
+          0: name: 'punctuation.section.array.end.php'
         patterns: [
           {
             include: '#language'
@@ -1267,14 +1263,14 @@ repository:
   'namespace':
     begin: '(?i)(?:(namespace)|[a-z0-9_]+)?(\\\\)(?=.*?[^a-z_0-9\\\\])'
     beginCaptures:
-      1:  name: 'variable.language.namespace.php'
-      2:  name: 'punctuation.separator.inheritance.php'
+      1: name: 'variable.language.namespace.php'
+      2: name: 'punctuation.separator.inheritance.php'
     end: '(?i)(?=[a-z0-9_]*[^a-z0-9_\\\\])'
     name: 'support.other.namespace.php'
     patterns: [
       {
         captures:
-          1:  name: 'punctuation.separator.inheritance.php'
+          1: name: 'punctuation.separator.inheritance.php'
         match: '(?i)(\\\\)'
       }
     ]
@@ -1290,11 +1286,11 @@ repository:
       {
         begin: '(->)(\\$?\\{)'
         beginCaptures:
-          1:  name: 'keyword.operator.class.php'
-          2:  name: 'punctuation.definition.variable.php'
+          1: name: 'keyword.operator.class.php'
+          2: name: 'punctuation.definition.variable.php'
         end: '(\\})'
         endCaptures:
-          1:  name: 'punctuation.definition.variable.php'
+          1: name: 'punctuation.definition.variable.php'
         patterns: [
           {
             include: '#language'
@@ -1303,10 +1299,10 @@ repository:
       }
       {
         captures:
-          1:  name: 'keyword.operator.class.php'
-          2:  name: 'meta.function-call.object.php'
-          3:  name: 'variable.other.property.php'
-          4:  name: 'punctuation.definition.variable.php'
+          1: name: 'keyword.operator.class.php'
+          2: name: 'meta.function-call.object.php'
+          3: name: 'variable.other.property.php'
+          4: name: 'punctuation.definition.variable.php'
         match: '''(?x)
           (->)
           (?:
@@ -1347,11 +1343,11 @@ repository:
       {
         begin: '(array)\\s*(\\()'
         beginCaptures:
-          1:  name: 'support.function.construct.php'
-          2:  name: 'punctuation.definition.array.begin.php'
+          1: name: 'support.function.construct.php'
+          2: name: 'punctuation.definition.array.begin.php'
         end: '\\)'
         endCaptures:
-          0:  name: 'punctuation.definition.array.end.php'
+          0: name: 'punctuation.definition.array.end.php'
         name: 'meta.array.php'
         patterns: [
           {
@@ -1371,8 +1367,8 @@ repository:
           '''
         end: '(?i)(::)([a-z_\\x{7f}-\\x{ff}][a-z0-9_\\x{7f}-\\x{ff}]*)?'
         endCaptures:
-          1:  name: 'keyword.operator.class.php'
-          2:  name: 'constant.other.class.php'
+          1: name: 'keyword.operator.class.php'
+          2: name: 'constant.other.class.php'
         patterns: [
           {
             include: '#class-name'
@@ -1394,15 +1390,15 @@ repository:
       }
       {
         captures:
-          1:  name: 'keyword.other.phpdoc.php'
-          3:  name: 'storage.modifier.php'
-          4:  name: 'invalid.illegal.wrong-access-type.phpdoc.php'
+          1: name: 'keyword.other.phpdoc.php'
+          3: name: 'storage.modifier.php'
+          4: name: 'invalid.illegal.wrong-access-type.phpdoc.php'
         match: '^\\s*\\*\\s*(@access)\\s+((public|private|protected)|(.+))\\s*$'
       }
       {
         captures:
-          1:  name: 'keyword.other.phpdoc.php'
-          2:  name: 'markup.underline.link.php'
+          1: name: 'keyword.other.phpdoc.php'
+          2: name: 'markup.underline.link.php'
         match: '(@xlink)\\s+(.+)\\s*$'
       }
       {
@@ -1411,7 +1407,7 @@ repository:
       }
       {
         captures:
-          1:  name: 'keyword.other.phpdoc.php'
+          1: name: 'keyword.other.phpdoc.php'
         match: '\\{(@(link)).+?\\}'
         name: 'meta.tag.inline.phpdoc.php'
       }
@@ -1423,10 +1419,10 @@ repository:
       "/ (?= (\\\\.|[^"/])++/[imsxeADSUXu]*" )
       '''
     beginCaptures:
-      0:  name: 'punctuation.definition.string.begin.php'
+      0: name: 'punctuation.definition.string.begin.php'
     end: '(/)([imsxeADSUXu]*)(")'
     endCaptures:
-      0:  name: 'punctuation.definition.string.end.php'
+      0: name: 'punctuation.definition.string.end.php'
     name: 'string.regexp.double-quoted.php'
     patterns: [
       {
@@ -1439,15 +1435,15 @@ repository:
       }
       {
         captures:
-          1:  name: 'punctuation.definition.arbitrary-repetition.php'
-          3:  name: 'punctuation.definition.arbitrary-repetition.php'
+          1: name: 'punctuation.definition.arbitrary-repetition.php'
+          3: name: 'punctuation.definition.arbitrary-repetition.php'
         match: '(\\{)\\d+(,\\d+)?(\\})'
         name: 'string.regexp.arbitrary-repetition.php'
       }
       {
         begin: '\\[(?:\\^?\\])?'
         captures:
-          0:  name: 'punctuation.definition.character-class.php'
+          0: name: 'punctuation.definition.character-class.php'
         end: '\\]'
         name: 'string.regexp.character-class.php'
         patterns: [
@@ -1468,23 +1464,23 @@ repository:
       \'/ (?= ( \\\\ (?: \\\\ (?: \\\\ [\\\\\']? | [^\'] ) | . ) | [^\'/] )++/[imsxeADSUXu]*\' )
       '''
     beginCaptures:
-      0:  name: 'punctuation.definition.string.begin.php'
+      0: name: 'punctuation.definition.string.begin.php'
     end: '(/)([imsxeADSUXu]*)(\')'
     endCaptures:
-      0:  name: 'punctuation.definition.string.end.php'
+      0: name: 'punctuation.definition.string.end.php'
     name: 'string.regexp.single-quoted.php'
     patterns: [
       {
         captures:
-          1:  name: 'punctuation.definition.arbitrary-repetition.php'
-          3:  name: 'punctuation.definition.arbitrary-repetition.php'
+          1: name: 'punctuation.definition.arbitrary-repetition.php'
+          3: name: 'punctuation.definition.arbitrary-repetition.php'
         match: '(\\{)\\d+(,\\d+)?(\\})'
         name: 'string.regexp.arbitrary-repetition.php'
       }
       {
         begin: '\\[(?:\\^?\\])?'
         captures:
-          0:  name: 'punctuation.definition.character-class.php'
+          0: name: 'punctuation.definition.character-class.php'
         end: '\\]'
         name: 'string.regexp.character-class.php'
         patterns: [
@@ -1513,11 +1509,11 @@ repository:
   'sql-string-double-quoted':
     begin: '"\\s*(?=(SELECT|INSERT|UPDATE|DELETE|CREATE|REPLACE|ALTER)\\b)'
     beginCaptures:
-      0:  name: 'punctuation.definition.string.begin.php'
+      0: name: 'punctuation.definition.string.begin.php'
     contentName: 'source.sql.embedded.php'
     end: '"'
     endCaptures:
-      0:  name: 'punctuation.definition.string.end.php'
+      0: name: 'punctuation.definition.string.end.php'
     name: 'string.quoted.double.sql.php'
     patterns: [
       {
@@ -1576,11 +1572,11 @@ repository:
   'sql-string-single-quoted':
     begin: '\'\\s*(?=(SELECT|INSERT|UPDATE|DELETE|CREATE|REPLACE|ALTER)\\b)'
     beginCaptures:
-      0:  name: 'punctuation.definition.string.begin.php'
+      0: name: 'punctuation.definition.string.begin.php'
     contentName: 'source.sql.embedded.php'
     end: '\''
     endCaptures:
-      0:  name: 'punctuation.definition.string.end.php'
+      0: name: 'punctuation.definition.string.end.php'
     name: 'string.quoted.single.sql.php'
     patterns: [
       {
@@ -1616,10 +1612,10 @@ repository:
   'string-backtick':
     begin: '`'
     beginCaptures:
-      0:  name: 'punctuation.definition.string.begin.php'
+      0: name: 'punctuation.definition.string.begin.php'
     end: '`'
     endCaptures:
-      0:  name: 'punctuation.definition.string.end.php'
+      0: name: 'punctuation.definition.string.end.php'
     name: 'string.interpolated.php'
     patterns: [
       {
@@ -1635,13 +1631,13 @@ repository:
   'string-double-quoted':
     begin: '"'
     beginCaptures:
-      0:  name: 'punctuation.definition.string.begin.php'
+      0: name: 'punctuation.definition.string.begin.php'
     # This contentName is just to allow the usage of “select scope” to select the string contents first,
     # then the string with quotes
     contentName: 'meta.string-contents.quoted.double.php'
     end: '"'
     endCaptures:
-      0:  name: 'punctuation.definition.string.end.php'
+      0: name: 'punctuation.definition.string.end.php'
     name: 'string.quoted.double.php'
     patterns: [
       {
@@ -1653,11 +1649,11 @@ repository:
   'string-single-quoted':
     begin: '\''
     beginCaptures:
-      0:  name: 'punctuation.definition.string.begin.php'
+      0: name: 'punctuation.definition.string.begin.php'
     contentName: 'meta.string-contents.quoted.single.php'
     end: '\''
     endCaptures:
-      0:  name: 'punctuation.definition.string.end.php'
+      0: name: 'punctuation.definition.string.end.php'
     name: 'string.quoted.single.php'
     patterns: [
       {
@@ -2134,7 +2130,7 @@ repository:
     patterns: [
       {
         captures:
-          1:  name: 'punctuation.definition.variable.php'
+          1: name: 'punctuation.definition.variable.php'
         match: '''(?x)
           (\\$+)[a-zA-Z_\\x{7f}-\\x{ff}]
           [a-zA-Z0-9_\\x{7f}-\\x{ff}]*?\\b
@@ -2146,14 +2142,14 @@ repository:
   # repository
   'var_global':
     captures:
-      1:  name: 'punctuation.definition.variable.php'
+      1: name: 'punctuation.definition.variable.php'
     match: '(\\$)((_(COOKIE|FILES|GET|POST|REQUEST))|arg(v|c))\\b'
     name: 'variable.other.global.php'
   
   # repository
   'var_global_safer':
     captures:
-      1:  name: 'punctuation.definition.variable.php'
+      1: name: 'punctuation.definition.variable.php'
     match: '(\\$)((GLOBALS|_(ENV|SERVER|SESSION)))'
     name: 'variable.other.global.safer.php'
   
@@ -2168,14 +2164,14 @@ repository:
       }
       {
         captures:
-          1:  name: 'variable.other.php'
-          2:  name: 'punctuation.definition.variable.php'
-          4:  name: 'keyword.operator.class.php'
-          5:  name: 'variable.other.property.php'
-          6:  name: 'punctuation.section.array.begin.php'
-          7:  name: 'constant.numeric.index.php'
-          8:  name: 'variable.other.index.php'
-          9:  name: 'punctuation.definition.variable.php'
+          1: name: 'variable.other.php'
+          2: name: 'punctuation.definition.variable.php'
+          4: name: 'keyword.operator.class.php'
+          5: name: 'variable.other.property.php'
+          6: name: 'punctuation.section.array.begin.php'
+          7: name: 'constant.numeric.index.php'
+          8: name: 'variable.other.index.php'
+          9: name: 'punctuation.definition.variable.php'
           10: name: 'string.unquoted.index.php'
           11: name: 'punctuation.section.array.end.php'
         # Simple syntax: $foo, $foo[0], $foo[$bar], $foo->bar
@@ -2192,9 +2188,9 @@ repository:
       }
       {
         captures:
-          1:  name: 'variable.other.php'
-          2:  name: 'punctuation.definition.variable.php'
-          4:  name: 'punctuation.definition.variable.php'
+          1: name: 'variable.other.php'
+          2: name: 'punctuation.definition.variable.php'
+          4: name: 'punctuation.definition.variable.php'
         # Simple syntax with braces: "foo${bar}baz"
         match: '''(?x)
           ((\\$\\{)(?<name>[a-zA-Z_\\x{7f}-\\x{ff}][a-zA-Z0-9_\\x{7f}-\\x{ff}]*)(\\}))
@@ -2217,10 +2213,10 @@ repository:
       {
         begin: '(\\$\\{)(?=.*?\\})'
         beginCaptures:
-          1:  name: 'punctuation.definition.variable.php'
+          1: name: 'punctuation.definition.variable.php'
         end: '(\\})'
         endCaptures:
-          1:  name: 'punctuation.definition.variable.php'
+          1: name: 'punctuation.definition.variable.php'
         patterns: [
           {
             include: '#language'
