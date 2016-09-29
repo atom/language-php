@@ -35,32 +35,6 @@
                             "rightLabel": "$argNum"
                         },
                         {
-                            "text": "strtr",
-                            "type": "function",
-                            "leftLabel": "string",
-                            "rightLabel": "$str array $replace_pairs"
-                        },
-                        {
-                            "text": "hex2bin",
-                            "type": "function",
-                            "description": "Convert hex to binary Since PHP 5.4.0",
-                            "leftLabel": "string",
-                            "rightLabel": "$data"
-                        },
-                        {
-                            "text": "fastcgi_finish_request",
-                            "type": "function",
-                            "description": "This function flushes all response data to the client and finishes the request. Since PHP 5.3.3",
-                            "leftLabel": "boolean"
-                        },
-                        {
-                            "text": "http_response_code",
-                            "type": "function",
-                            "description": "Get or Set the HTTP response code",
-                            "leftLabel": "int",
-                            "rightLabel": "$response_code"
-                        },
-                        {
                             "text": "PS_UNRESERVE_PREFIX_array",
                             "type": "function",
                             "description": "Creates an array.",
@@ -1703,6 +1677,13 @@
                             "rightLabel": "$age"
                         },
                         {
+                            "text": "curl_setopt",
+                            "type": "function",
+                            "description": "Set an option for a cURL transfer Since PHP 4.0.2 5.0",
+                            "leftLabel": "bool",
+                            "rightLabel": "$ch $option $value"
+                        },
+                        {
                             "text": "curl_setopt_array",
                             "type": "function",
                             "description": "Set multiple options for a cURL transfer Since PHP 5.1.3",
@@ -1874,6 +1855,27 @@
                             "description": "Close a set of cURL handles Since PHP 5.0",
                             "leftLabel": "void",
                             "rightLabel": "$mh"
+                        },
+                        {
+                            "text": "curl_multi_errno",
+                            "type": "function",
+                            "description": " Since PHP 7.1",
+                            "leftLabel": "int",
+                            "rightLabel": "$mh"
+                        },
+                        {
+                            "text": "curl_share_errno",
+                            "type": "function",
+                            "description": " Since PHP 7.1",
+                            "leftLabel": "int",
+                            "rightLabel": "resource $rh"
+                        },
+                        {
+                            "text": "curl_share_strerror",
+                            "type": "function",
+                            "description": " Since PHP 7.1",
+                            "leftLabel": "int",
+                            "rightLabel": "$errno"
                         },
                         {
                             "text": "strtotime",
@@ -22229,11 +22231,6 @@
                             "description": "ob_start callback function to gzip output buffer Since PHP 4.0.4 5.0",
                             "leftLabel": "string",
                             "rightLabel": "$buffer $mode"
-                        },
-                        {
-                            "text": "__COMPILER_HALT_OFFSET__",
-                            "description": "(PHP 5.1)<br\/> Byte position of the data start, defined only if there is a __halt_compiler() presented in the file.",
-                            "type": "constant"
                         },
                         {
                             "text": "AMQP_NOPARAM",

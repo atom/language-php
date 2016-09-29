@@ -1,0 +1,15 @@
+{
+    "name": "root/php-complete",
+    "description": "Autocomplete for PHP",
+    "require": {
+        "nikic/php-parser": "~2.0",
+        "phpdocumentor/reflection-docblock": "^2.0"
+    },
+    "license": "GPLv2",
+    "authors": [
+        {
+            "name": "Joe Hoyle",
+            "email": "joe@hmn.md"
+        }
+    ]
+}
