@@ -1,0 +1,39 @@
+id: 'php'
+name: 'PHP'
+type: 'tree-sitter'
+parser: 'tree-sitter-php'
+
+comments:
+  start: '#'
+
+fileTypes: [
+  'php'
+  'phpt'
+]
+
+folds: [
+  {
+    start: {type: '{', index: 0},
+    end: {'}', index: -1}
+  }
+  {
+    start: {type: '(', index: 0},
+    end: {')', index: -1}
+  }
+]
+
+scopes:
+  '"echo"': 'support.function'
+  'string': 'string.quoted'
+  'float': 'constant.numeric'
+
+  'function_call_expression > qualified_name': 'entity.name.function'
+  'variable_name': 'variable'
+
+  '"if"': 'keyword.control'
+  '"else"': 'keyword.control'
+  '"elseif"': 'keyword.control'
+  '"endif"': 'keyword.control'
+
+  '"for"': 'keyword.control'
+  '"while"': 'keyword.control'
