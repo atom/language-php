@@ -35,7 +35,7 @@ scopes:
 
 
   'class_declaration > name': 'support.storage.type'
-  'class_base_clause > qualified_name -> name': 'storage.modifier.extends.php'
+  'class_base_clause > qualified_name > name': 'storage.modifier.extends.php'
 
   'function_definition > name': 'entity.name.function'
   'function_call_expression > name': 'entity.name.function'
