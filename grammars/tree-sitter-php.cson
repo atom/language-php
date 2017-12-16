@@ -2,6 +2,7 @@ id: 'php'
 name: 'PHP'
 type: 'tree-sitter'
 parser: 'tree-sitter-php'
+legacyScopeName: 'source.php'
 
 comments:
   start: '#'
