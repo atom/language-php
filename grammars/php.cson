@@ -7,6 +7,10 @@
 # [a-z_\x{7f}-\x{7fffffff}][a-z0-9_\x{7f}-\x{7fffffff}]*.
 # See https://github.com/atom/language-php/issues/301.
 'scopeName': 'source.php'
+'firstLineMatch': '''(?x)
+  # Hashbang
+  ^<\?php\b
+'''
 'patterns': [
   {
     'include': '#comments'
