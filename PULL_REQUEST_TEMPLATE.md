@@ -5,24 +5,20 @@
 
 ### Description of the Change
 
-<!--
-
-We must be able to understand the design of your change from this description. If we can't get a good idea of what the code will be doing from the description here, the pull request may be closed at the maintainers' discretion. Keep in mind that the maintainer reviewing this PR may not be familiar with or have worked with the code here recently, so please walk us through the concepts.
-
--->
+Added firstlineMatch support to language-php so that we do not have to rely on the filename's extension for recognizing a php file.
 
 ### Alternate Designs
 
-<!-- Explain what other alternates were considered and why the proposed version was selected -->
+I cannot think of another design for this except maybe falling back to the "file" command which would be a problem on non-IX systems.  
 
 ### Benefits
 
-<!-- What benefits will be realized by the code change? -->
+PHP files are recognized not only by extension but also by content.
 
 ### Possible Drawbacks
 
-<!-- What are the possible side-effects or negative impacts of the code change? -->
+Due to my limited (just starting with atom and php) knowledge, the firstlineMatch might not be perfect.
 
 ### Applicable Issues
 
-<!-- Enter any applicable Issues here -->
+Not an issue but a [conversation](https://discuss.atom.io/t/better-language-recognition-please/51795).
