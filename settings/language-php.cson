@@ -3340,7 +3340,7 @@
     'decreaseIndentPattern': '^(.*\\*/)?\\s*(\\)+)'
 '.source.php:not(.string)':
   'editor':
-    'increaseIndentPattern': '({(?!.+}).*|\\(|\\[|((else)?if|else|for(each)?|while|switch).*:)\\s*(/[/*].*)?$'
+    'increaseIndentPattern': '({(?!.+}).*|\\(|\\[|((else)?if|else|for(each)?|while|switch|case).*:)\\s*(/[/*].*)?$'
     'decreaseIndentPattern': '^(.*\\*/)?\\s*(}|(\\)+([;,]|\\s*{))|(\\]\\)*([;,]|$))|else:|((end(if|for(each)?|while|switch));))'
 '.text.html.php':
   'editor':
