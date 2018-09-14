@@ -553,6 +553,13 @@ describe 'PHP grammar', ->
       expect(tokens[3]).toEqual value: ' ', scopes: ['source.php', 'meta.class.php']
       expect(tokens[4]).toEqual value: 'Test', scopes: ['source.php', 'meta.class.php', 'entity.name.type.class.php']
 
+    it 'tokenizes classes declared immediately after another class ends', ->
+      {tokens} = grammar.tokenizeLine 'class Test {}final class Test2 {}'
+
+      expect(tokens[6]).toEqual value: 'final', scopes: ['source.php', 'meta.class.php', 'storage.modifier.final.php']
+      expect(tokens[8]).toEqual value: 'class', scopes: ['source.php', 'meta.class.php', 'storage.type.class.php']
+      expect(tokens[10]).toEqual value: 'Test2', scopes: ['source.php', 'meta.class.php', 'entity.name.type.class.php']
+
     describe 'use statements', ->
       it 'tokenizes basic use statements', ->
         lines = grammar.tokenizeLines '''
@@ -732,6 +739,22 @@ describe 'PHP grammar', ->
       expect(tokens[7]).toEqual value: '$', scopes: ['source.php', 'meta.function.php', 'meta.function.parameters.php', 'meta.function.parameter.typehinted.php', 'variable.other.php', 'punctuation.definition.variable.php']
       expect(tokens[8]).toEqual value: 'value', scopes: ['source.php', 'meta.function.php', 'meta.function.parameters.php', 'meta.function.parameter.typehinted.php', 'variable.other.php']
 
+    it 'tokenizes nullable typehints', ->
+      {tokens} = grammar.tokenizeLine 'function test(?class_name $value) {}'
+
+      expect(tokens[4]).toEqual value: '?', scopes: ['source.php', 'meta.function.php', 'meta.function.parameters.php', 'meta.function.parameter.typehinted.php', 'keyword.operator.nullable-type.php']
+      expect(tokens[5]).toEqual value: 'class_name', scopes: ['source.php', 'meta.function.php', 'meta.function.parameters.php', 'meta.function.parameter.typehinted.php', 'storage.type.php']
+      expect(tokens[7]).toEqual value: '$', scopes: ['source.php', 'meta.function.php', 'meta.function.parameters.php', 'meta.function.parameter.typehinted.php', 'variable.other.php', 'punctuation.definition.variable.php']
+      expect(tokens[8]).toEqual value: 'value', scopes: ['source.php', 'meta.function.php', 'meta.function.parameters.php', 'meta.function.parameter.typehinted.php', 'variable.other.php']
+
+      {tokens} = grammar.tokenizeLine 'function test(?   class_name $value) {}'
+
+      expect(tokens[4]).toEqual value: '?', scopes: ['source.php', 'meta.function.php', 'meta.function.parameters.php', 'meta.function.parameter.typehinted.php', 'keyword.operator.nullable-type.php']
+      expect(tokens[5]).toEqual value: '   ', scopes: ['source.php', 'meta.function.php', 'meta.function.parameters.php', 'meta.function.parameter.typehinted.php']
+      expect(tokens[6]).toEqual value: 'class_name', scopes: ['source.php', 'meta.function.php', 'meta.function.parameters.php', 'meta.function.parameter.typehinted.php', 'storage.type.php']
+      expect(tokens[8]).toEqual value: '$', scopes: ['source.php', 'meta.function.php', 'meta.function.parameters.php', 'meta.function.parameter.typehinted.php', 'variable.other.php', 'punctuation.definition.variable.php']
+      expect(tokens[9]).toEqual value: 'value', scopes: ['source.php', 'meta.function.php', 'meta.function.parameters.php', 'meta.function.parameter.typehinted.php', 'variable.other.php']
+
     it 'tokenizes namespaced and typehinted class names', ->
       {tokens} = grammar.tokenizeLine 'function test(\\class_name $value) {}'
 
@@ -860,9 +883,25 @@ describe 'PHP grammar', ->
       expect(tokens[8]).toEqual value: 'Client', scopes: ['source.php', 'meta.function.php', 'storage.type.php']
       expect(tokens[9]).toEqual value: ' ', scopes: ['source.php']
 
+    it 'tokenizes nullable return values', ->
+      {tokens} = grammar.tokenizeLine 'function test() : ?Client {}'
+
+      expect(tokens[6]).toEqual value: ':', scopes: ['source.php', 'meta.function.php', 'keyword.operator.return-value.php']
+      expect(tokens[7]).toEqual value: ' ', scopes: ['source.php', 'meta.function.php']
+      expect(tokens[8]).toEqual value: '?', scopes: ['source.php', 'meta.function.php', 'keyword.operator.nullable-type.php']
+      expect(tokens[9]).toEqual value: 'Client', scopes: ['source.php', 'meta.function.php', 'storage.type.php']
+
+      {tokens} = grammar.tokenizeLine 'function test() : ?   Client {}'
+
+      expect(tokens[6]).toEqual value: ':', scopes: ['source.php', 'meta.function.php', 'keyword.operator.return-value.php']
+      expect(tokens[7]).toEqual value: ' ', scopes: ['source.php', 'meta.function.php']
+      expect(tokens[8]).toEqual value: '?', scopes: ['source.php', 'meta.function.php', 'keyword.operator.nullable-type.php']
+      expect(tokens[9]).toEqual value: '   ', scopes: ['source.php', 'meta.function.php']
+      expect(tokens[10]).toEqual value: 'Client', scopes: ['source.php', 'meta.function.php', 'storage.type.php']
+
     it 'tokenizes function names with characters other than letters or numbers', ->
-      # Char 160 is hex0xA0, which is between 0x7F and 0xFF, making it a valid PHP identifier
-      functionName = "foo#{String.fromCharCode 160}bar"
+      # Char 160 is hex 0xA0, which is between 0x7F and 0xFF, making it a valid PHP identifier
+      functionName = "foo#{String.fromCharCode(160)}bar"
       {tokens} = grammar.tokenizeLine "function #{functionName}() {}"
 
       expect(tokens[0]).toEqual value: 'function', scopes: ['source.php', 'meta.function.php', 'storage.type.function.php']
@@ -1648,7 +1687,7 @@ describe 'PHP grammar', ->
     expect(tokens[12]).toEqual value: 'func', scopes: ['source.php', 'meta.use.php', 'entity.other.alias.php']
     expect(tokens[13]).toEqual value: ';', scopes: ['source.php', 'punctuation.terminator.expression.php']
 
-  it 'should tokenize yield correctly', ->
+  it 'tokenizes yield', ->
     {tokens} = grammar.tokenizeLine 'function test() { yield $a; }'
 
     expect(tokens[0]).toEqual value: 'function', scopes: ['source.php', 'meta.function.php', 'storage.type.function.php']
@@ -1667,30 +1706,119 @@ describe 'PHP grammar', ->
     expect(tokens[13]).toEqual value: ' ', scopes: ['source.php']
     expect(tokens[14]).toEqual value: '}', scopes: ['source.php', 'punctuation.definition.end.bracket.curly.php']
 
-  it 'should tokenize embedded SQL in a string', ->
-    waitsForPromise ->
-      atom.packages.activatePackage('language-sql')
+  it 'tokenizes `yield from`', ->
+    {tokens} = grammar.tokenizeLine 'function test() { yield from $a; }'
 
-    runs ->
-      delimsByScope =
-        'string.quoted.double.sql.php': '"'
-        'string.quoted.single.sql.php': "'"
+    expect(tokens[8]).toEqual value: 'yield from', scopes: ['source.php', 'keyword.control.yield-from.php']
+    expect(tokens[9]).toEqual value: ' ', scopes: ['source.php']
+    expect(tokens[10]).toEqual value: '$', scopes: ['source.php', 'variable.other.php', 'punctuation.definition.variable.php']
+    expect(tokens[11]).toEqual value: 'a', scopes: ['source.php', 'variable.other.php']
+    expect(tokens[12]).toEqual value: ';', scopes: ['source.php', 'punctuation.terminator.expression.php']
 
+    {tokens} = grammar.tokenizeLine 'function test() { yield      from $a; }'
+
+    expect(tokens[8]).toEqual value: 'yield      from', scopes: ['source.php', 'keyword.control.yield-from.php']
+    expect(tokens[9]).toEqual value: ' ', scopes: ['source.php']
+    expect(tokens[10]).toEqual value: '$', scopes: ['source.php', 'variable.other.php', 'punctuation.definition.variable.php']
+    expect(tokens[11]).toEqual value: 'a', scopes: ['source.php', 'variable.other.php']
+    expect(tokens[12]).toEqual value: ';', scopes: ['source.php', 'punctuation.terminator.expression.php']
+
+  describe 'embedded SQL', ->
+    delimsByScope =
+      'string.quoted.double.sql.php': '"'
+      'string.quoted.single.sql.php': "'"
+
+    beforeEach ->
+      waitsForPromise ->
+        atom.packages.activatePackage('language-sql')
+
+      # Use the HTML wrapper as that's where the SQL injections are
+      runs ->
+        grammar = atom.grammars.grammarForScopeName 'text.html.php'
+
+    it 'tokenizes SQL statements in strings', ->
       for scope, delim of delimsByScope
-        {tokens} = grammar.tokenizeLine "#{delim}SELECT something#{delim}"
+        {tokens} = grammar.tokenizeLine "<?php #{delim}SELECT something#{delim}"
 
-        expect(tokens[0]).toEqual value: delim, scopes: ['source.php', scope, 'punctuation.definition.string.begin.php']
-        expect(tokens[1]).toEqual value: 'SELECT', scopes: ['source.php', scope, 'source.sql.embedded.php', 'keyword.other.DML.sql']
-        expect(tokens[2]).toEqual value: ' something', scopes: ['source.php', scope, 'source.sql.embedded.php']
-        expect(tokens[3]).toEqual value: delim, scopes: ['source.php', scope, 'punctuation.definition.string.end.php']
+        expect(tokens[2]).toEqual value: delim, scopes: ['text.html.php', 'meta.embedded.block.php', 'source.php', scope, 'punctuation.definition.string.begin.php']
+        expect(tokens[3]).toEqual value: 'SELECT', scopes: ['text.html.php', 'meta.embedded.block.php', 'source.php', scope, 'source.sql.embedded.php', 'keyword.other.DML.sql']
+        expect(tokens[4]).toEqual value: ' something', scopes: ['text.html.php', 'meta.embedded.block.php', 'source.php', scope, 'source.sql.embedded.php']
+        expect(tokens[5]).toEqual value: delim, scopes: ['text.html.php', 'meta.embedded.block.php', 'source.php', scope, 'punctuation.definition.string.end.php']
 
+    it 'stops line comments when a quote is reached', ->
+      for scope, delim of delimsByScope
         lines = grammar.tokenizeLines """
+          <?php
           #{delim}SELECT something
           -- uh oh a comment SELECT#{delim}
         """
-        expect(lines[1][0]).toEqual value: '--', scopes: ['source.php', scope, 'source.sql.embedded.php', 'comment.line.double-dash.sql', 'punctuation.definition.comment.sql']
-        expect(lines[1][1]).toEqual value: ' uh oh a comment SELECT', scopes: ['source.php', scope, 'source.sql.embedded.php', 'comment.line.double-dash.sql']
-        expect(lines[1][2]).toEqual value: delim, scopes: ['source.php', scope, 'punctuation.definition.string.end.php']
+        expect(lines[2][0]).toEqual value: '--', scopes: ['text.html.php', 'meta.embedded.block.php', 'source.php', scope, 'source.sql.embedded.php', 'comment.line.double-dash.sql', 'punctuation.definition.comment.sql']
+        expect(lines[2][1]).toEqual value: ' uh oh a comment SELECT', scopes: ['text.html.php', 'meta.embedded.block.php', 'source.php', scope, 'source.sql.embedded.php', 'comment.line.double-dash.sql']
+        expect(lines[2][2]).toEqual value: delim, scopes: ['text.html.php', 'meta.embedded.block.php', 'source.php', scope, 'punctuation.definition.string.end.php']
+
+    it 'matches escape sequences in parentheses', ->
+      {tokens} = grammar.tokenizeLine "<?php 'SELECT CONCAT(\\'\"\\', TRIM(cr.code)) as code'"
+
+      expect(tokens[2]).toEqual value: "'", scopes: ['text.html.php', 'meta.embedded.block.php', 'source.php', 'string.quoted.single.sql.php', 'punctuation.definition.string.begin.php']
+      expect(tokens[5]).toEqual value: '(', scopes: ['text.html.php', 'meta.embedded.block.php', 'source.php', 'string.quoted.single.sql.php', 'source.sql.embedded.php', 'punctuation.definition.section.bracket.round.begin.sql']
+      expect(tokens[6]).toEqual value: "\\'", scopes: ['text.html.php', 'meta.embedded.block.php', 'source.php', 'string.quoted.single.sql.php', 'source.sql.embedded.php', 'constant.character.escape.php']
+      expect(tokens[7]).toEqual value: '"', scopes: ['text.html.php', 'meta.embedded.block.php', 'source.php', 'string.quoted.single.sql.php', 'source.sql.embedded.php', 'string.quoted.double.unclosed.sql']
+      expect(tokens[8]).toEqual value: "\\'", scopes: ['text.html.php', 'meta.embedded.block.php', 'source.php', 'string.quoted.single.sql.php', 'source.sql.embedded.php', 'constant.character.escape.php']
+      expect(tokens[9]).toEqual value: ',', scopes: ['text.html.php', 'meta.embedded.block.php', 'source.php', 'string.quoted.single.sql.php', 'source.sql.embedded.php', 'punctuation.separator.comma.sql']
+      expect(tokens[10]).toEqual value: ' ', scopes: ['text.html.php', 'meta.embedded.block.php', 'source.php', 'string.quoted.single.sql.php', 'source.sql.embedded.php']
+      expect(tokens[11]).toEqual value: 'TRIM', scopes: ['text.html.php', 'meta.embedded.block.php', 'source.php', 'string.quoted.single.sql.php', 'source.sql.embedded.php', 'support.function.string.sql']
+      expect(tokens[17]).toEqual value: ')', scopes: ['text.html.php', 'meta.embedded.block.php', 'source.php', 'string.quoted.single.sql.php', 'source.sql.embedded.php', 'punctuation.definition.section.bracket.round.end.sql']
+      expect(tokens[19]).toEqual value: 'as', scopes: ['text.html.php', 'meta.embedded.block.php', 'source.php', 'string.quoted.single.sql.php', 'source.sql.embedded.php', 'keyword.other.alias.sql']
+      expect(tokens[21]).toEqual value: "'", scopes: ['text.html.php', 'meta.embedded.block.php', 'source.php', 'string.quoted.single.sql.php', 'punctuation.definition.string.end.php']
+
+      {tokens} = grammar.tokenizeLine '<?php "SELECT CONCAT(\\"\'\\", TRIM(cr.code)) as code"'
+
+      expect(tokens[2]).toEqual value: '"', scopes: ['text.html.php', 'meta.embedded.block.php', 'source.php', 'string.quoted.double.sql.php', 'punctuation.definition.string.begin.php']
+      expect(tokens[5]).toEqual value: '(', scopes: ['text.html.php', 'meta.embedded.block.php', 'source.php', 'string.quoted.double.sql.php', 'source.sql.embedded.php', 'punctuation.definition.section.bracket.round.begin.sql']
+      expect(tokens[6]).toEqual value: '\\"', scopes: ['text.html.php', 'meta.embedded.block.php', 'source.php', 'string.quoted.double.sql.php', 'source.sql.embedded.php', 'constant.character.escape.php']
+      expect(tokens[7]).toEqual value: "'", scopes: ['text.html.php', 'meta.embedded.block.php', 'source.php', 'string.quoted.double.sql.php', 'source.sql.embedded.php', 'string.quoted.single.unclosed.sql']
+      expect(tokens[8]).toEqual value: '\\"', scopes: ['text.html.php', 'meta.embedded.block.php', 'source.php', 'string.quoted.double.sql.php', 'source.sql.embedded.php', 'constant.character.escape.php']
+      expect(tokens[9]).toEqual value: ',', scopes: ['text.html.php', 'meta.embedded.block.php', 'source.php', 'string.quoted.double.sql.php', 'source.sql.embedded.php', 'punctuation.separator.comma.sql']
+      expect(tokens[10]).toEqual value: ' ', scopes: ['text.html.php', 'meta.embedded.block.php', 'source.php', 'string.quoted.double.sql.php', 'source.sql.embedded.php']
+      expect(tokens[11]).toEqual value: 'TRIM', scopes: ['text.html.php', 'meta.embedded.block.php', 'source.php', 'string.quoted.double.sql.php', 'source.sql.embedded.php', 'support.function.string.sql']
+      expect(tokens[17]).toEqual value: ')', scopes: ['text.html.php', 'meta.embedded.block.php', 'source.php', 'string.quoted.double.sql.php', 'source.sql.embedded.php', 'punctuation.definition.section.bracket.round.end.sql']
+      expect(tokens[19]).toEqual value: 'as', scopes: ['text.html.php', 'meta.embedded.block.php', 'source.php', 'string.quoted.double.sql.php', 'source.sql.embedded.php', 'keyword.other.alias.sql']
+      expect(tokens[21]).toEqual value: '"', scopes: ['text.html.php', 'meta.embedded.block.php', 'source.php', 'string.quoted.double.sql.php', 'punctuation.definition.string.end.php']
+
+    # TODO: Remove version guard when Atom 1.29 reaches stable
+    if parseFloat(atom.getVersion()) >= 1.29
+      it 'tokenizes interpolation', ->
+        {tokens} = grammar.tokenizeLine '<?php "SELECT \\007 {$bond}"'
+
+        expect(tokens[2]).toEqual value: '"', scopes: ['text.html.php', 'meta.embedded.block.php', 'source.php', 'string.quoted.double.sql.php', 'punctuation.definition.string.begin.php']
+        expect(tokens[5]).toEqual value: '\\007', scopes: ['text.html.php', 'meta.embedded.block.php', 'source.php', 'string.quoted.double.sql.php', 'source.sql.embedded.php', 'constant.character.escape.octal.php']
+        expect(tokens[7]).toEqual value: '{', scopes: ['text.html.php', 'meta.embedded.block.php', 'source.php', 'string.quoted.double.sql.php', 'source.sql.embedded.php', 'punctuation.definition.variable.php']
+        expect(tokens[8]).toEqual value: '$', scopes: ['text.html.php', 'meta.embedded.block.php', 'source.php', 'string.quoted.double.sql.php', 'source.sql.embedded.php', 'variable.other.php', 'punctuation.definition.variable.php']
+        expect(tokens[9]).toEqual value: 'bond', scopes: ['text.html.php', 'meta.embedded.block.php', 'source.php', 'string.quoted.double.sql.php', 'source.sql.embedded.php', 'variable.other.php']
+        expect(tokens[10]).toEqual value: '}', scopes: ['text.html.php', 'meta.embedded.block.php', 'source.php', 'string.quoted.double.sql.php', 'source.sql.embedded.php', 'punctuation.definition.variable.php']
+        expect(tokens[11]).toEqual value: '"', scopes: ['text.html.php', 'meta.embedded.block.php', 'source.php', 'string.quoted.double.sql.php', 'punctuation.definition.string.end.php']
+
+      it 'tokenizes interpolation in SQL strings', ->
+        {tokens} = grammar.tokenizeLine '<?php "INSERT INTO mytable(field1, field2) VALUES (\'".$val1."\', `".$val2."`)"'
+
+        expect(tokens[2]).toEqual value: '"', scopes: ['text.html.php', 'meta.embedded.block.php', 'source.php', 'string.quoted.double.sql.php', 'punctuation.definition.string.begin.php']
+        expect(tokens[13]).toEqual value: '(', scopes: ['text.html.php', 'meta.embedded.block.php', 'source.php', 'string.quoted.double.sql.php', 'source.sql.embedded.php', 'punctuation.definition.section.bracket.round.begin.sql']
+        expect(tokens[14]).toEqual value: "'", scopes: ['text.html.php', 'meta.embedded.block.php', 'source.php', 'string.quoted.double.sql.php', 'source.sql.embedded.php', 'string.quoted.single.sql', 'punctuation.definition.string.begin.sql']
+        expect(tokens[15]).toEqual value: '".', scopes: ['text.html.php', 'meta.embedded.block.php', 'source.php', 'string.quoted.double.sql.php', 'source.sql.embedded.php', 'string.quoted.single.sql']
+        expect(tokens[16]).toEqual value: '$', scopes: ['text.html.php', 'meta.embedded.block.php', 'source.php', 'string.quoted.double.sql.php', 'source.sql.embedded.php', 'string.quoted.single.sql', 'variable.other.php', 'punctuation.definition.variable.php']
+        expect(tokens[17]).toEqual value: 'val1', scopes: ['text.html.php', 'meta.embedded.block.php', 'source.php', 'string.quoted.double.sql.php', 'source.sql.embedded.php', 'string.quoted.single.sql', 'variable.other.php']
+        expect(tokens[18]).toEqual value: '."', scopes: ['text.html.php', 'meta.embedded.block.php', 'source.php', 'string.quoted.double.sql.php', 'source.sql.embedded.php', 'string.quoted.single.sql']
+        expect(tokens[19]).toEqual value: "'", scopes: ['text.html.php', 'meta.embedded.block.php', 'source.php', 'string.quoted.double.sql.php', 'source.sql.embedded.php', 'string.quoted.single.sql', 'punctuation.definition.string.end.sql']
+        expect(tokens[20]).toEqual value: ',', scopes: ['text.html.php', 'meta.embedded.block.php', 'source.php', 'string.quoted.double.sql.php', 'source.sql.embedded.php', 'punctuation.separator.comma.sql']
+        expect(tokens[21]).toEqual value: ' ', scopes: ['text.html.php', 'meta.embedded.block.php', 'source.php', 'string.quoted.double.sql.php', 'source.sql.embedded.php']
+        expect(tokens[22]).toEqual value: '`', scopes: ['text.html.php', 'meta.embedded.block.php', 'source.php', 'string.quoted.double.sql.php', 'source.sql.embedded.php', 'string.quoted.other.backtick.sql', 'punctuation.definition.string.begin.sql']
+        expect(tokens[23]).toEqual value: '".', scopes: ['text.html.php', 'meta.embedded.block.php', 'source.php', 'string.quoted.double.sql.php', 'source.sql.embedded.php', 'string.quoted.other.backtick.sql']
+        expect(tokens[24]).toEqual value: '$', scopes: ['text.html.php', 'meta.embedded.block.php', 'source.php', 'string.quoted.double.sql.php', 'source.sql.embedded.php', 'string.quoted.other.backtick.sql', 'variable.other.php', 'punctuation.definition.variable.php']
+        expect(tokens[25]).toEqual value: 'val2', scopes: ['text.html.php', 'meta.embedded.block.php', 'source.php', 'string.quoted.double.sql.php', 'source.sql.embedded.php', 'string.quoted.other.backtick.sql', 'variable.other.php']
+        expect(tokens[26]).toEqual value: '."', scopes: ['text.html.php', 'meta.embedded.block.php', 'source.php', 'string.quoted.double.sql.php', 'source.sql.embedded.php', 'string.quoted.other.backtick.sql']
+        expect(tokens[27]).toEqual value: '`', scopes: ['text.html.php', 'meta.embedded.block.php', 'source.php', 'string.quoted.double.sql.php', 'source.sql.embedded.php', 'string.quoted.other.backtick.sql', 'punctuation.definition.string.end.sql']
+        expect(tokens[28]).toEqual value: ')', scopes: ['text.html.php', 'meta.embedded.block.php', 'source.php', 'string.quoted.double.sql.php', 'source.sql.embedded.php', 'punctuation.definition.section.bracket.round.end.sql']
+        expect(tokens[29]).toEqual value: '"', scopes: ['text.html.php', 'meta.embedded.block.php', 'source.php', 'string.quoted.double.sql.php', 'punctuation.definition.string.end.php']
 
   it 'should tokenize single quoted string regex escape characters correctly', ->
     {tokens} = grammar.tokenizeLine "'/[\\\\\\\\]/';"
