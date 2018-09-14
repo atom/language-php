@@ -1,8 +1,7 @@
-id: 'php'
 name: 'PHP'
+scopeName: 'source.php'
 type: 'tree-sitter'
 parser: 'tree-sitter-php'
-legacyScopeName: 'source.php'
 
 comments:
   start: '#'
