@@ -1,5 +1,5 @@
 name: 'PHP'
-scopeName: 'source.php'
+scopeName: 'text.html.php'
 type: 'tree-sitter'
 parser: 'tree-sitter-php'
 
