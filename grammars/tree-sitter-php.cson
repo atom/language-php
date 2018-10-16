@@ -3,6 +3,10 @@ scopeName: 'text.html.php'
 type: 'tree-sitter'
 parser: 'tree-sitter-php'
 
+firstLineRegex: [
+  '^\\s*<\\?([pP][hH][pP]|=|\\s|$)'
+]
+
 comments:
   start: '#'
 
@@ -13,12 +17,24 @@ fileTypes: [
 
 folds: [
   {
+    type: 'comment'
+  }
+  {
     start: {type: '{', index: 0},
     end: {'}', index: -1}
   }
   {
+    type: ['class_declaration', 'interface_declaration']
+    start: {type: '{'},
+    end: {type: '}'}
+  }
+  {
     start: {type: '(', index: 0},
     end: {')', index: -1}
+  }
+  {
+    start: {type: '[', index: 0},
+    end: {']', index: -1}
   }
 ]
 
@@ -37,6 +53,7 @@ scopes:
 
   'function_call_expression > qualified_name': 'entity.name.function'
   'variable_name': 'variable'
+  'member_access_expression > name': 'variable.other.object.property'
 
   'program': 'source.php'
   'ERROR': 'syntax-error'
@@ -49,6 +66,7 @@ scopes:
 
   'function_definition > name': 'entity.name.function'
   'function_call_expression > name': 'entity.name.function'
+  '"require_once", "require", "include_once", "include"': 'entity.name.function'
 
   'method_declaration > name': 'entity.name.function'
   'method_declaration > function_definition > name': 'entity.name.function'
@@ -91,48 +109,50 @@ scopes:
   '"type"': 'storage.type.type'
   'cast_expression > cast_type': 'storage.type.cast'
 
-  '"+"': 'keyword.operator'
-  '"-"': 'keyword.operator'
-  '"*"': 'keyword.operator'
-  '"/"': 'keyword.operator'
-  '"%"': 'keyword.operator'
-  '"**"': 'keyword.operator'
-  '"=="': 'keyword.operator'
-  '"==="': 'keyword.operator'
-  '"!="': 'keyword.operator'
-  '"!="': 'keyword.operator'
-  '"!=="': 'keyword.operator'
-  '"<"': 'keyword.operator'
-  '">"': 'keyword.operator'
-  '"<>"': 'keyword.operator'
-  '"<="': 'keyword.operator'
-  '">="': 'keyword.operator'
-  '"<=>"': 'keyword.operator'
-  '"&"': 'keyword.operator'
-  '"|"': 'keyword.operator'
-  '"^"': 'keyword.operator'
-  '"~"': 'keyword.opeator'
-  '"<<"': 'keyword.operator'
-  '">>"': 'keyword.operator'
-  '"++"': 'keyword.operator'
-  '"--"': 'keyword.operator'
-  '"and"': 'keyword.operator'
-  '"or"': 'keyword.operator'
-  '"xor"': 'keyword.operator'
-  '"!"': 'keyword.operator'
-  '"&&"': 'keyword.operator'
-  '"||"': 'keyword.operator'
-  '"."': 'keyword.operator'
-  '"?"': 'keyword.operator'
-  '":"': 'keyword.operator'
-  '"??"': 'keyword.operator'
-  '"as"': 'keyword.operator.logical'
-  '"new"': 'keyword.other.new'
-  '"clone"': 'keyword.other.clone'
-  '"insteadof"': 'keyword.other.insteadof'
-  '"instanceof"': 'keyword.operator.type'
+  '"+"': 'keyword.operator.php'
+  '"-"': 'keyword.operator.php'
+  '"*"': 'keyword.operator.php'
+  '"/"': 'keyword.operator.php'
+  '"%"': 'keyword.operator.php'
+  '"**"': 'keyword.operator.php'
+  '"="': 'keyword.operator.php'
+  '"=="': 'keyword.operator.php'
+  '"==="': 'keyword.operator.php'
+  '"!="': 'keyword.operator.php'
+  '"!="': 'keyword.operator.php'
+  '"!=="': 'keyword.operator.php'
+  '"<"': 'keyword.operator.php'
+  '">"': 'keyword.operator.php'
+  '"<>"': 'keyword.operator.php'
+  '"<="': 'keyword.operator.php'
+  '"=>"': 'keyword.operator.php'
+  '">="': 'keyword.operator.php'
+  '"<=>"': 'keyword.operator.php'
+  '"&"': 'keyword.operator.php'
+  '"|"': 'keyword.operator.php'
+  '"^"': 'keyword.operator.php'
+  '"~"': 'keyword.opeator.php'
+  '"<<"': 'keyword.operator.php'
+  '">>"': 'keyword.operator.php'
+  '"++"': 'keyword.operator.php'
+  '"--"': 'keyword.operator.php'
+  '"and"': 'keyword.operator.php'
+  '"or"': 'keyword.operator.php'
+  '"xor"': 'keyword.operator.php'
+  '"!"': 'keyword.operator.php'
+  '"&&"': 'keyword.operator.php'
+  '"||"': 'keyword.operator.php'
+  '"."': 'keyword.operator.php'
+  '"?"': 'keyword.operator.php'
+  '":"': 'keyword.operator.php'
+  '"??"': 'keyword.operator.php'
+  '"as"': 'keyword.logical'
+  '"new"': 'keyword.new'
+  '"clone"': 'keyword.clone'
+  '"insteadof"': 'keyword.insteadof'
+  '"instanceof"': 'keyword.type'
 
-  '"."': 'meta.delimiter.property.period'
+  '"->"': 'meta.delimiter.property.arrow'
   '","': 'meta.delimiter.object.comma'
 
   '"if"': 'keyword.control'
