@@ -52,6 +52,8 @@ scopes:
   'float': 'constant.numeric'
 
   'function_call_expression > qualified_name': 'entity.name.function'
+  'scoped_call_expression > name': 'entity.name.function'
+
   'variable_name': 'variable'
   'member_access_expression > name': 'variable.other.object.property'
 
