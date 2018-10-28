@@ -2,6 +2,7 @@ describe 'PHP in HTML', ->
   grammar = null
 
   beforeEach ->
+    atom.config.set('core.useTreeSitterParsers', false)
     waitsForPromise ->
       atom.packages.activatePackage 'language-php'
 
