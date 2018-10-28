@@ -51,14 +51,9 @@ scopes:
   'string': 'string.quoted'
   'float': 'constant.numeric'
 
-  'function_call_expression > qualified_name': 'entity.name.function'
-  'scoped_call_expression > name': 'entity.name.function'
-
-  'variable_name': 'variable'
   'member_access_expression > name': 'variable.other.object.property'
 
   'program': 'source.php'
-  'ERROR': 'syntax-error'
 
   'class_declaration > name': 'entity.name.type.class'
   'class_base_clause > qualified_name > name': 'entity.other.inherited-class'
@@ -68,6 +63,9 @@ scopes:
 
   'function_definition > name': 'entity.name.function'
   'function_call_expression > name': 'entity.name.function'
+  'function_call_expression > qualified_name': 'entity.name.function'
+  'scoped_call_expression > name': 'entity.name.function'
+  'member_call_expression > name': 'entity.name.function'
   '"require_once", "require", "include_once", "include"': 'entity.name.function'
 
   'method_declaration > name': 'entity.name.function'
@@ -77,6 +75,8 @@ scopes:
   'object_creation_expression > qualified_name > name': 'meta.class.instance.constructor'
   'object_creation_expression > new_variable > simple_variable': 'meta.class.instance.constructor'
 
+  'const_element > name': 'constant'
+  'class_constant_access_expression >name': 'constant'
   'integer': 'constant.numeric.decimal'
   'float': 'constant.numeric.decimal'
   'string': 'string.quoted.single'
