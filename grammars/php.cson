@@ -2330,9 +2330,9 @@
               {
                 'match': '\\b(self|static|parent)\\b'
                 'name': 'storage.type.php',
-								"captures": {
-                  "1": {
-                    "name": "variable.language.php"
+                'captures': {
+                  '1': {
+                    'name': 'variable.language.php'
                   }
                 }
               }
