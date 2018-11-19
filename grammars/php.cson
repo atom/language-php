@@ -2329,7 +2329,12 @@
             'patterns': [
               {
                 'match': '\\b(self|static|parent)\\b'
-                'name': 'storage.type.php'
+                'name': 'storage.type.php',
+								"captures": {
+                  "1": {
+                    "name": "variable.language.php"
+                  }
+                }
               }
               {
                 'include': '#class-name'
