@@ -44,6 +44,8 @@ folds: [
 ]
 
 scopes:
+  'program': 'source.php'
+
   '"echo"': 'support.function'
   '"print"': 'support.function'
   '"unset"': 'support.function'
@@ -57,8 +59,6 @@ scopes:
   'float': 'constant.numeric'
 
   'member_access_expression > name': 'variable.other.object.property'
-
-  'program': 'source.php'
 
   'class_declaration > name': 'entity.name.type.class'
   'class_base_clause > qualified_name > name': 'entity.other.inherited-class'
@@ -107,6 +107,7 @@ scopes:
   '"final"': 'storage.modifier.final'
   '"use"': 'keyword.other.use'
   '"namespace"': 'keyword.other.namespace'
+
   '"callable"': 'storage.type'
   '"var"': 'storage.type'
   '"trait"': 'storage.type.trait'
