@@ -29,6 +29,11 @@ folds: [
     end: {type: '}'}
   }
   {
+    type: 'formal_parameters'
+    start: {type: '('}
+    end: {type: ')'}
+  }
+  {
     start: {type: '(', index: 0},
     end: {')', index: -1}
   }
