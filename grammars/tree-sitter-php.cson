@@ -61,7 +61,10 @@ scopes:
   'member_access_expression > name': 'variable.other.object.property'
 
   'class_declaration > name': 'entity.name.type.class'
+  'catch_clause > qualified_name > name': 'entity.name.type.class'
   'class_base_clause > qualified_name > name': 'entity.other.inherited-class'
+
+  'qualified_name > name': {match: /^(TRUE|FALSE|NULL|__(FILE|DIR|FUNCTION|CLASS|METHOD|LINE|NAMESPACE)__|ON|OFF|YES|NO|NL|BR|TAB)$/i, scopes: 'constant.language.php'}
 
   'interface_declaration > name': 'entity.name.type.interface'
   'class_interface_clause > qualified_name > name': 'entity.other.implemented-interface'
@@ -77,7 +80,7 @@ scopes:
   'method_declaration > function_definition > name': 'entity.name.function'
   'constructor_definition > "__construct"': 'entity.name.function'
 
-  'object_creation_expression > qualified_name > name': 'meta.class.instance.constructor'
+  'object_creation_expression > qualified_name > name': 'entity.name.type.class'
   'object_creation_expression > new_variable > simple_variable': 'meta.class.instance.constructor'
 
   'const_element > name': 'constant'
@@ -90,10 +93,14 @@ scopes:
   'false': 'constant.language.boolean.false'
   'comment': 'comment.block'
 
-  '"("': 'punctuation.definition.parameters.begin.bracket.round'
-  '")"': 'punctuation.definition.parameters.end.bracket.round'
-  '"{"': 'punctuation.definition.function.body.begin.bracket.curly'
-  '"}"': 'punctuation.definition.function.body.end.bracket.curly'
+  'variable_name > "$"': 'punctuation.definition.variable.php'
+  '"("': 'punctuation.definition.parameters.begin.bracket.round.php'
+  '")"': 'punctuation.definition.parameters.end.bracket.round.php'
+  '"{"': 'punctuation.definition.begin.bracket.curly.php'
+  '"}"': 'punctuation.definition.end.bracket.curly.php'
+  '"["': 'punctuation.section.array.begin.php'
+  '"]"': 'punctuation.section.array.end.php'
+  '";"': 'punctuation.terminator.expression.php'
 
   '"static"': 'storage.modifier'
   '"public"': 'storage.modifier'
@@ -160,8 +167,8 @@ scopes:
   '"insteadof"': 'keyword.insteadof'
   '"instanceof"': 'keyword.type'
 
-  '"->"': 'meta.delimiter.property.arrow'
-  '","': 'meta.delimiter.object.comma'
+  '"->"': 'keyword.operator.class'
+  '","': 'punctuation.separator.delimiter.php'
 
   '"if"': 'keyword.control'
   '"do"': 'keyword.control'
