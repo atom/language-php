@@ -1724,10 +1724,10 @@ describe 'PHP grammar', ->
     expect(tokens[12]).toEqual value: ';', scopes: ['source.php', 'punctuation.terminator.expression.php']
 
   it 'should tokenize embedded SQL in a string', ->
-      waitsForPromise ->
-        atom.packages.activatePackage('language-sql')
+    waitsForPromise ->
+      atom.packages.activatePackage('language-sql')
 
-      runs ->
+    runs ->
       delimsByScope =
         'string.quoted.double.sql.php': '"'
         'string.quoted.single.sql.php': "'"
