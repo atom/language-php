@@ -1,0 +1,3447 @@
+commit 12061fd03f71fca458e04c98ce20f50f1e899f29
+Author: Mohammadreza Monemi <mohamamdreza1000@users.noreply.github.com>
+Date:   Wed Apr 17 12:51:44 2019 +0430
+
+    Invalid examples now are valid plus new example
+
+	As: https://github.com/atom/language-php/pull/357#discussion_r275149488 and https://github.com/atom/language-php/pull/357#issuecomment-483652156
+
+commit cce18e1c11e9ceb0f995112dc426a03d13342f31
+Author: Mohammadreza Monemi <mohamamdreza1000@users.noreply.github.com>
+Date:   Tue Apr 16 15:33:54 2019 +0430
+
+    Grammar updated by respecting HEREDOC and NOWDOC
+
+	Ending terminator also considered as: https://github.com/atom/language-php/pull/357#issuecomment-482940251
+
+commit b896ebfb6f669b8714f419527f047466420efe5c
+Merge: 608077b ead51a8
+Author: Winston Liu <50Wliu@users.noreply.github.com>
+Date:   Sun Jan 27 00:35:15 2019 -0500
+
+    Merge pull request #352 from roblourens/matchBegin
+
+    begin -> match
+
+commit ead51a87267072b5e2e28531aca1f2574e1d4309
+Author: Rob Lourens <roblourens@gmail.com>
+Date:   Mon Jan 21 18:30:13 2019 +0000
+
+    begin -> match
+
+commit 608077bba25b38fdb4180af659214c2603fbbb78
+Author: Winston Liu <50Wliu@users.noreply.github.com>
+Date:   Sat Nov 3 12:34:36 2018 -0400
+
+    Prepare 0.44.1 release
+
+commit f84efb4afc1be995f03ed583b1515a467e0bcb56
+Merge: d2c0a89 b6c5e83
+Author: Winston Liu <50Wliu@users.noreply.github.com>
+Date:   Sat Nov 3 12:33:53 2018 -0400
+
+    Merge pull request #342 from Ingramz/fix-self-injection
+
+    Fix PHP tags being injected into PHP source code
+
+commit b6c5e83016b52311cdc622c2579462861ee91587
+Author: Indrek Ardel <indrek@ardel.eu>
+Date:   Fri Nov 2 13:32:57 2018 +0200
+
+    Fix PHP tags being injected into PHP source code
+
+commit d2c0a89a81f9adbf615af2909b7fe829d5798a6c
+Merge: a2f8c84 94fd368
+Author: Jason Rudolph <jason@jasonrudolph.com>
+Date:   Tue Oct 2 13:15:21 2018 -0400
+
+    Merge pull request #338 from atom/dot-github-update
+
+    🤖 Configure probot/no-response to allow 28 days when requesting more info on an issue
+
+commit 94fd368164e554dabea3b83303acccf475d5de56
+Author: Jason Rudolph <jason@jasonrudolph.com>
+Date:   Tue Oct 2 11:43:54 2018 -0400
+
+    :memo: Update .github
+
+commit a2f8c84e0f45859529a142157e8b828e6d6536ec
+Merge: 7855c07 d19c822
+Author: Jason Rudolph <jason@jasonrudolph.com>
+Date:   Tue Sep 25 15:51:48 2018 -0400
+
+    Merge pull request #337 from atom/dot-github-update
+
+    Add Probot no-response configuration
+
+commit d19c822df845944a1be537f2c4f308feeb221b4b
+Author: Jason Rudolph <jason@jasonrudolph.com>
+Date:   Tue Sep 25 14:34:18 2018 -0400
+
+    :memo: Update .github
+
+commit 7855c07da7e99947a6a30cee817e88743cf3ac14
+Author: Wliu <50Wliu@users.noreply.github.com>
+Date:   Mon Jun 11 09:50:41 2018 -0400
+
+    Prepare 0.44.0 release
+
+commit 955cc83c4cc9a9b5c60c5c3cc04b4be1c1bd3ca1
+Merge: 578fe7e 72bfa95
+Author: Wliu <50Wliu@users.noreply.github.com>
+Date:   Sat Jun 2 16:39:22 2018 -0400
+
+    Merge pull request #332 from atom/wl-sql-injections-interpolation
+
+    Recognize interpolation in SQL strings in embedded SQL
+
+commit 72bfa9592e689fdcb70562ff7d882ad5308e79f7
+Author: Wliu <50Wliu@users.noreply.github.com>
+Date:   Sat Jun 2 16:29:54 2018 -0400
+
+    Specs
+
+commit 9b96c5f6cce0395b2a74ed1f14caf033da97a5ed
+Author: Wliu <50Wliu@users.noreply.github.com>
+Date:   Fri Jun 1 23:35:28 2018 -0400
+
+    Fixup string patterns in SQL injections
+
+commit 13842b6dfb4568f76e8fa0c08dbff74347ee13c6
+Author: Wliu <50Wliu@users.noreply.github.com>
+Date:   Fri Jun 1 23:35:03 2018 -0400
+
+    Update documentation links for interpolation
+
+commit 578fe7e4c55097603b1a270ee1ae0d3fb3623562
+Merge: 10f3a96 6554350
+Author: Wliu <50Wliu@users.noreply.github.com>
+Date:   Sat May 19 16:35:23 2018 -0400
+
+    Merge pull request #330 from atom/wl-sql-injections
+
+    Use injections for SQL strings
+
+commit 65543502c1abde1427ac900005d463c06558aba8
+Author: Wliu <50Wliu@users.noreply.github.com>
+Date:   Sat May 19 16:29:31 2018 -0400
+
+    Add spec for interpolation in SQL strings
+
+commit 58df8be8460777393b6345c517b2443ad4f7e8b5
+Author: Wliu <50Wliu@users.noreply.github.com>
+Date:   Tue May 15 23:42:34 2018 -0400
+
+    Use injections for SQL strings
+
+commit 10f3a9647867fece9d659ee9a005bdedb3418693
+Author: Wliu <50Wliu@users.noreply.github.com>
+Date:   Fri Mar 9 13:02:27 2018 -0500
+
+    Prepare 0.43.2 release
+
+commit 6375317d81173f24a35fa5189ccb3a5bee75f225
+Merge: 986c924 b374eb7
+Author: Wliu <50Wliu@users.noreply.github.com>
+Date:   Mon Mar 5 13:04:42 2018 -0500
+
+    Merge pull request #314 from carusogabriel/patch-1
+
+    Use // instead of # for PHP comments
+
+commit 986c924bc564fa3786fc1fd7f6e53966a261f2a3
+Merge: 19b67d6 b054176
+Author: Wliu <50Wliu@users.noreply.github.com>
+Date:   Mon Mar 5 13:01:50 2018 -0500
+
+    Merge pull request #317 from atom/wl-yield-from
+
+    Tokenize `yield from`
+
+commit b054176835218c446d22b3c1b9dcfdcf8cacf49f
+Author: Wliu <50Wliu@users.noreply.github.com>
+Date:   Mon Mar 5 12:56:51 2018 -0500
+
+    Tokenize `yield from`
+
+commit 19b67d66f53f4b2554d9bb371565e0574462e035
+Merge: 8c42e37 345140b
+Author: Wliu <50Wliu@users.noreply.github.com>
+Date:   Mon Mar 5 12:47:50 2018 -0500
+
+    Merge pull request #316 from atom/wl-class-start
+
+    Tokenize classes that start at a curly brace
+
+commit 345140b65b03b1280f88baaa18fae6ebd061f195
+Author: Wliu <50Wliu@users.noreply.github.com>
+Date:   Mon Mar 5 12:42:09 2018 -0500
+
+    Tokenize classes that start at a curly brace
+
+commit 8c42e37ae2eb3485bdae4f870f2f99db5cbb0bd6
+Merge: c29a0f1 1690e9e
+Author: Wliu <50Wliu@users.noreply.github.com>
+Date:   Mon Mar 5 12:38:49 2018 -0500
+
+    Merge pull request #315 from atom/wl-nullable-return-type
+
+    Tokenize nullable-type operator
+
+commit 1690e9ed3f4f74b0fa8b0be79ac2dc0bfba128e2
+Author: Wliu <50Wliu@users.noreply.github.com>
+Date:   Mon Mar 5 12:31:33 2018 -0500
+
+    Tokenize nullable-type operator
+
+commit b374eb7ba228c7e580071c2d94c523968df11b7e
+Author: Gabriel Caruso <carusogabriel34@gmail.com>
+Date:   Fri Mar 2 04:24:49 2018 -0300
+
+    Use // instead of # for PHP comments
+
+commit c29a0f16fa6e4abc84913184d49d7fab49805c2e
+Author: Wliu <50Wliu@users.noreply.github.com>
+Date:   Sun Feb 4 23:18:57 2018 -0500
+
+    Prepare 0.43.1 release
+
+commit 759e17e0801f74ce90286c449df4a312ae7c2455
+Merge: f75d787 821f24a
+Author: Wliu <50Wliu@users.noreply.github.com>
+Date:   Fri Feb 2 11:50:27 2018 -0500
+
+    Merge pull request #310 from UziTech/patch-2
+
+    fix heredoc snippet
+
+commit 821f24a2c150e086ce316d6ab2b932f426d2aebc
+Author: Tony Brix <tony@brix.ninja>
+Date:   Fri Feb 2 09:44:45 2018 -0600
+
+    fix heredoc snippet
+
+commit f75d7870bd259c376f9e53b77add96a574aff0d5
+Merge: 4e0af17 bf4b0fc
+Author: Wliu <50Wliu@users.noreply.github.com>
+Date:   Wed Jan 31 20:21:10 2018 -0500
+
+    Merge pull request #309 from UziTech/patch-1
+
+    remove unnecessary space at the end of line
+
+commit bf4b0fcd7841190f424aa868667be9107504dd90
+Author: Tony Brix <tony@brix.ninja>
+Date:   Wed Jan 31 16:15:25 2018 -0600
+
+    remove unnecessary space at the end of line
+
+commit 4e0af1727c59d15bcd0563ec1a9a0662d1137108
+Author: Wliu <50Wliu@users.noreply.github.com>
+Date:   Thu Dec 7 12:04:58 2017 +0100
+
+    Prepare 0.43.0 release
+
+commit 11b2057dbf32355019621ee3769f5c8ef577f524
+Merge: 2f3c4b1 5aa84c7
+Author: Wliu <50Wliu@users.noreply.github.com>
+Date:   Thu Dec 7 12:04:22 2017 +0100
+
+    Merge pull request #302 from atom/wl-identifier-quirks
+
+    Handle quirk in how PHP parses identifiers
+
+commit 2f3c4b1c93df1cc8ef5120b92b9b002667a8f34f
+Merge: 3e45569 95f055a
+Author: Wliu <50Wliu@users.noreply.github.com>
+Date:   Thu Dec 7 12:03:53 2017 +0100
+
+    Merge pull request #298 from Ingramz/double-quote-escape
+
+    Detect escaping double quotes only in double quoted strings
+
+commit 5aa84c7871d2803589c6873b94cf10783c9a4f58
+Author: Wliu <50Wliu@users.noreply.github.com>
+Date:   Thu Dec 7 12:01:30 2017 +0100
+
+    Update word boundary matches
+
+commit 0d2212b841a021b8d4fdb89e3e0ec9d9b69fb142
+Author: Wliu <50Wliu@users.noreply.github.com>
+Date:   Tue Dec 5 11:58:15 2017 +0100
+
+    Specs!
+
+commit 6f72fb99f4e4915c3f4f893311c69975df6b932e
+Author: Wliu <50Wliu@users.noreply.github.com>
+Date:   Wed Nov 29 01:05:51 2017 +0100
+
+    Handle quirk in how PHP parses identifiers
+
+commit 3e45569d8fb3af6747f6e4208b16d17deb577b97
+Merge: 0854ed1 e9d2b53
+Author: Wliu <50Wliu@users.noreply.github.com>
+Date:   Tue Nov 21 21:01:48 2017 +0100
+
+    Merge pull request #300 from Ingramz/array-missing-space
+
+    Add missing optional space to array() construct
+
+commit e9d2b537afcc710fb49eedbcc36c7eac7fccad35
+Author: Indrek Ardel <indrek@ardel.eu>
+Date:   Tue Nov 21 21:41:30 2017 +0200
+
+    Add missing optional space to array() construct
+
+commit 95f055ab4da12de8711de32d6a1e7732665ec999
+Author: Indrek Ardel <indrek@ardel.eu>
+Date:   Mon Nov 20 17:24:19 2017 +0200
+
+    Detect escaping double quotes only in double quoted strings
+
+commit 0854ed11950c565118fe3c1ed118acf9390a23c9
+Merge: f9b99c6 a12e6ff
+Author: Wliu <50Wliu@users.noreply.github.com>
+Date:   Thu Oct 26 00:27:46 2017 +0200
+
+    Merge pull request #217 from atom/wl-split-grammars
+
+    Split PHP grammar into separate HTML and PHP portions
+
+commit a12e6ff1f97f8297091184fd99d05a485e106823
+Merge: 806fdf6 cdb50fa
+Author: Wliu <50Wliu@users.noreply.github.com>
+Date:   Thu Oct 26 00:23:54 2017 +0200
+
+    Merge pull request #292 from Ingramz/wl-split-grammars-extra
+
+    Additional changes for the split grammars
+
+commit cdb50fa5f12fbbff3a37d749b6d9083a0f2fb8ac
+Author: Indrek Ardel <indrek@ardel.eu>
+Date:   Thu Oct 26 00:58:22 2017 +0300
+
+    Spec styling fixes
+
+commit 29c140e1531e0b5e842e5bfd4377f879d8b79cd4
+Author: Indrek Ardel <indrek@ardel.eu>
+Date:   Thu Oct 26 00:47:25 2017 +0300
+
+    Add opening PHP tags as potential first line match
+
+commit 41a79de72e222233dc0316e0fb24a80a1d74f2e7
+Author: Indrek Ardel <indrek@ardel.eu>
+Date:   Thu Oct 26 00:42:46 2017 +0300
+
+    Add shebang
+
+commit 4595a1ea5be39bdac44077e493425067007b63d5
+Author: Indrek Ardel <indrek@ardel.eu>
+Date:   Sat Oct 21 03:39:37 2017 +0300
+
+    Use single quotes where possible
+
+commit 806fdf6c2a307f58bf980b54c350d85509627c5f
+Author: Wliu <50Wliu@users.noreply.github.com>
+Date:   Wed Oct 25 23:10:56 2017 +0200
+
+    Fix incorrect merge
+
+commit 0216ed9345f8d2cf8c5c80085284505fb61aabb9
+Author: Wliu <50Wliu@users.noreply.github.com>
+Date:   Fri Oct 20 22:17:42 2017 +0200
+
+    Do not include #php-tag in HTML patterns
+
+commit 6e9cbd9403e2313f08170611067be709632d2e08
+Author: Wliu <50Wliu@users.noreply.github.com>
+Date:   Fri Oct 20 21:27:35 2017 +0200
+
+    Just kidding, move firstLineMatch back to html.cson
+
+commit 81e70537cf90501423f5dfb176d7a1525bfd328b
+Author: Wliu <50Wliu@users.noreply.github.com>
+Date:   Fri Oct 20 02:56:35 2017 +0200
+
+    Test source.php in php-spec, text.html.php in html-spec
+
+    Move firstLineMatch back to php.cson
+
+commit af9ebd6ea851a3d678c8bf374283984f5febc3e2
+Author: Wliu <50Wliu@users.noreply.github.com>
+Date:   Fri Oct 20 02:18:21 2017 +0200
+
+    Add new html-spec file to test PHP and HTML interactions
+
+commit 2c7ee78a81a9cabdfaabb0894437455877861711
+Author: Wliu <50Wliu@users.noreply.github.com>
+Date:   Fri Oct 20 02:12:09 2017 +0200
+
+    Revert tag scope changes
+
+commit af9887bb03c7ac23da428e5bed1f6330084d4d19
+Author: Wliu <50Wliu@users.noreply.github.com>
+Date:   Mon Jun 12 15:37:54 2017 -0400
+
+    Move #language into top-level patterns; use $self as a replacement
+
+commit de4b0be1081553c568c4bb96111b6b964ae986fd
+Author: Wliu <50Wliu@users.noreply.github.com>
+Date:   Sun Jun 11 23:51:03 2017 -0400
+
+    Split PHP grammar into separate HTML and PHP portions
+
+    Fixes #182
+
+commit f9b99c63bcea78089d949f5b3cc3fd14f1911311
+Author: Wliu <50Wliu@users.noreply.github.com>
+Date:   Wed Oct 25 14:52:06 2017 +0200
+
+    Prepare 0.42.2 release
+
+commit 49930900b798dde17a8a0fc31b5bbdb9532a47a3
+Merge: 28fb4f8 05f4d9d
+Author: Wliu <50Wliu@users.noreply.github.com>
+Date:   Tue Oct 24 14:31:08 2017 +0200
+
+    Merge pull request #285 from dsifford/dsifford-ternary-operators
+
+    Add support for ternary and null coalescing operators
+
+commit 05f4d9d1088968f134d99097eee0414ce604f872
+Author: Wliu <50Wliu@users.noreply.github.com>
+Date:   Tue Oct 24 10:21:31 2017 +0200
+
+    :fire: empty line
+
+commit 1db34bfa89aa975ef55704d535a2bba641d760e1
+Author: Derek P Sifford <dereksifford@gmail.com>
+Date:   Mon Oct 23 22:19:26 2017 -0400
+
+    move ternary_expression below ternary_shorthand & null_coalscing + simplify pattern
+
+commit 28fb4f86a27452bc2337a6a0806b9fba7247a8e0
+Merge: 3e21c92 71231bf
+Author: Wliu <50Wliu@users.noreply.github.com>
+Date:   Thu Oct 19 18:14:13 2017 +0200
+
+    Merge pull request #291 from atom/wl-infinite-injection-loop
+
+    Remove potential zero-width injection pattern
+
+commit 71231bfb975ac56d9c13c5b4cda21c081ebbc6ee
+Author: Wliu <50Wliu@users.noreply.github.com>
+Date:   Thu Oct 19 17:21:55 2017 +0200
+
+    Remove potential zero-width injection pattern
+
+commit 3e21c9282cd1c5448a1613f5f1f7610d8bae94e2
+Merge: aa09512 1d449de
+Author: Wliu <50Wliu@users.noreply.github.com>
+Date:   Tue Oct 17 01:18:25 2017 +0200
+
+    Merge pull request #288 from atom/wl-scope-resolution-namespaces
+
+    Tokenize namespaces when using the scope resolution operator
+
+commit 1d449de66dfed95a2a7812c65452aa52513b2040
+Author: Wliu <50Wliu@users.noreply.github.com>
+Date:   Tue Oct 17 01:13:00 2017 +0200
+
+    Tokenize namespaces when using the scope resolution operator
+
+commit a3e152ccf155a3bb5c46431605a4c95d09f9d42f
+Author: Derek P Sifford <dereksifford@gmail.com>
+Date:   Mon Oct 16 17:57:35 2017 -0400
+
+    remove self reference
+
+commit e27bf30c604ffeacc504ac36960ba76cd6bf4d8d
+Author: Derek P Sifford <dereksifford@gmail.com>
+Date:   Mon Oct 16 16:58:52 2017 -0400
+
+    fix issues brought up in PR
+
+commit 0fca6436ed798507ff48dfb40cbcb1bb6702e603
+Author: Derek P Sifford <dereksifford@gmail.com>
+Date:   Mon Oct 16 16:07:21 2017 -0400
+
+    adjust expect statement for clarity
+
+commit b2859826e399f89276b889f6061f0b760217c0e5
+Author: Derek P Sifford <dereksifford@gmail.com>
+Date:   Mon Oct 16 16:04:06 2017 -0400
+
+    fix a few of the issues brought up by @50Wliu
+
+commit 2314160df1aa9e51251146b3d3fbc5c07698ce57
+Author: Derek P Sifford <dereksifford@gmail.com>
+Date:   Thu Oct 5 16:16:18 2017 -0400
+
+    add tests for new operators
+
+commit 0a8eaeeb0f14c60500a5ac6a053a0b12064718c5
+Author: Derek P Sifford <dereksifford@gmail.com>
+Date:   Thu Oct 5 14:52:20 2017 -0400
+
+    add support for ternaries and null-coalescing operators
+
+commit aa095129f29f4ffbf5db6f154aa283997ddbca29
+Merge: 4931a75 3c2f0b6
+Author: Wliu <50Wliu@users.noreply.github.com>
+Date:   Mon Oct 2 09:53:14 2017 +0200
+
+    Merge pull request #283 from davisben/theme-extension
+
+    Add .theme file extension
+
+commit 3c2f0b6b595f8897acc91f626876cc95d83910ec
+Author: Ben Davis <ben@davisben.com>
+Date:   Sat Sep 30 09:17:47 2017 -0400
+
+    Add theme extension
+
+commit 4931a75da56b1b74849590cbca3c1b1184d7480c
+Author: Wliu <50Wliu@users.noreply.github.com>
+Date:   Sat Sep 23 23:03:36 2017 +0200
+
+    Prepare 0.42.1 release
+
+commit 8f56c3d5a59fb26e028a8b02c697920c73214fca
+Merge: 9893a0b e036dd3
+Author: Wliu <50Wliu@users.noreply.github.com>
+Date:   Sat Sep 23 22:59:41 2017 +0200
+
+    Merge pull request #280 from atom/wl-textmate-compat
+
+    Fix issues with TextMate compatibility
+
+commit e036dd31d2a29af639062ca790fc36521981d791
+Author: Wliu <50Wliu@users.noreply.github.com>
+Date:   Sat Sep 23 20:15:08 2017 +0200
+
+    Fix issues with TextMate compatibility
+
+commit 9893a0baf515fbb0b6bd3eaf129414b73889f06d
+Merge: 1b73f9d 974c64d
+Author: Wliu <50Wliu@users.noreply.github.com>
+Date:   Sat Sep 23 18:47:51 2017 +0200
+
+    Merge pull request #279 from Ingramz/heredoc-end-fixes
+
+    Allow heredocs to end without a semicolon on the same line
+
+commit 974c64dd0b52b40f0b04d5292af8ba705e3bbcfd
+Author: Indrek Ardel <indrek@ardel.eu>
+Date:   Sat Sep 23 16:45:27 2017 +0300
+
+    Allow heredocs to end without a semicolon on the same line
+
+commit 1b73f9dc9dc076fbc38e1697feab84ed7e1f9c1a
+Merge: 37b0879 fce8a3b
+Author: Wliu <50Wliu@users.noreply.github.com>
+Date:   Sat Sep 23 00:15:40 2017 +0200
+
+    Merge pull request #278 from atom/wl-heredoc-terminator
+
+    Heredoc terminators must end with a semicolon and EOL
+
+commit fce8a3b7a2ab398b721c7d49492e8f1e1bab66d5
+Author: Wliu <50Wliu@users.noreply.github.com>
+Date:   Sat Sep 23 00:11:50 2017 +0200
+
+    Heredoc terminators must end with a semicolon and EOL
+
+commit 37b0879cffdd775eb6c9cfff09b1461831d938e2
+Merge: 354b42a 47b9b32
+Author: Wliu <50Wliu@users.noreply.github.com>
+Date:   Fri Sep 22 20:13:42 2017 +0200
+
+    Merge pull request #157 from eliasib13/master
+
+    Fixed: Block try...catch now uses \Exception instead of Exception
+
+commit 354b42a4e2712b53dd96b39ebf4df826caa52a58
+Merge: 015d278 cab8534
+Author: Wliu <50Wliu@users.noreply.github.com>
+Date:   Mon Sep 18 15:24:04 2017 +0200
+
+    Merge pull request #275 from tpunt/tostring-capitalisation
+
+    Correct __toString capitalisation
+
+commit cab85343ce7588819bb7df7e4ef1ab999e70a76d
+Author: Thomas Punt <tpunt@hotmail.co.uk>
+Date:   Mon Sep 18 13:22:54 2017 +0100
+
+    Correct toString capitalisation
+
+commit 015d278b787df712a20fc633bad4a27d3e33007b
+Author: Wliu <50Wliu@users.noreply.github.com>
+Date:   Mon Sep 18 10:00:35 2017 +0200
+
+    Prepare 0.42.0 release
+
+commit aa6a8539a55164569caa5ae1913066cd4f0604fd
+Merge: c81fd05 cf19a90
+Author: Wliu <50Wliu@users.noreply.github.com>
+Date:   Mon Sep 18 09:59:17 2017 +0200
+
+    Merge pull request #266 from atom/wl-end-php
+
+    Always end PHP on ?>
+
+commit cf19a90c4d53a4a2566f74dece12f04a01491165
+Author: Wliu <50Wliu@users.noreply.github.com>
+Date:   Sun Sep 17 18:24:35 2017 +0200
+
+    Bring in spec addition from #274
+
+commit 8d12b1d3d9ca5fc240efacc987a1212bcbb884e4
+Author: Wliu <50Wliu@users.noreply.github.com>
+Date:   Wed Sep 13 21:54:51 2017 +0200
+
+    :memo:
+
+commit c16bf442727f4834e67544cc0ef801f613f7e13b
+Merge: 542c7d9 ada9046
+Author: Wliu <50Wliu@users.noreply.github.com>
+Date:   Wed Sep 13 21:53:48 2017 +0200
+
+    Merge pull request #269 from Ingramz/patch-2
+
+    Bring in suggested changes
+
+commit ada9046fa8363da683e0fc3a89a257994d52ea32
+Author: Indrek Ardel <indrek@ardel.eu>
+Date:   Wed Sep 13 22:17:16 2017 +0300
+
+    Fix spec
+
+commit 1327851449d3edea8a7ff9356d2ab1797431a9e7
+Author: Indrek Ardel <indrek@ardel.eu>
+Date:   Wed Sep 13 21:44:07 2017 +0300
+
+    Don't mark keywords as labels
+
+commit 384d55816eac87772a6d13b9f1d22488d09715ac
+Author: Indrek Ardel <indrek@ardel.eu>
+Date:   Wed Sep 13 18:37:28 2017 +0300
+
+    Update php.cson
+
+commit 1f1e077e73012eab69d02309d214fbab81971540
+Author: Indrek Ardel <indrek@ardel.eu>
+Date:   Wed Sep 13 18:21:59 2017 +0300
+
+    Update php.cson
+
+commit 2b3bf1cf97d8eaecdc8afddb73b2a3c015058ece
+Author: Indrek Ardel <indrek@ardel.eu>
+Date:   Wed Sep 13 18:21:16 2017 +0300
+
+    Update php-spec.coffee
+
+commit 150ba8b02ba6af846d95ecb570324906f4229311
+Author: Indrek Ardel <indrek@ardel.eu>
+Date:   Wed Sep 13 17:23:57 2017 +0300
+
+    Update php.cson
+
+commit d8e860a9c7d188be47673a2b0baad10d39560626
+Author: Indrek Ardel <indrek@ardel.eu>
+Date:   Wed Sep 13 15:25:59 2017 +0300
+
+    Update php.cson
+
+commit da9e838c05f44a190582cf2df8ba40321cbaec82
+Author: Indrek Ardel <indrek@ardel.eu>
+Date:   Wed Sep 13 14:05:51 2017 +0300
+
+    Update php.cson
+
+commit 155bfb301fbfe37632ae06a8c18a99ddf524fadf
+Author: Indrek Ardel <indrek@ardel.eu>
+Date:   Wed Sep 13 13:58:04 2017 +0300
+
+    Update php.cson
+
+commit 542c7d9a27e3c75e7bba737437d17f5f9b2b66c5
+Author: Wliu <50Wliu@users.noreply.github.com>
+Date:   Tue Sep 12 21:26:46 2017 +0200
+
+    Always end PHP on ?>
+
+commit c81fd05aa43a699f0741ebfd0d9024ac72890982
+Author: Wliu <50Wliu@users.noreply.github.com>
+Date:   Tue Sep 12 21:16:26 2017 +0200
+
+    Prepare 0.41.1 release
+
+commit 2d9722ef5f6e550f2c0e9b23db1fc8943a7c6016
+Merge: 81e973f 8768847
+Author: Wliu <50Wliu@users.noreply.github.com>
+Date:   Sun Sep 10 19:57:01 2017 +0200
+
+    Merge pull request #263 from atom/wl-numbers
+
+    Improve number regexes
+
+commit 8768847df4ea676572a9de0a5df355a2e3c8d5ec
+Author: Wliu <50Wliu@users.noreply.github.com>
+Date:   Sun Sep 10 19:54:29 2017 +0200
+
+    Add specs for string escape sequences
+
+commit 14da2a9f93f259924364dc48698a67dc4854169e
+Author: Wliu <50Wliu@users.noreply.github.com>
+Date:   Sun Sep 10 18:54:23 2017 +0200
+
+    Implement requested changes
+
+commit bcb83a5c12e0188dbf72236242948e8ec227f62e
+Author: Wliu <50Wliu@users.noreply.github.com>
+Date:   Mon Aug 28 16:01:57 2017 -0400
+
+    Take that you nbsp
+
+    On Windows:
+    Character Map -> U+00A0 -> Select -> Copy
+
+commit 932e96898f90d7e04880aa92526699b0e81cacd4
+Author: Wliu <50Wliu@users.noreply.github.com>
+Date:   Mon Aug 28 15:02:20 2017 -0400
+
+    Revert number regexes back to language-javascript implementation
+
+commit fe28c0482463a1e153cacaaa4548da73934765c0
+Author: Wliu <50Wliu@users.noreply.github.com>
+Date:   Mon Aug 28 13:25:03 2017 -0400
+
+    This should help
+
+commit d44b818088e99787011f7f6d3294ebfd877f3a77
+Author: Wliu <50Wliu@users.noreply.github.com>
+Date:   Mon Aug 28 13:19:34 2017 -0400
+
+    Update number specs
+
+commit aed3dc21b85f974d16380372477e2f0fec1dcc1e
+Author: Wliu <50Wliu@users.noreply.github.com>
+Date:   Mon Aug 28 13:14:37 2017 -0400
+
+    Improve number regexes
+
+commit 81e973fa0ce34c1c6e68140eaf411904973ab390
+Merge: ad41c9b efab9c8
+Author: Wliu <50Wliu@users.noreply.github.com>
+Date:   Thu Aug 24 20:07:21 2017 -0400
+
+    Merge pull request #262 from atom/revert-261-wl-numbers
+
+    Revert "Improve number regexes"
+
+commit efab9c83b91c02f04b8cfd0236e0239e14c4af52
+Author: Wliu <50Wliu@users.noreply.github.com>
+Date:   Thu Aug 24 20:07:04 2017 -0400
+
+    Revert "Improve number regexes"
+
+commit ad41c9bf8328dbaa89b7328ca515d19cb68c41c7
+Merge: cd71a7b 4dcb2d0
+Author: Wliu <50Wliu@users.noreply.github.com>
+Date:   Thu Aug 24 20:06:45 2017 -0400
+
+    Merge pull request #261 from atom/wl-numbers
+
+    Improve number regexes
+
+commit 4dcb2d08be3451adeccd4f3c9e07ca5020cbb9e7
+Author: Wliu <50Wliu@users.noreply.github.com>
+Date:   Thu Aug 24 17:51:58 2017 -0400
+
+    Improve number regexes
+
+    Taken from language-javascript
+    Fixes #260
+
+commit cd71a7bfd4db9047a8a81b3b1ce910085a13e41f
+Merge: c6dedfc f53f2fc
+Author: Wliu <50Wliu@users.noreply.github.com>
+Date:   Mon Aug 14 20:41:50 2017 -0400
+
+    Merge pull request #258 from atom/wl-combine-use-patterns
+
+    Combine class use patterns
+
+commit f53f2fc2c3f52468b6d205b8c2bbf79aca95f5b2
+Author: Wliu <50Wliu@users.noreply.github.com>
+Date:   Mon Aug 14 19:03:15 2017 -0400
+
+    Remove (hopefully) unneeded empty-line match
+
+commit 2fcf368217d268647858486cb067219ec64bbb81
+Author: Wliu <50Wliu@users.noreply.github.com>
+Date:   Mon Aug 14 18:58:56 2017 -0400
+
+    Combine class use patterns
+
+    * Rename accidental `punctuation.definition.separator.delimiter.php` ->
+    `punctuation.separator.delimiter.php`
+
+commit c6dedfc7bedaf44e55c8eb02bdfd03f277ec863d
+Merge: a758cf2 2849e4a
+Author: Wliu <50Wliu@users.noreply.github.com>
+Date:   Mon Aug 14 17:34:09 2017 -0400
+
+    Merge pull request #257 from atom/wl-nested-curly-brackets
+
+    Recursively match curly brackets
+
+commit 2849e4ad599e269d2d8dc32f61ef6213de738e0c
+Author: Wliu <50Wliu@users.noreply.github.com>
+Date:   Sun Aug 13 22:43:00 2017 -0400
+
+    Recursively match curly brackets
+
+commit a758cf2cc6b7fe2295abfa4d9676f32db026c676
+Author: Wliu <50Wliu@users.noreply.github.com>
+Date:   Wed Aug 2 16:45:08 2017 -0400
+
+    Prepare 0.41.0 release
+
+commit 2091139972d9a5022213697e5ce774cb19053925
+Merge: 139f59d 87354cd
+Author: Wliu <50Wliu@users.noreply.github.com>
+Date:   Wed Aug 2 16:44:15 2017 -0400
+
+    Merge pull request #248 from jens1o/patch-1
+
+    move clone operator out of storage.modifier
+
+commit 87354cd15346eb80061cebd2a0b888417ffb238b
+Author: Jens Hausdorf <hello@jens-hausdorf.de>
+Date:   Wed Aug 2 22:04:08 2017 +0200
+
+    move clone keyword to keyword.other.clone.php
+
+commit 139f59d081e672daedef8ddcef26f512e42c7596
+Merge: c5e9c38 abc64fd
+Author: Wliu <50Wliu@users.noreply.github.com>
+Date:   Wed Aug 2 15:21:58 2017 -0400
+
+    Merge pull request #249 from roblourens/roblou/fixUseNamespace
+
+    Fix #235 - support \ in use statements
+
+commit abc64fd05e1927d1705678095f1cde8b75abc4db
+Author: Rob Lourens <roblourens@gmail.com>
+Date:   Wed Aug 2 11:36:19 2017 -0700
+
+    Add test for #235
+
+commit 4124b4b41c35893dac5d521a1169bec6bac56ab4
+Author: Rob Lourens <roblourens@gmail.com>
+Date:   Wed Aug 2 11:27:16 2017 -0700
+
+    meta.use.php rules should reference #class-name
+
+commit c5e9c38607a5ef3a32eddae9186080735b53b6d4
+Merge: c546d52 a794f13
+Author: Wliu <50Wliu@users.noreply.github.com>
+Date:   Wed Aug 2 13:43:56 2017 -0400
+
+    Merge pull request #250 from atom/wl-always-end-phpdoc
+
+    End PHPDoc even if there are malformed types
+
+commit a794f139cac5899f14f82af3ce67fb8de4215344
+Author: Wliu <50Wliu@users.noreply.github.com>
+Date:   Wed Aug 2 13:30:21 2017 -0400
+
+    End PHPDoc even if there are malformed types
+
+commit 18b1d476bac3efaf2e20ce576f8bd67d72be3184
+Author: Rob Lourens <roblourens@gmail.com>
+Date:   Mon Jul 31 11:35:13 2017 -0700
+
+    Fix #235 - support \ in use statements
+
+commit c08881386afa51dd9d9bfeae4ea38bb9ed15374b
+Author: Jens Hausdorf <hello@jens-hausdorf.de>
+Date:   Fri Jul 28 21:19:43 2017 +0200
+
+    add `\b` to regex
+
+commit e2c483c8e15d2f1e4a8017f0f4bd5d32bbec0772
+Author: Jens Hausdorf <hello@jens-hausdorf.de>
+Date:   Fri Jul 28 18:35:01 2017 +0200
+
+    move clone operator out of storage.modifier
+
+commit c546d52cee3ceb4952f8bfab504d3bcc0d700b37
+Merge: b2b686b 91d50ab
+Author: Wliu <50Wliu@users.noreply.github.com>
+Date:   Wed Jul 26 15:20:02 2017 -0400
+
+    Merge pull request #241 from atom/wl-grouped-use-namespaces
+
+    Support grouped 'use' declarations
+
+commit b2b686be5e0b21d35baca74b5450e645c26eea28
+Merge: 7f15292 1bfe0ec
+Author: Wliu <50Wliu@users.noreply.github.com>
+Date:   Wed Jul 26 15:00:12 2017 -0400
+
+    Merge pull request #242 from atom/wl-update-travis-config
+
+    Update Travis config
+
+commit 1bfe0ec55dfc596e4761857b8c41db7cf6f0c070
+Author: Wliu <50Wliu@users.noreply.github.com>
+Date:   Wed Jul 26 14:56:36 2017 -0400
+
+    Update Travis config
+
+commit 91d50ab5f871ea2d11b4c511dc0b9a972e4ac5ce
+Author: Wliu <50Wliu@users.noreply.github.com>
+Date:   Wed Jul 26 14:31:12 2017 -0400
+
+    Move bracket matching out of #use-inner
+
+    PHP only supports top-level grouping
+
+commit 6c1c8968fd7c4ec19e19d130b20f80e53a9912e8
+Author: Wliu <50Wliu@users.noreply.github.com>
+Date:   Wed Jul 26 14:27:19 2017 -0400
+
+    :art:
+
+commit c33a510370460d634af27f416aee2eceb56533f7
+Author: Wliu <50Wliu@users.noreply.github.com>
+Date:   Wed Jul 26 14:23:18 2017 -0400
+
+    Specs
+
+commit f4a5ee51324c4b6a80f608ddb1ccb6c7754d1412
+Merge: f4e31d4 7f15292
+Author: Wliu <50Wliu@users.noreply.github.com>
+Date:   Wed Jul 26 14:00:35 2017 -0400
+
+    Merge branch 'master' into wl-grouped-use-namespaces
+
+commit 7f15292e4128b44b9d27a0a1333da4f3578ebd01
+Merge: ddd5b73 e6e448b
+Author: Wliu <50Wliu@users.noreply.github.com>
+Date:   Tue Jul 25 22:58:35 2017 -0400
+
+    Merge pull request #240 from atom/wl-global-namespace
+
+    Refactor namespace highlighting
+
+commit e6e448b2060a9892fdcdcc876152e80da5cceae0
+Author: Wliu <50Wliu@users.noreply.github.com>
+Date:   Tue Jul 25 22:31:33 2017 -0400
+
+    Fix inheritance separator
+
+commit ddd5b73cb96fc2f723fc1919bbb1233abd31d751
+Merge: cdedc2f 2d416e7
+Author: Wliu <50Wliu@users.noreply.github.com>
+Date:   Tue Jul 25 19:04:35 2017 -0400
+
+    Merge pull request #239 from atom/wl-phpdoc-namespaced-types
+
+    Support namespaced PHPDoc types
+
+commit cdedc2fbaa7fb2651c534227bc763f77b9ff835c
+Merge: 8a16066 f50c579
+Author: Wliu <50Wliu@users.noreply.github.com>
+Date:   Tue Jul 25 19:04:10 2017 -0400
+
+    Merge pull request #238 from atom/wl-namespaced-functions
+
+    Support deeply-namespaced function calls
+
+commit 0a2d8b6085dd9dee16f42a1f6c0b2309cfdb9eb8
+Author: Wliu <50Wliu@users.noreply.github.com>
+Date:   Tue Jul 25 19:03:35 2017 -0400
+
+    Refactor namespace highlighting
+
+    Fixes #237
+
+commit 2d416e7c47374e179785b0d922a380b2a349480d
+Author: Wliu <50Wliu@users.noreply.github.com>
+Date:   Tue Jul 25 17:47:57 2017 -0400
+
+    Support namespaced PHPDoc types
+
+    Fixes #234
+
+commit f50c579643fd43c7ae6f577885e8201f8c3f5a95
+Author: Wliu <50Wliu@users.noreply.github.com>
+Date:   Tue Jul 25 17:27:34 2017 -0400
+
+    Support deeply-namespaced function calls
+
+    Fixes #233
+
+commit f4e31d4050da8fac71c123fc63750a181c1b63be
+Author: Wliu <50Wliu@users.noreply.github.com>
+Date:   Tue Jul 25 12:40:48 2017 -0400
+
+    Support grouped 'use' namespaces
+
+    Fixes #232
+
+commit 8a16066d2f873702c668c22821039c74a6b28222
+Author: Wliu <50Wliu@users.noreply.github.com>
+Date:   Wed Jul 12 23:35:54 2017 -0400
+
+    Prepare 0.40.0 release
+
+commit 9cb0db1e4fcb14532e93c873187406e6ba829af4
+Merge: 8b4ab3e 8a41932
+Author: Wliu <50Wliu@users.noreply.github.com>
+Date:   Wed Jul 12 23:15:34 2017 -0400
+
+    Merge pull request #218 from atom/wl-phpdoc-types
+
+    Tokenize PHPDoc param types
+
+commit 8b4ab3e8acaf50da14d6fac4d797a69f0918f760
+Merge: 5c0ef02 aaf5333
+Author: Wliu <50Wliu@users.noreply.github.com>
+Date:   Wed Jul 12 23:15:02 2017 -0400
+
+    Merge pull request #227 from atom/wl-switches
+
+    Add structure to switch statements
+
+commit 5c0ef02e2615c9ca2ecd33708356aa43f2409f5d
+Merge: eec6b39 16d8c3e
+Author: Wliu <50Wliu@users.noreply.github.com>
+Date:   Mon Jul 10 19:26:18 2017 -0400
+
+    Merge pull request #231 from atom/wl-parameter-commas
+
+    Add basic support for commas
+
+commit 16d8c3ea6f30c808e270a7be02a33e27ed19eed0
+Author: Wliu <50Wliu@users.noreply.github.com>
+Date:   Mon Jul 10 17:21:57 2017 -0400
+
+    Add basic support for commas
+
+    Fixes #223
+
+commit eec6b39083f7f683d0d8b48204fbed8d56688a9d
+Merge: 0311bd3 48d6cfc
+Author: Wliu <50Wliu@users.noreply.github.com>
+Date:   Mon Jul 10 17:19:40 2017 -0400
+
+    Merge pull request #230 from atom/wl-namespaced-typehints
+
+    Support namespaced typehints
+
+commit 48d6cfce4f49df4b42f73e5b1a8c80e5a24dc203
+Author: Wliu <50Wliu@users.noreply.github.com>
+Date:   Mon Jul 10 16:21:22 2017 -0400
+
+    Support namespaced typehints
+
+    Fixes #222
+
+commit 0311bd3bb56e9202952d206961d6afab4c3fac01
+Merge: e129026 7282ccb
+Author: Wliu <50Wliu@users.noreply.github.com>
+Date:   Mon Jul 10 00:52:26 2017 -0400
+
+    Merge pull request #228 from atom/wl-fix-pass-by-ref
+
+    Functions themselves cannot be passed-by-reference
+
+commit 7282ccbf553ed99b0ee0a4e88631e97dcc33c5b5
+Author: Wliu <50Wliu@users.noreply.github.com>
+Date:   Mon Jul 10 00:48:47 2017 -0400
+
+    :art:
+
+commit d0c866bed0a6de8b5b9b4c9215a262479f7e6ef4
+Author: Wliu <50Wliu@users.noreply.github.com>
+Date:   Mon Jul 10 00:40:49 2017 -0400
+
+    Quick spec clarification
+
+commit bedc71476a5479761f61a84610f59b950c8669ef
+Merge: 1e42820 e129026
+Author: Wliu <50Wliu@users.noreply.github.com>
+Date:   Mon Jul 10 00:34:52 2017 -0400
+
+    Merge branch 'master' into wl-fix-pass-by-ref
+
+commit 1e4282001e93a6a67603f0c0fb6eead9d93582c9
+Author: Wliu <50Wliu@users.noreply.github.com>
+Date:   Sun Jul 9 17:39:36 2017 -0400
+
+    Functions themselves cannot be passed-by-reference
+
+    Also require a space before declaring variables that are
+    passed-by-reference
+
+commit aaf53336bc50b90e252f80d64ee8ad7c3bad01f9
+Author: Wliu <50Wliu@users.noreply.github.com>
+Date:   Sun Jul 9 20:33:09 2017 -0400
+
+    Add structure to switch statements
+
+    Copied from language-javascript
+    Fixes #226
+
+commit e1290265f3d68316347e0ab2665686016b4b24b7
+Author: Wliu <50Wliu@users.noreply.github.com>
+Date:   Tue Jun 20 12:31:59 2017 -0400
+
+    Fix #220
+
+commit 8a41932bb81540682c60127c65cf053aad0148eb
+Author: Wliu <50Wliu@users.noreply.github.com>
+Date:   Mon Jun 12 21:45:33 2017 -0400
+
+    Reorganize and add specs
+
+commit 6014ca599c90ef4be2497aa4286514e93def570b
+Author: Wliu <50Wliu@users.noreply.github.com>
+Date:   Mon Jun 12 20:34:35 2017 -0400
+
+    Tokenize PHPDoc param types
+
+commit cf6db5974e74130bf2414d8c8f38ce307860704a
+Merge: 4de39f2 6928b06
+Author: Wliu <50Wliu@users.noreply.github.com>
+Date:   Sat Jun 10 23:52:08 2017 -0400
+
+    Merge pull request #216 from atom/wl-scope-resolution-class
+
+    Tokenize the special 'class' keyword when used in scope resolution
+
+commit 6928b069a47d80f4ba6512ef6a3b169042704a23
+Author: Wliu <50Wliu@users.noreply.github.com>
+Date:   Sat Jun 10 23:48:42 2017 -0400
+
+    Add another spec testing against incorrect behavior
+
+commit f6462225e76ab54efae04a5b477e803e90f9572c
+Author: Wliu <50Wliu@users.noreply.github.com>
+Date:   Sat Jun 10 23:46:57 2017 -0400
+
+    Tokenize the special 'class' keyword when used in scope resolution
+
+commit 4de39f208c6074f3f00cfb1ae651bf6a46680ad3
+Merge: 9035d97 7efd6e7
+Author: Wliu <50Wliu@users.noreply.github.com>
+Date:   Sat Jun 10 21:57:14 2017 -0400
+
+    Merge pull request #214 from atom/wl-use-traits
+
+    Support 'use' in traits
+
+commit 7efd6e7069b83f05392dd3de73deca18b7e1cbf6
+Author: Wliu <50Wliu@users.noreply.github.com>
+Date:   Sat Jun 10 21:54:05 2017 -0400
+
+    Add specs
+
+commit 9035d97d18b2b172c317d76bf535113e41664111
+Merge: ba68b57 7481e25
+Author: Wliu <50Wliu@users.noreply.github.com>
+Date:   Sat Jun 10 00:45:24 2017 -0400
+
+    Merge pull request #215 from atom/wl-embedded-sql-tweaks
+
+    Add basic specs for embedded SQL
+
+commit 7481e257a73f7be8823f76588c53c609c8c867e2
+Author: Wliu <50Wliu@users.noreply.github.com>
+Date:   Sat Jun 10 00:40:28 2017 -0400
+
+    Add basic specs for embedded SQL
+
+commit 28dc36ed86d9f9124d2905f115c732397d402406
+Author: Wliu <50Wliu@users.noreply.github.com>
+Date:   Fri Jun 9 23:51:31 2017 -0400
+
+    Also support simple uses
+
+commit e06d677252dd1285ea34f36b01bbc34c026f888c
+Author: Wliu <50Wliu@users.noreply.github.com>
+Date:   Fri Jun 9 23:47:08 2017 -0400
+
+    Support 'use' in traits
+
+commit ba68b578bc64ef2bc5a29c0908341608575a1b34
+Author: Wliu <50Wliu@users.noreply.github.com>
+Date:   Fri Jun 9 23:07:43 2017 -0400
+
+    :art:
+
+commit 978b0a2b84d6d3c1bed8fb915f666ab4a796846d
+Merge: 15ea821 4ed9ab1
+Author: Wliu <50Wliu@users.noreply.github.com>
+Date:   Fri Jun 9 22:44:56 2017 -0400
+
+    Merge pull request #213 from atom/wl-function-return-value
+
+    Tokenize function return values
+
+commit 4ed9ab18a50b4f102015f00fb6de2b5cd8f6355a
+Author: Wliu <50Wliu@users.noreply.github.com>
+Date:   Fri Jun 9 22:38:08 2017 -0400
+
+    Tokenize function return values
+
+commit 15ea821f8252bfb5ae7650dce96e16a6384c34cd
+Merge: ec6bb76 a02f857
+Author: Wliu <50Wliu@users.noreply.github.com>
+Date:   Fri Jun 9 22:17:18 2017 -0400
+
+    Merge pull request #212 from atom/wl-typehinted-function-arguments
+
+    Tokenize typehinted function arguments with default values
+
+commit a02f857e0179c47f3b2fcb887ed107eef5a74fe9
+Author: Wliu <50Wliu@users.noreply.github.com>
+Date:   Fri Jun 9 22:05:43 2017 -0400
+
+    Tokenize typehinted function arguments with default values
+
+    Fixes #178
+
+commit ec6bb76c08e45a7d18f37b8f95619fa48eaa6032
+Merge: 64184a6 7829f68
+Author: Wliu <50Wliu@users.noreply.github.com>
+Date:   Fri Jun 9 21:01:20 2017 -0400
+
+    Merge pull request #211 from atom/wl-catch-multiple-exceptions
+
+    Tokenize multiple exceptions in a catch clause
+
+commit 7829f68508f6d7a3d30b57c717d0b1423ea925a5
+Author: Wliu <50Wliu@users.noreply.github.com>
+Date:   Fri Jun 9 20:53:40 2017 -0400
+
+    Tokenize multiple exceptions in a catch clause
+
+commit 64184a6e284e6acb3b7aba3271c6fccd1da82749
+Merge: 7184a99 e522942
+Author: Wliu <50Wliu@users.noreply.github.com>
+Date:   Fri Jun 9 20:26:18 2017 -0400
+
+    Merge pull request #210 from atom/wl-fix-inline-include
+
+    Fix inline include not stopping at the closing PHP tag
+
+commit e52294232e8f341c2c8dd7d5b28402a015f978d8
+Author: Wliu <50Wliu@users.noreply.github.com>
+Date:   Fri Jun 9 20:20:54 2017 -0400
+
+    Fix inline include not stopping at the closing PHP tag
+
+commit 7184a99ff357d420bc823f2bc8491b477d80e9db
+Merge: 676e752 80176ad
+Author: Wliu <50Wliu@users.noreply.github.com>
+Date:   Fri Jun 9 20:07:13 2017 -0400
+
+    Merge pull request #209 from atom/wl-more-php-snippets
+
+    Add another PHP snippet
+
+commit 80176ade3ae2f156929ad958ea0164f76c72a269
+Author: Wliu <50Wliu@users.noreply.github.com>
+Date:   Fri Jun 9 19:52:59 2017 -0400
+
+    Add another PHP snippet
+
+commit 676e752f2ea7420c699f35ea4e74673e705c21ac
+Merge: d8867ca 64a1739
+Author: Wliu <50Wliu@users.noreply.github.com>
+Date:   Fri Jun 9 19:41:25 2017 -0400
+
+    Merge pull request #208 from atom/wl-parens
+
+    Tokenize parentheses
+
+commit 64a1739c7abafe44269a5cb1fdaa673ff9bcfcac
+Author: Wliu <50Wliu@users.noreply.github.com>
+Date:   Fri Jun 9 01:01:28 2017 -0400
+
+    Add specs
+
+commit 0af78afdfa9a6c48333ad1ddbfb58f7e140f8545
+Author: Wliu <50Wliu@users.noreply.github.com>
+Date:   Fri Jun 9 00:21:18 2017 -0400
+
+    Tokenize parentheses
+
+commit d8867cac9b56d78892e0b44a7cf1b4eaaaa43e6d
+Merge: 40bd220 e62c013
+Author: Wliu <50Wliu@users.noreply.github.com>
+Date:   Thu Jun 8 23:24:29 2017 -0400
+
+    Merge pull request #207 from atom/wl-add-sql-add
+
+    Add AND as a valid SQL keyword
+
+commit e62c0133ac7ca8d9fafa4e5332268b5b2b2702e4
+Author: Wliu <50Wliu@users.noreply.github.com>
+Date:   Thu Jun 8 23:11:17 2017 -0400
+
+    Add AND as a valid SQL keyword
+
+    Fixes #52
+
+commit 40bd2207e9ac85318d288662ca58ed5fbb4c796e
+Merge: b63f06b 949e26c
+Author: Wliu <50Wliu@users.noreply.github.com>
+Date:   Thu Jun 8 23:04:43 2017 -0400
+
+    Merge pull request #206 from atom/wl-rm-string-meta-scope
+
+    Remove meta scope that doesn't exist in any other language
+
+commit 949e26cc06e5bcf6f469ebcfe933399d46387905
+Author: Wliu <50Wliu@users.noreply.github.com>
+Date:   Thu Jun 8 22:52:08 2017 -0400
+
+    Remove meta scope that doesn't exist in any other language
+
+    We don't have anything called "select scope" anyway.
+
+commit b63f06b9fe6797754215d22e14c61db30d40b24e
+Merge: 03b93e1 604191b
+Author: Wliu <50Wliu@users.noreply.github.com>
+Date:   Thu Jun 8 20:18:14 2017 -0400
+
+    Merge pull request #205 from atom/wl-this
+
+    Tokenize $this as variable.language.this.php
+
+commit 604191b6390760722c7ca00048cb673b4d2ddaf2
+Author: Wliu <50Wliu@users.noreply.github.com>
+Date:   Thu Jun 8 18:51:47 2017 -0400
+
+    Tokenize $this as variable.language.this.php
+
+commit 03b93e11cbea8e38883a93bda57f53c28bfdbdf7
+Merge: b852073 fbb9b3d
+Author: Wliu <50Wliu@users.noreply.github.com>
+Date:   Thu Jun 8 16:52:46 2017 -0400
+
+    Merge pull request #204 from atom/wl-fix-spec-indentation
+
+    Move most specs out of the 'operators' section
+
+commit fbb9b3d797ac890b761ff95fb93072aff281cb63
+Author: Wliu <50Wliu@users.noreply.github.com>
+Date:   Thu Jun 8 15:57:32 2017 -0400
+
+    Move most specs out of the 'operators' section
+
+commit b8520736dd2dbe1c07b83b52d7faa62f5a1ae688
+Merge: e4535ce e42e362
+Author: Wliu <50Wliu@users.noreply.github.com>
+Date:   Thu Jun 8 12:47:10 2017 -0400
+
+    Merge pull request #203 from atom/wl-cleanup
+
+    Cleanup
+
+commit e42e362f49af7575b4465b6506ebe3df995842c2
+Author: Wliu <50Wliu@users.noreply.github.com>
+Date:   Wed Jun 7 23:04:41 2017 -0400
+
+    :art: settings file
+
+commit 0d106170b4b4840e3188e163a99cceb58c656726
+Author: Wliu <50Wliu@users.noreply.github.com>
+Date:   Wed Jun 7 23:00:32 2017 -0400
+
+    General cleanup
+
+commit ebf5300bb14e7f7494325ea718ce2ad5ee9bec23
+Author: Wliu <50Wliu@users.noreply.github.com>
+Date:   Wed Jun 7 21:03:39 2017 -0400
+
+    :art: variables
+
+commit e9f9cd10996a1f33838b903ee0077b367349baf9
+Author: Wliu <50Wliu@users.noreply.github.com>
+Date:   Wed Jun 7 21:03:02 2017 -0400
+
+    :art: variable-name
+
+commit 8f23c80c8f20cc10ed054e9005c3affb65dafbe6
+Author: Wliu <50Wliu@users.noreply.github.com>
+Date:   Wed Jun 7 19:31:00 2017 -0400
+
+    :art: var_basic
+
+commit 92cbe744e78dd01f5f845b31f7547cd25df54a2a
+Author: Wliu <50Wliu@users.noreply.github.com>
+Date:   Wed Jun 7 14:34:41 2017 -0400
+
+    :art: support, part XI
+
+commit d34cbd4ab5d73973551e6b7596c385b5a9ae5b15
+Author: Wliu <50Wliu@users.noreply.github.com>
+Date:   Wed Jun 7 01:22:53 2017 -0400
+
+    Fix typos
+
+commit b0d200fe0b98f3a7f74730ac2d64c7beb33189e8
+Author: Wliu <50Wliu@users.noreply.github.com>
+Date:   Wed Jun 7 00:09:16 2017 -0400
+
+    :art: support, part X
+
+commit 4b6ab6a66d7754b20e16bf9b30ad7e2b3ad8c1e8
+Author: Wliu <50Wliu@users.noreply.github.com>
+Date:   Tue Jun 6 22:27:56 2017 -0400
+
+    :art: support, part IX
+
+commit 5b6f4726a4e5d5fff5bdaac213ef3af1a9ac0e7d
+Author: Wliu <50Wliu@users.noreply.github.com>
+Date:   Tue Jun 6 11:09:57 2017 -0400
+
+    :art: support, part VIII
+
+commit 1d4dc7560506f921f7e4de198c85766f9eb8635a
+Author: Wliu <50Wliu@users.noreply.github.com>
+Date:   Mon Jun 5 21:32:03 2017 -0400
+
+    :art: support, part VII
+
+commit 8d54f9888aea1bbb6e2e686989ae122bf9d284e3
+Author: Wliu <50Wliu@users.noreply.github.com>
+Date:   Mon Jun 5 21:31:34 2017 -0400
+
+    Turns out it's fflush, not flush
+
+commit 027edfc2e3f5012d3d2f6d2efb2e70d5832701d7
+Author: Wliu <50Wliu@users.noreply.github.com>
+Date:   Mon Jun 5 20:45:40 2017 -0400
+
+    :art: support, part VI
+
+commit a98ccf4063dd1f1f8e41da604d8e7fbb70f74c28
+Author: Wliu <50Wliu@users.noreply.github.com>
+Date:   Fri Jun 2 01:14:43 2017 -0400
+
+    :art: support, part V
+
+commit 8b4d23303ceaf979d339daf4611481e5d3d5570d
+Author: Wliu <50Wliu@users.noreply.github.com>
+Date:   Thu Jun 1 22:08:46 2017 -0400
+
+    :art: support, part IV
+
+commit 1fa48f745593031d05fd8e1c32733c826c2ccdcb
+Author: Wliu <50Wliu@users.noreply.github.com>
+Date:   Wed May 31 23:20:00 2017 -0400
+
+    :art: support, part III
+
+commit c3332b11adcefb48486a57c5cac25f3a39b4f6ad
+Author: Wliu <50Wliu@users.noreply.github.com>
+Date:   Wed May 31 18:54:24 2017 -0400
+
+    :art: support, part II
+
+commit 9b00dc16818998487ddfd9c55a923442657dda46
+Author: Wliu <50Wliu@users.noreply.github.com>
+Date:   Tue May 30 21:07:50 2017 -0400
+
+    :art: support, part I
+
+commit db0f647d06f77832a907150c7785a1a12a56f3ea
+Author: Wliu <50Wliu@users.noreply.github.com>
+Date:   Mon May 29 20:14:48 2017 -0400
+
+    Fix specs
+
+commit 7779a75a820338b9508d9349c4fd1f10c8c19931
+Author: Wliu <50Wliu@users.noreply.github.com>
+Date:   Mon May 29 20:09:01 2017 -0400
+
+    :art: string-double-quoted
+
+commit e6ff2173c61733c5bf4f1c3ad140bd1007c2a283
+Author: Wliu <50Wliu@users.noreply.github.com>
+Date:   Mon May 29 20:08:27 2017 -0400
+
+    :art: sql-string-single-quoted
+
+commit 5d1616e0f79a10959955d2d110c4fdd0d4510140
+Author: Wliu <50Wliu@users.noreply.github.com>
+Date:   Mon May 29 20:07:40 2017 -0400
+
+    :art: sql-string-double-quoted
+
+commit fcf2213c0a6a1c02078f45cb08f018ccaded5d84
+Author: Wliu <50Wliu@users.noreply.github.com>
+Date:   Mon May 29 20:06:37 2017 -0400
+
+    :art: single_quote_regex_escape
+
+commit abcb3b8684b8017759b03edd2f29f2dcc79db743
+Author: Wliu <50Wliu@users.noreply.github.com>
+Date:   Mon May 29 20:06:02 2017 -0400
+
+    :art: regex-single-quoted
+
+commit 22456716f161b28f38944006af9bcad62593442e
+Author: Wliu <50Wliu@users.noreply.github.com>
+Date:   Mon May 29 20:05:17 2017 -0400
+
+    :art: regex-double-quoted
+
+commit 58f10857ef92a8a3a1898bbeaa39784f651a3d69
+Author: Wliu <50Wliu@users.noreply.github.com>
+Date:   Mon May 29 20:04:38 2017 -0400
+
+    :art: php_doc
+
+commit 565dfa95b131666bd5fa16702fe7bc58a4d94ae9
+Author: Wliu <50Wliu@users.noreply.github.com>
+Date:   Mon May 29 19:59:05 2017 -0400
+
+    :art: parameter-default-types
+
+commit a8acc69d040f43025ddf4602522bce94eade665c
+Author: Wliu <50Wliu@users.noreply.github.com>
+Date:   Mon May 29 19:57:58 2017 -0400
+
+    :art: object
+
+commit df2198ad3b5ec4ff809274cb584d266a6f63114c
+Author: Wliu <50Wliu@users.noreply.github.com>
+Date:   Sun May 28 23:24:58 2017 -0400
+
+    :art: numbers
+
+commit 42af5e599abe4ebf4875fe58662663e44a61f452
+Author: Wliu <50Wliu@users.noreply.github.com>
+Date:   Sun May 28 23:24:41 2017 -0400
+
+    :art: namespace
+
+commit 3d18f94ea90c91f5e6ebe7966c2849c0f9ce1743
+Author: Wliu <50Wliu@users.noreply.github.com>
+Date:   Sun May 28 23:22:22 2017 -0400
+
+    :art: language, part III
+
+commit 350971f6a2fee7c22aa37f1a4dffa8a25f06d604
+Author: Wliu <50Wliu@users.noreply.github.com>
+Date:   Sun May 28 18:24:06 2017 -0400
+
+    :art: language, part II
+
+commit 38f8cdd0ba9fa311e09ccbf17b7180aa8215ed69
+Author: Wliu <50Wliu@users.noreply.github.com>
+Date:   Sun May 28 18:19:41 2017 -0400
+
+    :art: language, part I
+
+commit 2c0e2a8e9952963c1c72049e446ac770a3897abd
+Author: Wliu <50Wliu@users.noreply.github.com>
+Date:   Sun May 28 18:14:35 2017 -0400
+
+    :art: invoke-call
+
+commit d27d67ffe0ab086117b5ef9ca11b3f5dacfdf59b
+Author: Wliu <50Wliu@users.noreply.github.com>
+Date:   Sun May 28 18:13:49 2017 -0400
+
+    :art: interpolation
+
+commit 3465e3685d3984257ff4050da378830abb64b462
+Author: Wliu <50Wliu@users.noreply.github.com>
+Date:   Sun May 28 18:12:49 2017 -0400
+
+    :art: instantiation
+
+commit 2fdf279c86eabfdde284bfc46d22ff776af7497f
+Author: Wliu <50Wliu@users.noreply.github.com>
+Date:   Sun May 28 18:11:39 2017 -0400
+
+    :art: heredoc, nowdoc
+
+commit 00f9bb5a829d6e79220b23acd6002f699961667c
+Author: Wliu <50Wliu@users.noreply.github.com>
+Date:   Sun May 28 18:07:55 2017 -0400
+
+    :art: function calls
+
+commit ddec0be80fe4b1ba7265856acf3ffdd363551854
+Author: Wliu <50Wliu@users.noreply.github.com>
+Date:   Sun May 28 18:06:28 2017 -0400
+
+    Get specs passing
+
+commit 4ba50be51d2458c280af2e9a799bfe04d8c0ce3c
+Author: Wliu <50Wliu@users.noreply.github.com>
+Date:   Sun May 28 17:45:42 2017 -0400
+
+    :art: function arguments, part V
+
+commit c538a093486622a26606545943bbbab0c2900f4e
+Author: Wliu <50Wliu@users.noreply.github.com>
+Date:   Sun May 28 17:39:18 2017 -0400
+
+    :art: function arguments, part IV
+
+commit 787616fde41ece9d157ad03668860979d24761ef
+Author: Wliu <50Wliu@users.noreply.github.com>
+Date:   Sat May 27 23:36:53 2017 -0400
+
+    :art: function arguments, part III
+
+commit 16afe6d2bdb319e7cb2f47bde1a31e6324c4a2e8
+Author: Wliu <50Wliu@users.noreply.github.com>
+Date:   Sat May 27 19:44:01 2017 -0400
+
+    :art: function arguments, part II
+
+commit 85a46a549a3f275d15e4caa654b67483c744bae6
+Author: Wliu <50Wliu@users.noreply.github.com>
+Date:   Sat May 27 18:37:51 2017 -0400
+
+    :art: function arguments, part I
+
+commit 9def02b4f119021d7b5fc30afdb0979bb19279a5
+Author: Wliu <50Wliu@users.noreply.github.com>
+Date:   Sat May 27 14:34:27 2017 -0400
+
+    :art: constants, part VI
+
+commit 142eb59ed333a512d952e32fca80fba853a162cd
+Author: Wliu <50Wliu@users.noreply.github.com>
+Date:   Sat May 27 14:34:05 2017 -0400
+
+    :art: constants, part V
+
+commit 5f4acdb4a1328f5994533381b17de6da4fed55ff
+Author: Wliu <50Wliu@users.noreply.github.com>
+Date:   Sat May 27 14:33:51 2017 -0400
+
+    :art: constants, part IV
+
+commit a1ef6e2887f0acd4231149a95409fb06dc6832ef
+Author: Wliu <50Wliu@users.noreply.github.com>
+Date:   Sat May 27 14:33:34 2017 -0400
+
+    :art: constants, part III
+
+commit d4b343c39b93e934ccefb024d1ff47ac47cbe5f6
+Author: Wliu <50Wliu@users.noreply.github.com>
+Date:   Sat May 27 14:33:14 2017 -0400
+
+    :art: constants, part II
+
+commit f11c96044202fd776e60a5787fc24294c0653383
+Author: Wliu <50Wliu@users.noreply.github.com>
+Date:   Sat May 27 14:32:34 2017 -0400
+
+    :art: constants, part I
+
+commit 93d6706878100d267190fd330463839004227c24
+Author: Wliu <50Wliu@users.noreply.github.com>
+Date:   Thu May 25 18:26:57 2017 -0400
+
+    :art: builtin classes
+
+commit e4535ce58ea1b659ecc70a697e1374c54e93601a
+Author: Wliu <50Wliu@users.noreply.github.com>
+Date:   Wed May 24 18:54:43 2017 -0400
+
+    Prepare 0.39.0 release
+
+commit ef35ac4b0c6f2a883b62b8045386cd2b7e659cd6
+Merge: 22047c1 c523a19
+Author: Wliu <50Wliu@users.noreply.github.com>
+Date:   Tue May 23 11:12:08 2017 -0400
+
+    Merge pull request #164 from Ingramz/master
+
+    Fix detection of closing tag in malformed DocBlock lines
+
+commit c523a19f849b97f6499eae6accf80564aa190c0e
+Author: Indrek Ardel <indrek@ardel.eu>
+Date:   Tue May 23 09:51:41 2017 +0300
+
+    Fix detection of closing tag in malformed DocBlock lines
+
+commit 22047c19f52f686de471d0deccae0cb1332997b6
+Merge: ff0dc69 b60a630
+Author: Wliu <50Wliu@users.noreply.github.com>
+Date:   Sun May 14 20:02:04 2017 -0400
+
+    Merge pull request #196 from luxifer/fix-highlight
+
+    Fix function name highlight
+
+commit ff0dc698e61be838c13c8540ba33b085cf030d59
+Merge: 6e83885 5b239e7
+Author: Wliu <50Wliu@users.noreply.github.com>
+Date:   Sun May 14 16:21:07 2017 -0400
+
+    Merge pull request #198 from jens1o/jens1o-support-inheritdoc
+
+    support @inheritdoc
+
+commit 6e838851c80347978474d12fd0fda6c3b1a0e6d6
+Merge: b007904 b61c04f
+Author: Wliu <50Wliu@users.noreply.github.com>
+Date:   Sun May 14 16:20:37 2017 -0400
+
+    Merge pull request #199 from nyoro712/add-interface-snippet
+
+    Add interface snippet
+
+commit b61c04fd9d1aad837402521a393eff9aa60493b8
+Author: нёло <nyoro712.github@gmail.com>
+Date:   Mon May 15 00:42:21 2017 +0900
+
+    Fix typo: InterefaceName => InterfaceName
+
+commit 5ebfb2cb9982d82ae0af66fb81717a706c17d1c4
+Author: нёло <nyoro712.github@gmail.com>
+Date:   Mon May 15 00:24:40 2017 +0900
+
+    Add interface snippet
+
+commit 5b239e718bd295fa0753257f86cb11870fce126d
+Author: Jens Hausdorf <jens1o@users.noreply.github.com>
+Date:   Fri May 12 22:10:10 2017 +0200
+
+    support both spelling
+
+commit ab2e5754bf2c860e2798ed151123145c0a84bc51
+Author: Jens Hausdorf <jens1o@users.noreply.github.com>
+Date:   Fri May 12 21:59:55 2017 +0200
+
+    missed a part
+
+commit 3127e526759627ec09e20328235b26703da00656
+Author: Jens Hausdorf <jens1o@users.noreply.github.com>
+Date:   Fri May 12 21:58:35 2017 +0200
+
+    keep both intact
+
+commit 3662325080f523be12d276e8ddc8c4d9b3db83a9
+Author: Jens Hausdorf <jens1o@users.noreply.github.com>
+Date:   Fri May 12 21:57:18 2017 +0200
+
+    move it to the right direction
+
+commit 4eb85301f76204932a503034b1840d4a53343fd3
+Author: Jens Hausdorf <jens1o@users.noreply.github.com>
+Date:   Fri May 12 21:42:04 2017 +0200
+
+    fix typo
+
+commit 821e496406b15b37ec42b45da45c563fe7fb43fa
+Author: Jens Hausdorf <jens1o@users.noreply.github.com>
+Date:   Fri May 12 21:37:22 2017 +0200
+
+    support @inheritdoc
+
+commit b60a630419e8fa94c044d8793fc0ffad210c2aeb
+Author: Florent Viel <luxifer666@gmail.com>
+Date:   Fri May 12 19:17:20 2017 +0200
+
+    :white_check_mark: add spec to validate changes
+
+commit 405599d9191ce8760eaaea12ac22c8421d3008b5
+Author: Florent Viel <luxifer666@gmail.com>
+Date:   Fri May 12 19:16:12 2017 +0200
+
+    :bug: update function name highlight regex
+
+    according to http://php.net/manual/en/functions.user-defined.php
+    function name can contains more than letters and numbers
+
+commit b00790432f19fdb08d25989973f66cbf7f7a3eac
+Merge: 717b7e1 7d6a5f0
+Author: Wliu <50Wliu@users.noreply.github.com>
+Date:   Fri Apr 28 13:37:43 2017 -0400
+
+    Merge pull request #195 from UziTech/js-heredoc
+
+    add JS as a synonym for JAVASCRIPT heredocs
+
+commit 7d6a5f05034f29707e2a03b14aef9514db3bff26
+Author: Tony Brix <Tony@Brix.ninja>
+Date:   Fri Apr 28 12:15:05 2017 -0500
+
+    combine tests
+
+commit fca6a6763bd5e07b2cc0a82fda502dbf3bce5dea
+Author: Tony Brix <Tony@Brix.ninja>
+Date:   Fri Apr 28 10:10:21 2017 -0500
+
+    add JS as a synonym for JAVASCRIPT heredocs
+
+commit 717b7e165ea84960c31782b4524734ea08b7afd6
+Merge: bfea336 bf00578
+Author: Wliu <50Wliu@users.noreply.github.com>
+Date:   Wed Apr 19 15:08:45 2017 -0400
+
+    Merge pull request #191 from UziTech/inline-phpdoc
+
+    Inline phpdoc
+
+commit bf00578eb3f7224a74339311275cf185f46ddb62
+Author: Tony Brix <Tony@Brix.ninja>
+Date:   Wed Apr 19 14:00:45 2017 -0500
+
+    add test for /*** to not be phpdoc
+
+commit 74c35b63efb926990df24cc50f0b2477820f8f86
+Author: Tony Brix <Tony@Brix.ninja>
+Date:   Wed Apr 19 12:38:49 2017 -0500
+
+    remove begin capture group
+
+commit 1eaf025a36b464b72b3b98ecc60da9b80376aca1
+Author: Tony Brix <Tony@Brix.ninja>
+Date:   Wed Apr 19 12:34:28 2017 -0500
+
+    remove + on trailing whitespace
+
+commit 20d96b1017062654eafb78f2e90130be28528603
+Author: Tony Brix <Tony@Brix.ninja>
+Date:   Wed Apr 19 12:32:58 2017 -0500
+
+    remove $
+
+commit 27828f5894268c16f8d14d8969445c3f0776250d
+Author: Wliu <50Wliu@users.noreply.github.com>
+Date:   Wed Apr 19 13:17:42 2017 -0400
+
+    :art:
+
+commit d609b614b6b8cb63bb8cc865e2b74cedaff96fd8
+Author: Tony Brix <Tony@Brix.ninja>
+Date:   Wed Apr 19 12:09:31 2017 -0500
+
+    remove #@+ template syntax
+
+commit d55e623b6599ddcd627a6d0915f791d1c942617f
+Author: Tony Brix <Tony@Brix.ninja>
+Date:   Wed Apr 19 11:53:54 2017 -0500
+
+    Don't capture the trailing/leading whitespace
+
+commit 4694514a0405c33dd86ee6bbcf70c002cfe49ec2
+Author: Tony Brix <Tony@Brix.ninja>
+Date:   Wed Apr 19 10:59:53 2017 -0500
+
+    combine the two phpdoc patterns
+
+commit 3b73054b0a6d0e02caf35c1142a187b6573087bd
+Author: Tony Brix <Tony@Brix.ninja>
+Date:   Wed Apr 19 10:34:18 2017 -0500
+
+    add inline phpdoc
+
+commit 390541c7ee477ce9cea05eb9ed3cd2efcb0d8c67
+Author: Tony Brix <Tony@Brix.ninja>
+Date:   Wed Apr 19 10:34:03 2017 -0500
+
+    add inline phpdoc test
+
+commit bfea336c012d5beb7597422ebd5f0b07c4107a2f
+Author: Wliu <Wliu1402@gmail.com>
+Date:   Mon Apr 10 20:56:25 2017 -0400
+
+    Prepare 0.38.0 release
+
+commit 7fc557ace292af28d47dad7a20356276c9367c05
+Merge: 150ffcc fc64d71
+Author: Wliu <50Wliu@users.noreply.github.com>
+Date:   Sun Mar 12 14:16:54 2017 -0400
+
+    Merge pull request #184 from UziTech/temp-heredoc-fix
+
+    temporary fix for heredocs
+
+commit fc64d715371f9e3a974c27bee134ecc8203a694f
+Author: Tony Brix <Tony@Brix.ninja>
+Date:   Sun Mar 12 10:21:07 2017 -0500
+
+    change (\\s+)? to (\\s*)
+
+commit 9670088ad4cb4a145910620f192964c4ada0ef83
+Author: Tony Brix <Tony@Brix.ninja>
+Date:   Fri Mar 10 23:31:03 2017 -0600
+
+    update tests for nowdoc
+
+commit 8fac2f1da4b54887082b8c4921554a04c2a94a49
+Author: Tony Brix <Tony@Brix.ninja>
+Date:   Fri Mar 10 23:12:48 2017 -0600
+
+    change keyword.operator.heredoc.php to keyword.operator.nowdoc.php
+
+commit 2ffbe86ecf75e6e94cd8bf248b38cbb9c3022ccb
+Author: Tony Brix <Tony@Brix.ninja>
+Date:   Fri Mar 10 20:16:19 2017 -0600
+
+    remove other package scope names
+
+commit 6b542171b8aba96a05c86211c4179165571586fd
+Author: Tony Brix <Tony@Brix.ninja>
+Date:   Fri Mar 10 18:57:45 2017 -0600
+
+    change whitespace-in-end-of-line to trailing-whitespace
+
+commit 8dc870cccd0d6d58a311826f286b8fc3aef74ddc
+Author: Tony Brix <Tony@Brix.ninja>
+Date:   Fri Mar 10 16:04:08 2017 -0600
+
+    add newline before all "runs ->"
+
+commit 36b382c864c3264be7f2414a1b4e401c7cebb34c
+Author: Tony Brix <Tony@Brix.ninja>
+Date:   Fri Mar 10 15:34:52 2017 -0600
+
+    change [ \\t] to \\s
+
+commit a9fb88068b22e9ec635adf1947b13c856492f18a
+Author: Tony Brix <Tony@Brix.ninja>
+Date:   Fri Mar 10 13:52:18 2017 -0600
+
+    remove heredoc scope from nowdoc
+
+commit e8aed0eb30cb75c1d00e2b20f7f39f989f7e6c22
+Author: Tony Brix <Tony@Brix.ninja>
+Date:   Fri Mar 10 13:49:35 2017 -0600
+
+    change css scopes to match current
+
+commit 5836e4d76e5f811066b397f25b473652c13e28ae
+Author: Tony Brix <Tony@Brix.ninja>
+Date:   Fri Mar 10 13:07:18 2017 -0600
+
+    add newline before runs
+
+commit 150ffcc6461050d4047420b408d9b15f42a0a7d5
+Author: Wliu <Wliu1402@gmail.com>
+Date:   Mon Mar 6 11:53:25 2017 -0500
+
+    Prepare 0.37.5 release
+
+commit bdc3d13333dba065acb224691d71dfbc65b2663c
+Author: Tony Brix <Tony@Brix.ninja>
+Date:   Tue Feb 21 22:38:01 2017 -0600
+
+    allow REGEX and REGEXP in heredocs
+
+commit a9fcf048f9952dfab90593944640cdc9931c3112
+Author: Tony Brix <Tony@Brix.ninja>
+Date:   Tue Feb 21 22:09:00 2017 -0600
+
+    add tests for all embedded heredocs
+
+commit d0fb8c2fd97a60c108708d651bebe9a062a4ec97
+Author: Tony Brix <Tony@Brix.ninja>
+Date:   Tue Feb 21 16:48:44 2017 -0600
+
+    add language-html tests
+
+commit 978e587d6ae9d0b55d2a5b754ba2518919ab6c8a
+Merge: 2b127af 47a327f
+Author: Wliu <50Wliu@users.noreply.github.com>
+Date:   Tue Feb 21 17:16:09 2017 -0500
+
+    Merge pull request #185 from arandilopez/closure-snippet
+
+    Closure snippet
+
+commit 47a327f6cdb17d43b32d508193fcb5f5549836b6
+Author: Arandi López <arandilopez.93@gmail.com>
+Date:   Tue Feb 21 11:18:19 2017 -0600
+
+    typo: annonymous -> anonymous
+
+commit 2685a1f756f9caf7717038e78f89454cb506fde3
+Author: Arandi López <arandilopez.93@gmail.com>
+Date:   Mon Feb 20 20:50:35 2017 -0600
+
+    closure-snippet: remove newline in first curly braces
+
+commit 1cf2cea1dd3f94df181d60005632d96b81885adc
+Author: Arandi López <arandilopez.93@gmail.com>
+Date:   Mon Feb 20 20:36:16 2017 -0600
+
+    closure snippet with f as prefix
+
+commit 975687c58bc630fe1478cc21f5bc2139d5912491
+Author: Tony Brix <Tony@Brix.ninja>
+Date:   Mon Feb 20 00:00:24 2017 -0600
+
+    Don't accept spaces after heredoc beginning identifier
+
+commit 008d2fc0cde45b25ea9f114c5c0289443d026e3b
+Author: Tony Brix <Tony@Brix.ninja>
+Date:   Sun Feb 19 23:34:47 2017 -0600
+
+    simplify nowdoc regex
+
+commit b0cb7c27463d45144fdd059c2047332f739c4ec4
+Author: Tony Brix <Tony@Brix.ninja>
+Date:   Sun Feb 19 23:23:48 2017 -0600
+
+    add HTML nowdoc interpolation test
+
+commit a520e1acb71f35e293f01c02cd2f1ab8c2240df4
+Author: Tony Brix <Tony@Brix.ninja>
+Date:   Sun Feb 19 22:08:14 2017 -0600
+
+    split heredoc_interior and newdoc_interior for interpolation
+
+commit da7b5d6b50d13ee4ba2c8dcf5315a0cc3a22cc6c
+Author: Tony Brix <Tony@Brix.ninja>
+Date:   Sun Feb 19 21:43:49 2017 -0600
+
+    fix interpolation
+
+commit a9dd53d0f726132b53709a48dd77d14eba004d65
+Author: Tony Brix <Tony@Brix.ninja>
+Date:   Sun Feb 19 01:00:29 2017 -0600
+
+    fix tests
+
+commit b86da0b1720124613ca3cdceb7b5a6ab50982cb5
+Author: Tony Brix <Tony@Brix.ninja>
+Date:   Sun Feb 19 00:30:23 2017 -0600
+
+    add heredoc tests
+
+commit cc576387c51e89197e964e4aabfb89be4eeb6a32
+Author: Tony Brix <Tony@Brix.ninja>
+Date:   Sun Feb 19 00:14:47 2017 -0600
+
+    temporary fix for heredocs
+
+commit 2b127af01783b4a23ba7ff3ae32ce51c48e649a2
+Author: Wliu <Wliu1402@gmail.com>
+Date:   Mon Feb 6 12:52:44 2017 -0500
+
+    Prepare 0.37.4 release
+
+commit a4d8e23060d0f62d908d1045b926bb6a8f3af82d
+Merge: ba156f9 d7e3f60
+Author: Wliu <50Wliu@users.noreply.github.com>
+Date:   Sat Jan 28 19:19:14 2017 -0500
+
+    Merge pull request #180 from joshijitendra/patch-1
+
+    Add Shorthand echo
+
+commit d7e3f6008e89a6071757b272a6f6ff107ca85207
+Author: Jitendra Joshi <joshijitendra000@gmail.com>
+Date:   Sat Jan 28 16:55:43 2017 +0530
+
+    Add Shorthand echo
+
+commit ba156f9f31d6d28c992dc4eba81cf75d88807afa
+Merge: 37612f2 3c32f0b
+Author: Lee Dohm <lee-dohm@users.noreply.github.com>
+Date:   Mon Dec 26 10:05:09 2016 -0800
+
+    Merge pull request #177 from atom/template-update
+
+    :memo: Update issue and PR templates
+
+commit 3c32f0bf78c96188412a834c9b0cb9cf3e1d9caf
+Author: Lee Dohm <lee@lee-dohm.com>
+Date:   Mon Dec 26 10:04:53 2016 -0800
+
+    :memo: Update issue and PR templates
+
+commit 37612f202c9c131d025c7591f448d91ffb007982
+Merge: 750e0f2 d51494a
+Author: Lee Dohm <lee-dohm@users.noreply.github.com>
+Date:   Thu Dec 22 10:41:28 2016 -0800
+
+    Merge pull request #175 from atom/template-update
+
+    Update issue and PR templates
+
+commit d51494a85d3c0e80dfe4a3a661acba2b15602c12
+Author: Lee Dohm <lee@lee-dohm.com>
+Date:   Thu Dec 22 10:41:16 2016 -0800
+
+    Update issue and PR templates
+
+commit 750e0f21bbde62656ad21d86597e4558a584011c
+Merge: a0e0393 edc6717
+Author: Wliu <50Wliu@users.noreply.github.com>
+Date:   Thu Nov 10 10:51:48 2016 -0500
+
+    Merge pull request #167 from torn4dom4n/master
+
+    Update CONTRIBUTING
+
+commit edc6717e89221f19708e0ec493f4a9469a250d15
+Author: Long Nhat Nguyen <torn4dom4n@users.noreply.github.com>
+Date:   Thu Nov 10 22:14:03 2016 +0700
+
+    📝 Update CONTRIBUTING
+
+    [ci skip]
+
+commit a0e03935aaebb289445033b19a1a2a5ec001f888
+Merge: 8f0e910 8f0d36a
+Author: Wliu <50Wliu@users.noreply.github.com>
+Date:   Thu Sep 29 15:42:41 2016 -0400
+
+    Merge pull request #160 from torn4dom4n/patch-1
+
+    Update README.md
+
+commit 8f0d36afe434141a0eb181c2578d14d366e5bde2
+Author: Long Nhat Nguyen <torn4dom4n@users.noreply.github.com>
+Date:   Thu Sep 29 19:36:33 2016 +0000
+
+    Update README.md
+
+commit 77c8227411f1f38c1cb450a652b4bfb9470bb939
+Author: Long Nhat Nguyen <torn4dom4n@users.noreply.github.com>
+Date:   Thu Sep 29 19:32:26 2016 +0000
+
+    Update README.md
+
+commit 8f0e910a4824a05ee7661ba204cbd49aebc145f9
+Author: Wliu <Wliu1402@gmail.com>
+Date:   Wed Sep 28 20:50:24 2016 -0400
+
+    Prepare 0.37.3 release
+
+commit 97fdecb539e7e58934c5d9de2202f810cd7df846
+Merge: e7c0488 6c48772
+Author: Wliu <50Wliu@users.noreply.github.com>
+Date:   Wed Sep 28 16:01:47 2016 -0400
+
+    Merge pull request #159 from Alhadis/modelines
+
+    Add firstLineMatch support for hashbangs/modelines
+
+commit 6c48772bfdf5ed057501952f8454900b91ff140a
+Author: Alhadis <gardnerjohng@gmail.com>
+Date:   Wed Sep 28 23:28:17 2016 +1000
+
+    Add firstLineMatch support for hashbangs/modelines
+
+commit 47b9b323d7db3199c2db1e47a70a1fea2765395c
+Author: Eliasib García <eliasib.lv.12@gmail.com>
+Date:   Mon Sep 26 12:05:40 2016 +0100
+
+    Fixed: 'throw' snippet now uses \Exception instead of Exception
+
+commit aaf5c001246efb17694dc12cbf82e7eac8d679b4
+Author: Eliasib García <eliasib.lv.12@gmail.com>
+Date:   Mon Sep 26 08:24:50 2016 +0100
+
+    Fixed: Block try...catch now uses \Exception instead of Exception
+
+commit e7c048814539704e0805cfa1541942cfd895a4e0
+Merge: 43a6053 55bcca5
+Author: Wliu <50Wliu@users.noreply.github.com>
+Date:   Wed Aug 31 16:15:46 2016 -0400
+
+    Merge pull request #141 from Hikonobu/spike
+
+    indent all lines between parentheses
+
+commit 43a6053d7856a7c05a1c219323426aaa811b1887
+Author: Wliu <Wliu1402@gmail.com>
+Date:   Wed Jul 20 20:44:14 2016 -0400
+
+    Prepare 0.37.2 release
+
+commit 52149982c0f9d83878419d6fac1a9d12f56a63c0
+Merge: eb2e3d1 a4504cd
+Author: Wliu <50Wliu@users.noreply.github.com>
+Date:   Mon Jul 18 09:30:50 2016 -0400
+
+    Merge pull request #147 from Ingramz/master
+
+    Move doc_f snippet to appropriate scope
+
+commit a4504cd1654fc665feed1a74463633efd07ea4f4
+Author: Indrek Ardel <indrek@ardel.eu>
+Date:   Mon Jul 18 09:51:05 2016 +0300
+
+    Move doc_f snippet to appropriate scope
+
+commit eb2e3d1090d409629708c09c01dc871f3d15ad02
+Merge: 7fbf1a6 db80c79
+Author: Wliu <50Wliu@users.noreply.github.com>
+Date:   Fri Jul 15 08:44:45 2016 -0400
+
+    Merge pull request #143 from Ingramz/master
+
+    Fix doc_f snippet's return type selection
+
+commit 7fbf1a6ba66406cc3780d01817503082297370f5
+Merge: 86fffcc 472deaa
+Author: Wliu <50Wliu@users.noreply.github.com>
+Date:   Fri Jul 15 06:45:18 2016 -0400
+
+    Merge pull request #146 from excellent6/patch-1
+
+    Change "var_dump" to be reachable only in a php tag
+
+commit 472deaa1bf7f203a8bafce64d4e3b3170c031e10
+Author: excellent6 <excellent6@abv.bg>
+Date:   Fri Jul 15 09:05:16 2016 +0300
+
+    Change "var_dump" to be reachable only in a php tag
+
+    Change "var_dump" to be reachable only in a php tag. It can be used in the whole file.
+
+commit db80c79c21d86a91241e877d4d20ecf5d61ccca3
+Author: Indrek Ardel <indrek@ardel.eu>
+Date:   Tue Jun 28 15:54:13 2016 +0300
+
+    Fix doc_f snippet's return type selection
+
+commit 86fffccd3d1484d8a5eed0458ff063eae02dd841
+Merge: a469677 97f5839
+Author: Wliu <50Wliu@users.noreply.github.com>
+Date:   Mon Jun 27 13:35:53 2016 -0400
+
+    Merge pull request #134 from bj7/master
+
+    update constant.character.escape.php
+
+commit 97f583966733b79ea6ffe18ab4b3a6318e946fc4
+Author: Josh Bernitt <jjbernitt@gmail.com>
+Date:   Mon Jun 27 13:05:55 2016 -0400
+
+    adding spec for escaped bracket works
+
+    spec to check if the single quoted PHP string parses escaped characters
+    correctly is now working correctly. It fails when the fix for #124 is
+    removed, but passes when the fix is in place, just as desired.
+
+commit 4d8e56053dd21f471893313d43cd5dd24b314937
+Author: Josh Bernitt <jjbernitt@gmail.com>
+Date:   Mon Jun 27 11:42:52 2016 -0400
+
+    adding spec for escaped brackets
+
+    adding spec for escaped bracket and trying to get working. Currently
+    the tokenizer does not parse the test case correctly. Trying to
+    determine issue
+
+commit a469677ca438d8541bd93783a9314f3fd393beb9
+Author: Wliu <Wliu1402@gmail.com>
+Date:   Fri Jun 24 21:55:58 2016 -0400
+
+    Prepare 0.37.1 release
+
+commit b4ea2b897e35694a089a70751f7fca9d6efb2377
+Author: Damien Guard <damieng@gmail.com>
+Date:   Fri Jun 24 17:09:14 2016 -0700
+
+    AppVeyor should test against stable & beta
+
+commit bb0009abb64983a984a9e5c6d74d5923f53c4f6f
+Merge: fbdf55c a8efa4c
+Author: Wliu <50Wliu@users.noreply.github.com>
+Date:   Tue Jun 21 17:05:00 2016 -0400
+
+    Merge pull request #142 from torkiljohnsen/patch-1
+
+    Add spaceship operator
+
+commit a8efa4c47297821d6580dc48357466bd4835e8b3
+Author: Torkil Johnsen <torkil@torkiljohnsen.com>
+Date:   Tue Jun 21 21:49:12 2016 +0200
+
+    Add spaceship operator
+
+    See tonsky/FiraCode#64
+
+commit fbdf55cbdfc0b0a12269660a167d082dd4977d6e
+Author: Damien Guard <damieng@gmail.com>
+Date:   Tue Jun 14 08:57:03 2016 -0700
+
+    Enable Windows builds on AppVeyor
+
+commit bec824a0161a9695112798edfb633298affbdc24
+Author: Josh Bernitt <jjbernitt@gmail.com>
+Date:   Sun Jun 12 13:40:19 2016 -0400
+
+    cleanup code for PR on #134
+
+    Cleanup code for PR #134 that fixes single quoted regex in php.
+
+commit 55bcca5e8a6c7ce69b3c4497a27f7512d1f64b8b
+Author: Hikonobu Kurihara <hiko@hymena.jp>
+Date:   Wed Jun 8 14:29:07 2016 +0900
+
+    Fix for issue #63 (between parentheses)
+
+commit dfffa4864d6dcd818a9cd4d52bc310ccb0e247c4
+Author: Josh Bernitt <jjbernitt@gmail.com>
+Date:   Sat May 7 13:20:26 2016 -0400
+
+    update to constant.character.escape.php
+
+    Update to regex-single-quoted to place the constant.character.escape.php inside the patterns array so as to fix the broken regex highlighting in single quoted php regular expressions.
+
+commit e6e2b89de9b1f81d13f425f7fee2855a1f27ba2f
+Author: Wliu <Wliu1402@gmail.com>
+Date:   Thu Jan 21 20:31:31 2016 -0500
+
+    Prepare 0.37.0 release
+
+commit 47d3f9e48d52f8c6131812924b0c41a1960809e9
+Merge: 7832853 2a5060e
+Author: Wliu <50Wliu@users.noreply.github.com>
+Date:   Thu Jan 21 16:36:47 2016 -0500
+
+    Merge pull request #120 from zr9/issue_117
+
+    Fix for issue 117, scope for variadic is punctuation.definition.variable.php
+
+commit 783285355b5ccb31e38d8fd1b15c6182ce541929
+Merge: 5ce1b77 5f65594
+Author: Wliu <50Wliu@users.noreply.github.com>
+Date:   Thu Jan 21 16:32:47 2016 -0500
+
+    Merge pull request #119 from zr9/issue_112
+
+    Fix for issue 112, added recursive regex
+
+commit 5ce1b777ed426454e6b625c8116a7e4933125c08
+Merge: d0f4aca 3eb55ec
+Author: Wliu <50Wliu@users.noreply.github.com>
+Date:   Tue Jan 19 11:42:23 2016 -0500
+
+    Merge pull request #121 from martinbean/patch-1
+
+    Update DocBlocks
+
+commit 3eb55ec523e64f410269b1daafed1d275c3b997c
+Author: Martin Bean <martinbean@users.noreply.github.com>
+Date:   Tue Jan 19 15:59:45 2016 +0000
+
+    Update DocBlocks
+
+    DocBlocks close with `*/`, not `**/`.
+    Also added `@return` to function snippet.
+
+commit 2a5060e845ee02fb40f595794bbd4dd0992c39e9
+Author: zr9 <yui.room9@gmail.com>
+Date:   Tue Jan 19 06:11:50 2016 +0300
+
+    Added test for typehinted and variadic inside typehinted
+
+commit 393bd92c31a337675b49fdfa3d860b8ce2bd499e
+Author: zr9 <yui.room9@gmail.com>
+Date:   Tue Jan 19 06:08:15 2016 +0300
+
+    Fixed scope now it always inside punctuation.definition.variable.php
+
+commit 5f655949fbedc0453ca8762813df0372bc374c3f
+Author: zr9 <yui.room9@gmail.com>
+Date:   Tue Jan 19 05:59:26 2016 +0300
+
+    Cleaning: Removed new lines in between expect
+
+commit d63d9e00a72b7391a3f6251d09c51571d8d20a77
+Author: zr9 <yui.room9@gmail.com>
+Date:   Tue Jan 19 04:45:05 2016 +0300
+
+    Cleaned specs file
+
+commit d85fdd0325504ac30a46fbbfbf3439db4add22bc
+Author: zr9 <yui.room9@gmail.com>
+Date:   Tue Jan 19 04:42:40 2016 +0300
+
+    Cleaned specs file
+
+commit bd516715117e1725df5be8c9cf7e10e069cc16c2
+Author: zr9 <yui.room9@gmail.com>
+Date:   Mon Jan 18 20:25:12 2016 +0300
+
+    Added specs for issue #117
+
+commit 6e4ad927610d8da1a4ccc33a43ecbff43f37f271
+Author: zr9 <yui.room9@gmail.com>
+Date:   Mon Jan 18 18:04:06 2016 +0300
+
+    Added support to scope meta.function.argument.no-default.php as well
+
+commit c625b53d8a17bbbf4d76f9198ba31c6317d08bac
+Author: zr9 <yui.room9@gmail.com>
+Date:   Mon Jan 18 17:51:14 2016 +0300
+
+    Added specs for issue #112
+
+commit d05405f29e6e9f2c69df886cf7e61d95e4dddbc4
+Author: zr9 <yui.room9@gmail.com>
+Date:   Sun Jan 17 17:52:56 2016 +0300
+
+    Fix for issue 117, scope for variadic is punctuation.definition.variable.php
+
+commit 8a91ac9090380f3c626aa97a58e95c2fbf537caf
+Author: zr9 <yui.room9@gmail.com>
+Date:   Sun Jan 17 17:51:17 2016 +0300
+
+    Fix for issue 112, added recursive regex
+
+commit d0f4aca74877c932dd9090421ac6448afd497def
+Author: Wliu <Wliu1402@gmail.com>
+Date:   Mon Dec 21 20:08:10 2015 -0500
+
+    Prepare 0.36.0 release
+
+commit 8b6d43edf0153b1e9f02b85e2d38c1066a5222eb
+Merge: eb6bb5c 6213cb6
+Author: Wliu <50Wliu@users.noreply.github.com>
+Date:   Mon Dec 21 20:07:34 2015 -0500
+
+    Merge pull request #111 from edm-opensource/master
+
+    Changed grammar to include callable as type hint
+
+commit eb6bb5caae38a18fcb84a349b177b4fb48dcf262
+Author: Wliu <Wliu1402@gmail.com>
+Date:   Mon Dec 21 20:06:41 2015 -0500
+
+    Prepare 0.35.0 release
+
+commit c16c8759607a204664642139cb54a6e3a3c17d40
+Merge: b0c8fc9 58e277b
+Author: Wliu <50Wliu@users.noreply.github.com>
+Date:   Mon Dec 21 20:02:45 2015 -0500
+
+    Merge pull request #114 from denis-sokolov/patch-1
+
+    Fix assignment operator consuming comparison operators
+
+commit 58e277b253d9c20cfafbc5f62813571ac46c5031
+Author: Denis Sokolov <denis@sokolov.cc>
+Date:   Sun Dec 20 19:55:15 2015 +0200
+
+    Fix assignment operator consuming comparison operators
+
+commit 6213cb68fa4475058b072064d804f8ff37238b04
+Author: Agetorp <Agetorp@users.noreply.github.com>
+Date:   Wed Nov 11 14:22:57 2015 +0100
+
+    Changed grammar to include callable as type hint
+
+    Callable is now considered a type hint, just like array. It now gets storage.type.php instead of support.class.php
+
+commit b0c8fc91fb60909669aec4177ba49dcd9eda5e02
+Author: Wliu <Wliu1402@gmail.com>
+Date:   Mon Nov 9 16:57:25 2015 -0500
+
+    Prepare 0.34.0 release
+
+commit 8ce4068488513c25905d2f2af348f39d09372536
+Merge: 7e1f4ab ad639a9
+Author: Kevin Sawicki <kevin@github.com>
+Date:   Mon Nov 9 12:49:35 2015 -0800
+
+    Merge pull request #103 from henriquemoody/__construct
+
+    Improve "function __construct" snippet
+
+commit 7e1f4ab56d120ac93bf01a1fe2f402f2ef6eb011
+Author: Wliu <Wliu1402@gmail.com>
+Date:   Sat Nov 7 20:04:14 2015 -0500
+
+    Prepare 0.33.0 release
+
+commit 6b4c8cbc05e2ed78251046becd6def42d07684ff
+Merge: 7796835 5c9537d
+Author: Wliu <50Wliu@users.noreply.github.com>
+Date:   Sat Nov 7 17:33:38 2015 -0500
+
+    Merge pull request #110 from thisispiers/echo-keyword
+
+    Echo and print are language control keywords not functions
+
+commit 5c9537d9a16f9c06cec4910ce3bc31b02dfc4f7d
+Author: Piers Simms <piers@c1h.co.uk>
+Date:   Sat Nov 7 16:54:49 2015 +0000
+
+    Update php-spec.coffee
+
+commit 45a71b8ca89186d95e582560fbebbae23c21c96f
+Author: Piers Simms <piers@c1h.co.uk>
+Date:   Sat Nov 7 16:23:02 2015 +0000
+
+    whoops
+
+commit 0be48c5ac74ea69411e32d52593262af50045f30
+Author: Piers Simms <piers@c1h.co.uk>
+Date:   Sat Nov 7 16:21:04 2015 +0000
+
+    Spec new `support.function.construct.output`
+
+commit 36cb254e8b62c733dc774521d38cf69849ad906a
+Author: Piers Simms <piers@c1h.co.uk>
+Date:   Sat Nov 7 16:14:16 2015 +0000
+
+    Update php.cson
+
+commit b54fc20b73e0a2fa756973333f1823fa0aa01aac
+Author: Piers Simms <piers@c1h.co.uk>
+Date:   Sat Nov 7 14:45:25 2015 +0000
+
+    Echo and print are language control keywords not functions
+
+commit 779683516d57b15c2f1e3569f4e0d12faaadcf1d
+Author: Nathan Sobo <nathan@github.com>
+Date:   Mon Oct 19 14:47:19 2015 -0600
+
+    Prepare 0.32.0 release
+
+commit 21679df5627bca822fdf7f07fced97708f218d2c
+Merge: fd2de1f 870a094
+Author: Nathan Sobo <nathan@github.com>
+Date:   Mon Oct 19 14:46:23 2015 -0600
+
+    Merge pull request #96 from atom/ns-fix-square-bracket-on-eol-outdent
+
+    Include ] at end of line in outdent pattern
+
+commit fd2de1fc767963182aa864f72aa70b023fcef285
+Author: Antonio Scandurra <me@as-cii.com>
+Date:   Tue Oct 13 10:39:13 2015 +0200
+
+    Prepare 0.31.0 release
+
+commit ef3622e227d20cb42888d740232a3fbe6c7f753e
+Merge: 564040b 9260e94
+Author: Antonio Scandurra <me@as-cii.com>
+Date:   Tue Oct 13 10:38:57 2015 +0200
+
+    Merge pull request #105 from atom/as-deprecated-methods
+
+    Stop requiring TextEditor
+
+commit 9260e9419ed1c55f97019a4fb74e99fcafec9dfc
+Author: Antonio Scandurra <me@as-cii.com>
+Date:   Tue Oct 13 09:40:08 2015 +0200
+
+    :fire: Stop requiring TextEditor
+
+commit ad639a95627347bc840ba7bc7cf8055a29adcdbb
+Author: Henrique Moody <henriquemoody@gmail.com>
+Date:   Thu Sep 24 13:07:42 2015 -0300
+
+    Improve "function __construct" snippet
+
+    - Create new line after brackets (as PSR-2 recomments)
+    - Add visibility to the method (`public` as default)
+    - Add type to the first argument
+    - Define a property name as the same of the first argument
+
+commit 870a0943db6e147007415994ff4ecd62d9efa124
+Author: Nathan Sobo <nathan@github.com>
+Date:   Mon Sep 21 14:21:23 2015 -0600
+
+    Outdent when ) precede the end of the line after ]
+
+commit 564040b13ebb59837358e93fb1ca9a38a5adbe3f
+Author: Wliu <Wliu1402@gmail.com>
+Date:   Mon Sep 14 13:28:21 2015 -0400
+
+    Prepare 0.30.0 release
+
+commit 9f6e2f8a811d78e6fbea825b3f54b36dad1f4492
+Merge: befafef 5042ef2
+Author: Wliu <50Wliu@users.noreply.github.com>
+Date:   Mon Sep 14 13:25:24 2015 -0400
+
+    Merge pull request #79 from Ingramz/master
+
+    Sync with TextMate's PHP bundle
+
+commit 5042ef21bef2fa27fb0f345c4204cd16d921ad82
+Author: Indrek Ardel <indrek@ardel.eu>
+Date:   Sat Sep 12 13:47:31 2015 +0300
+
+    Add specs
+
+commit 6d60ff7a94f21433fe164bac86db3c459d69b939
+Author: Indrek Ardel <indrek@ardel.eu>
+Date:   Sat Sep 12 10:23:27 2015 +0300
+
+    Fix bracket handling for closures
+
+    Fixes #98
+
+commit 3ff60f7b82f1337947c43486eef5b07ba20ab2f2
+Merge: 44fab00 befafef
+Author: Indrek Ardel <indrek@ardel.eu>
+Date:   Sat Sep 12 10:04:48 2015 +0300
+
+    Merge remote-tracking branch 'atom/master'
+
+commit 176a2d84aaec515321c49ba6295ff79e855813d3
+Author: Nathan Sobo <nathan@github.com>
+Date:   Fri Aug 28 19:35:01 2015 -0600
+
+    Include ] at end of line in outdent pattern
+
+    Refs #63
+
+commit befafefa06df28386f33a62bc0ab32bbb289f3b8
+Author: Kevin Sawicki <kevinsawicki@gmail.com>
+Date:   Wed Aug 5 15:47:34 2015 -0700
+
+    Prepare 0.29.0 release
+
+commit f0677abd94ef126d76d1fb7328f3c674d3a29e86
+Merge: a9727d9 2bdd137
+Author: Kevin Sawicki <kevin@github.com>
+Date:   Wed Aug 5 15:47:18 2015 -0700
+
+    Merge pull request #94 from leek/patch-1
+
+    Add support for .php_cs
+
+commit 2bdd1377420620c711a3600eb10a5db4550e752e
+Author: Chris Jones <leeked@gmail.com>
+Date:   Wed Aug 5 12:41:55 2015 -0400
+
+    Add support for .php_cs
+
+commit a9727d9e5346c78bb110c1606dd27f39447d11ed
+Author: Machiste Quintana <mnquintana@users.noreply.github.com>
+Date:   Thu Jul 30 21:15:17 2015 -0400
+
+    Only build pushes on Travis for master branch [ci skip]
+
+commit 54b0fd4c136e91cf6b9bd277ee708c5b01c41bf7
+Author: Kevin Sawicki <kevinsawicki@gmail.com>
+Date:   Thu Jul 30 10:11:39 2015 -0700
+
+    Prepare 0.28.0 release
+
+commit 2721ed2d981a541670d387934b84a397ebdc5bde
+Author: Kevin Sawicki <kevinsawicki@gmail.com>
+Date:   Thu Jul 30 10:07:34 2015 -0700
+
+    Move nonWordCharacters default to .text.html.php scope
+
+    This is the scope with which it will be written to via the
+    settings view so this allows it to be overridden locally.
+
+    Closes #92
+
+commit 59385bb9186ede9c9bb7f788c5f80f2cc206d81a
+Author: Kevin Sawicki <kevinsawicki@gmail.com>
+Date:   Wed Jul 8 09:21:44 2015 -0700
+
+    Prepare 0.27.0 release
+
+commit e2798a0cb8366a5853811552704f293f4921a0fb
+Merge: 4f0e080 cb20158
+Author: Kevin Sawicki <kevin@github.com>
+Date:   Wed Jul 8 09:21:11 2015 -0700
+
+    Merge pull request #89 from mat-b-/patch-1
+
+    Added try-catch snippet
+
+commit cb2015879712f2e535cb6f2facf46872526e89ea
+Author: Mateusz Barucha <mateusz@barucha.pl>
+Date:   Wed Jul 8 12:34:35 2015 +0200
+
+    Better try-catch snippet
+
+    No # code... comment
+
+commit be1bd7b37d1bafb0fc301a82da3ee8db0f2b2bab
+Author: Mateusz Barucha <mateusz@barucha.pl>
+Date:   Wed Jul 8 12:28:49 2015 +0200
+
+    Added try-catch snippet
+
+commit 4f0e08090a83353eabab00df15c344b0ec621e13
+Author: Kevin Sawicki <kevinsawicki@gmail.com>
+Date:   Mon Jun 22 09:25:09 2015 -0700
+
+    Prepare 0.26.0 release
+
+commit 40d10ea04272b54a7064395067f7d66fa5bc2b0b
+Merge: 0f5e7b8 174de43
+Author: Kevin Sawicki <kevin@github.com>
+Date:   Mon Jun 22 09:24:12 2015 -0700
+
+    Merge pull request #84 from frozzare/issue-76
+
+    Fixed open tag completion
+
+commit 0f5e7b80901c3992ca71acea788fbc3aff8605dc
+Author: Kevin Sawicki <kevinsawicki@gmail.com>
+Date:   Mon Jun 22 09:22:56 2015 -0700
+
+    Prepare 0.25.0 release
+
+commit 1db19d8700ee0597c3be91abc751f3c78c98f799
+Author: Kevin Sawicki <kevinsawicki@gmail.com>
+Date:   Mon Jun 22 09:22:51 2015 -0700
+
+    Add missing \
+
+commit 2cb026fb920301df6b37512210f5936b2f0ccc3f
+Merge: 899c018 68fbaba
+Author: Kevin Sawicki <kevin@github.com>
+Date:   Mon Jun 22 09:18:13 2015 -0700
+
+    Merge pull request #85 from frozzare/added-missing-phpdocs-tags
+
+    Added support for phpdoc method, property and source tags
+
+commit 68fbaba9972f6fd193faa04a0bee61d5c5148938
+Author: Fredrik Forsmo <fredrik.forsmo@gmail.com>
+Date:   Mon Jun 22 16:27:10 2015 +0200
+
+    Added support for phpdoc method, property and source tags
+
+commit 174de437c7bd775cf0e9f231ac1283cc91fd3547
+Author: Fredrik Forsmo <fredrik.forsmo@gmail.com>
+Date:   Mon Jun 22 16:25:07 2015 +0200
+
+    Fixed open tag completion
+
+commit 899c018426afe06aa060ac3fc46da48cea8c04d4
+Merge: b83b8ad 30eb564
+Author: Wliu <50Wliu@users.noreply.github.com>
+Date:   Mon Jun 22 08:56:07 2015 -0400
+
+    Merge pull request #83 from frozzare/phpdoc-api-tag
+
+    Added syntax support for PHPDoc api tag
+
+commit 30eb5640c1ac98ac50fe72350444e637adcabafa
+Author: Fredrik Forsmo <fredrik.forsmo@gmail.com>
+Date:   Mon Jun 22 13:11:52 2015 +0200
+
+    Added support for phpdoc api tag
+
+commit b83b8ad0f229ec3ae487690d2fad2dd8d6ec733e
+Merge: 585694a ee570f2
+Author: Machisté N. Quintana <mnquintana@users.noreply.github.com>
+Date:   Tue Jun 2 20:53:27 2015 -0400
+
+    Merge pull request #80 from atom/mq-coffeelint-plus
+
+    Add coffeelint support
+
+commit ee570f2ba0200b3ec5a847c1f0f954dc9151b754
+Author: Machiste Quintana <mnquintana@users.noreply.github.com>
+Date:   Tue Jun 2 20:29:29 2015 -0400
+
+    Add coffeelint support
+
+commit 44fab008c95638a76d228362999bc247f5ae6b19
+Author: Indrek Ardel <indrek@ardel.eu>
+Date:   Sat May 30 20:26:54 2015 +0300
+
+    Make array in function arguments case insensitive
+
+commit aa1719fa5958a9a1f52eb734fdc2c5c0a5b52b6e
+Author: Indrek Ardel <indrek@ardel.eu>
+Date:   Sat May 30 17:48:02 2015 +0300
+
+    Fix a mistake in completions
+
+commit cd027fcd76064a5e5b4073a2765b9c9c514efc0c
+Author: Indrek Ardel <indrek@ardel.eu>
+Date:   Sat May 30 17:44:22 2015 +0300
+
+    Sync completions
+
+commit 62bba53bdcdde93e214374c7e72f24ae7aabede7
+Author: Indrek Ardel <indrek@ardel.eu>
+Date:   Sat May 30 17:01:41 2015 +0300
+
+    Dedupe trait definition
+
+commit b7895954ae4bf9355b557fb0a9cabc74895de7c9
+Author: Indrek Ardel <indrek@ardel.eu>
+Date:   Sat May 30 15:22:10 2015 +0300
+
+    Sync with TextMate's PHP bundle
+
+commit 585694a162a5ce2ec306212966f94a7ed55088a0
+Author: Kevin Sawicki <kevinsawicki@gmail.com>
+Date:   Tue May 19 11:47:20 2015 -0700
+
+    Prepare 0.24.0 release
+
+commit a732c7405266573547d485c50b1d63d3ae62bd66
+Merge: e7e6457 bdb0859
+Author: Kevin Sawicki <kevin@github.com>
+Date:   Tue May 19 11:47:02 2015 -0700
+
+    Merge pull request #75 from mostafaeweda/no-word-chars
+
+    Add non word characters to php that excludes the dollar sign from a valid variable name
+
+commit bdb085929861b6801ef5ea9fb443314a5d2027e6
+Author: Mostafa Eweda <most@fb.com>
+Date:   Tue May 19 10:37:47 2015 -0700
+
+    Revert version bump
+
+commit 38e938140e647180672de05256419453a0f4dfe2
+Author: Mostafa Eweda <most@fb.com>
+Date:   Tue May 19 10:30:19 2015 -0700
+
+    Bump language-php version to 0.24.0
+
+commit 64583fa0acbe237140b924f82dd519deba0e4948
+Author: Mostafa Eweda <most@fb.com>
+Date:   Tue May 19 10:28:33 2015 -0700
+
+    Add non word characters to php that excludes the dollar sign from a valid variable name
+
+commit e7e645785354f499c1736f924cef57fc7d3b750f
+Author: Kevin Sawicki <kevinsawicki@gmail.com>
+Date:   Fri May 15 09:34:45 2015 -0700
+
+    Prepare 0.23.0 release
+
+commit f8b4f9a188954f8eda3931a969a88d407d595794
+Merge: 955dcf3 7cf1693
+Author: Kevin Sawicki <kevin@github.com>
+Date:   Fri May 15 09:33:49 2015 -0700
+
+    Merge pull request #72 from frozzare/master
+
+    Fixed default short array value syntax error
+
+commit 7cf1693dd2213fb2d2c443050a17e9018a33ac9d
+Author: Fredrik Forsmo <fredrik.forsmo@gmail.com>
+Date:   Fri May 15 15:51:37 2015 +0200
+
+    Fixed typo
+
+commit 80c8f59adb7e95dea19066283bf6e09d9a962368
+Merge: 708dc81 a1744bc
+Author: Fredrik Forsmo <fredrik.forsmo@gmail.com>
+Date:   Thu May 14 18:02:43 2015 +0200
+
+    Merged
+
+commit 708dc81176559f64182195fbafc5c36be5111498
+Author: Fredrik Forsmo <fredrik.forsmo@gmail.com>
+Date:   Thu May 14 15:51:33 2015 +0200
+
+    Fixed so short array value works correct and added tests for both array() and short array when using array type
+
+commit 955dcf3eee0e66ea5a35a40a0237655daa7d422d
+Merge: f350996 70150f1
+Author: Wliu <50Wliu@users.noreply.github.com>
+Date:   Thu May 14 11:03:39 2015 -0400
+
+    Merge pull request #73 from frozzare/issue-29
+
+    Fixed so namespaces syntax works on same lime as <?php
+
+commit 70150f187cb9767b00ef1a419880ffac48583f69
+Author: Fredrik Forsmo <fredrik.forsmo@gmail.com>
+Date:   Thu May 14 16:55:36 2015 +0200
+
+    Removed short array patter
+
+commit a1744bca95431e52133a35458a65220b105b9b5e
+Author: Fredrik Forsmo <fredrik.forsmo@gmail.com>
+Date:   Thu May 14 15:51:33 2015 +0200
+
+    Fixed so short array value works correct and added tests for both array() and short array when using array type
+
+commit 9812a66feb87a1cfcfc5fc14a5790bbc531e1daf
+Author: Fredrik Forsmo <fredrik.forsmo@gmail.com>
+Date:   Thu May 14 15:26:25 2015 +0200
+
+    Changed to \\s* instead \\s
+
+commit 54fcb2ef6d42eb5b9ac2312f3290fb8a440cc2ad
+Author: Fredrik Forsmo <fredrik.forsmo@gmail.com>
+Date:   Thu May 14 15:24:21 2015 +0200
+
+    Changed to non-capturing group
+
+commit 2fe186913141f5ce6676bf3ec7f3c4158f6f2621
+Merge: 3727095 fefe52d
+Author: Fredrik Forsmo <fredrik.forsmo@gmail.com>
+Date:   Thu May 14 15:21:06 2015 +0200
+
+    Merge branch 'issue-29' of github.com:frozzare/language-php into issue-29
+
+    * 'issue-29' of github.com:frozzare/language-php:
+      Fixed typo
+      Added test for namespace on own line
+      Added test for namespace on same line
+      Fixed so namespaces syntax works on same lime as <?php
+
+commit fefe52ddc0663402cc9c58c6ffe86a98439f8bbe
+Author: Fredrik Forsmo <frozzare@users.noreply.github.com>
+Date:   Thu May 14 15:18:34 2015 +0200
+
+    Fixed typo
+
+commit 6bbd923fcb190f67ebc8e8413d7be4202f93cc49
+Author: Fredrik Forsmo <fredrik.forsmo@gmail.com>
+Date:   Thu May 14 14:37:19 2015 +0200
+
+    Added test for namespace on own line
+
+commit c2de12fdee4e9933aa5cbc0e965f7e9d5ce87b70
+Author: Fredrik Forsmo <fredrik.forsmo@gmail.com>
+Date:   Thu May 14 14:33:43 2015 +0200
+
+    Added test for namespace on same line
+
+commit 6247fbb3fbcb2f30670c4c02067cd4693af6c00f
+Author: Fredrik Forsmo <fredrik.forsmo@gmail.com>
+Date:   Thu May 14 10:25:56 2015 +0200
+
+    Fixed so namespaces syntax works on same lime as <?php
+
+commit 372709559d0f8053d56a56db083d5dcbf2e59e9e
+Author: Fredrik Forsmo <frozzare@users.noreply.github.com>
+Date:   Wed May 13 12:20:02 2015 +0200
+
+    Added a empty capture to short array syntax
+
+commit 4921f5bf6bfd4593c8043899578ba2734ae071d3
+Author: Fredrik Forsmo <frozzare@users.noreply.github.com>
+Date:   Wed May 13 12:18:01 2015 +0200
+
+    Fixed default short array syntax error
+
+commit f3509962475ad4a6376e3e4074e5f16654e3b222
+Author: Kevin Sawicki <kevinsawicki@gmail.com>
+Date:   Mon Mar 30 10:01:34 2015 -0700
+
+    Prepare 0.22.0 release
+
+commit 2e84554fe0f3145f955b2c280bc7025d8bec26f7
+Author: Kevin Sawicki <kevinsawicki@gmail.com>
+Date:   Mon Mar 30 10:01:14 2015 -0700
+
+    Add initial Travis config
+
+commit cf0ea92ec80d5f1060f827fde5ced69854c304a2
+Merge: 9db3267 3cd6b46
+Author: Kevin Sawicki <kevin@github.com>
+Date:   Mon Mar 30 09:59:10 2015 -0700
+
+    Merge pull request #65 from chemoish/master
+
+    Adding spec/ and prioritized combined operators
+
+commit 3cd6b463f31a502e674f42145d2aa26a2725f29f
+Author: Carey Hinoki <carey.hinoki@gmail.com>
+Date:   Fri Mar 27 17:42:56 2015 -0700
+
+    Adding spec/ and prioritized combined operators (Ref: http://php.net/manual/en/language.operators.assignment.php).
+
+commit 9db32677301be3603d2a26b92a64635fbbb323fa
+Author: Kevin Sawicki <kevinsawicki@gmail.com>
+Date:   Wed Feb 25 15:35:43 2015 -0800
+
+    Prepare 0.21.0 release
+
+commit 39984b1e26aafa70e1474464674d78e78cd1b2f6
+Merge: 6e5ae33 f36e111
+Author: Kevin Sawicki <kevin@github.com>
+Date:   Wed Feb 25 15:35:28 2015 -0800
+
+    Merge pull request #62 from robballou/control-structure-semicolons
+
+    Adding semicolons after control structures in .text.html.
+
+commit f36e1117374c2dc831289905b5c5c25be4b751c5
+Author: Rob Ballou <rob@atendesigngroup.com>
+Date:   Thu Feb 19 14:05:59 2015 -0700
+
+    Adding semicolons after control structures in .text.html.
+
+    While not required, ending semicolons are recommended and make it easier to add new code within existing PHP tags.
+
+commit 6e5ae33e86e27fde4c822fe8acfac2e17b58a62e
+Author: Nathan Sobo <nathan@github.com>
+Date:   Tue Jan 6 10:14:56 2015 -0700
+
+    Prepare 0.20.0 release
+
+commit e23078ef8cbb6517a6a944d9d4ffe380152c996f
+Author: Nathan Sobo <nathan@github.com>
+Date:   Tue Jan 6 10:14:49 2015 -0700
+
+    Rename scoped-properties/ to settings/
+
+commit 22c66db9dbd5fcd0fd027f25eec69c9d41be46a6
+Author: Kevin Sawicki <kevinsawicki@gmail.com>
+Date:   Mon Jan 5 09:41:09 2015 -0800
+
+    Prepare 0.19.0 release
+
+commit d68facf57b96ceafa227f695af9f75f41b5dc572
+Merge: a7b9b50 68d000d
+Author: Kevin Sawicki <kevin@github.com>
+Date:   Mon Jan 5 09:40:34 2015 -0800
+
+    Merge pull request #54 from AdamBuczynski/finally-keyword
+
+    Properly identify finally keyword
+
+commit 68d000da072756f720a7f421e054b2b52fec8bc0
+Author: Adam Buczynski <adambuczynski@gmail.com>
+Date:   Sat Dec 27 10:40:51 2014 +1300
+
+    Properly identify finally keyword
+
+commit a7b9b502ac321a2ce611aae15e2ac2ab53c4e185
+Author: Kevin Sawicki <kevinsawicki@gmail.com>
+Date:   Thu Oct 30 15:42:59 2014 -0700
+
+    Prepare 0.18.0 release
+
+commit 0a078de5dc072d4476eb2db18a67ab223f81a516
+Author: Kevin Sawicki <kevinsawicki@gmail.com>
+Date:   Thu Oct 30 15:42:07 2014 -0700
+
+    Don't have tab stops touch in snippets
+
+    Causes issues when editing at the edge of one.
+
+    Closes #41
+
+commit c8fd7b9358b5f3cd1e3f3eb282db776475d01b9c
+Author: Kevin Sawicki <kevinsawicki@gmail.com>
+Date:   Mon Oct 27 09:12:11 2014 -0700
+
+    Prepare 0.17.0 release
+
+commit 04b7f406a151cbec520b35f77b0ba0ae39afe8af
+Author: Kevin Sawicki <kevinsawicki@gmail.com>
+Date:   Mon Oct 27 09:12:06 2014 -0700
+
+    :lipstick: Use single quotes
+
+commit c2a4cece572ea1248d8c9b5b0beacf1bdd47e103
+Merge: 5897952 7b7ca09
+Author: Kevin Sawicki <kevin@github.com>
+Date:   Mon Oct 27 09:08:33 2014 -0700
+
+    Merge pull request #40 from laravelfanatic/master
+
+    Added a grammar for 'trait' keyword
+
+commit 7b7ca09b83eb1ae59b41d9bef2482ac0b8226197
+Author: Laravel Fanatic <fluke8259@gmail.com>
+Date:   Sat Oct 25 14:07:32 2014 +0000
+
+    Added a grammar for 'trait' keyword
+
+commit 58979529a332f82cc60f890d2dcaa50906961442
+Author: Kevin Sawicki <kevin@github.com>
+Date:   Fri Sep 12 15:09:44 2014 -0700
+
+    Prepare 0.16.0 release
+
+commit 11ca0a8924e3ca4244c58b689b37e5e11268ecc5
+Author: Kevin Sawicki <kevin@github.com>
+Date:   Fri Sep 12 15:09:29 2014 -0700
+
+    :lipstick: Sort file types
+
+commit 6348659dc91f85dd6a8945eca085b7871872ccd3
+Merge: 84eb1b3 2db9469
+Author: Kevin Sawicki <kevin@github.com>
+Date:   Fri Sep 12 15:07:21 2014 -0700
+
+    Merge pull request #26 from mavimo/feature/drupal-file-extensions
+
+    Added *install* and *profile* extensions are valid PHP files.
+
+commit 84eb1b343e8fff4b99549f073b883f9ae93c16c4
+Author: Kevin Sawicki <kevin@github.com>
+Date:   Thu Jun 5 16:11:15 2014 -0700
+
+    Prepare 0.15.0 release
+
+commit 3c331191411357a32bd0144e8ce6be4fce77d4d6
+Merge: d3d3cf2 52cbe10
+Author: Kevin Sawicki <kevin@github.com>
+Date:   Thu Jun 5 16:11:05 2014 -0700
+
+    Merge pull request #28 from fotanus/master
+
+    Fix typo: s/repitition/repetition
+
+commit 52cbe10c97d853e9b997c7fe1c27098ce738a5da
+Author: fotanus@gmail.com <Felipe Tanus>
+Date:   Thu Jun 5 15:20:19 2014 -0300
+
+    Fix typo: s/repitition/repetition
+
+commit 2db946955750ca5d3061321516fe0b9c6d687a98
+Author: Marco Vito Moscaritolo <marco@agavee.com>
+Date:   Wed May 7 22:14:28 2014 +0200
+
+    Added *install* and *profile* extensions are valid PHP files. Drupal use this extensions to mange installation files and distribution profile.
+
+commit d3d3cf2869e5675a4444d9945ae7fdaca25fa1b4
+Author: Kevin Sawicki <kevin@github.com>
+Date:   Mon May 5 08:45:10 2014 -0700
+
+    Move scopeName and name to the top
+
+commit 78e5d8d2b99e0b5a9d4e6651f6489e1c66f2b95a
+Author: Kevin Sawicki <kevin@github.com>
+Date:   Tue Apr 1 16:44:46 2014 -0700
+
+    Prepare 0.14.0 release
+
+commit 5096cae7859fb5f10beb110c7513fd6898578f27
+Merge: db3a1c4 c56dba0
+Author: Kevin Sawicki <kevin@github.com>
+Date:   Tue Apr 1 16:44:21 2014 -0700
+
+    Merge pull request #23 from Stubbs/master
+
+    :memo: Add function snippet with doc bloc
+
+commit c56dba07500e29c348f0de8cc541a997bddbb5cb
+Author: Stuart Grimshaw <stuart.grimshaw@wandisco.com>
+Date:   Tue Apr 1 15:35:45 2014 -0700
+
+    :memo: Add function snippet with doc bloc
+
+commit db3a1c4060a4d205220ab27a8a1c87f6bb0786b2
+Author: Kevin Sawicki <kevin@github.com>
+Date:   Tue Mar 18 09:01:23 2014 -0700
+
+    Prepare 0.13.0 release
+
+commit 7073275538511abdeac023fef8eca2db63906934
+Author: Kevin Sawicki <kevin@github.com>
+Date:   Tue Mar 18 09:00:01 2014 -0700
+
+    Put final tab stop after semicolon
+
+commit b14b320043f2a5a90a085a7ae9b243f056ca3342
+Merge: fd975dc bea0c95
+Author: Kevin Sawicki <kevin@github.com>
+Date:   Tue Mar 18 08:55:52 2014 -0700
+
+    Merge pull request #21 from lagden/snippets
+
+    Add snippet - var_dump
+
+commit bea0c9520176e1b97e7a03aa7dab22bc5bd08550
+Author: Thiago Lagden <lagden@gmail.com>
+Date:   Tue Mar 18 12:10:50 2014 -0300
+
+    Fix snippet - echo better continuity
+
+commit 417af57f6d546390de7bfc6fca2b72e10ef461c1
+Author: Thiago Lagden <lagden@gmail.com>
+Date:   Mon Mar 17 14:57:43 2014 -0300
+
+    Fix snippet - echo
+
+commit df27f36e30f734bc46f8ff7296be373608592a8f
+Author: Thiago Lagden <lagden@gmail.com>
+Date:   Mon Mar 17 14:44:04 2014 -0300
+
+    Fix snippet - var_dump
+
+commit fd975dc72f8c0fc8c31f3cef8bcb75efe153104f
+Author: Kevin Sawicki <kevin@github.com>
+Date:   Mon Mar 17 10:26:53 2014 -0700
+
+    Prepare 0.12.0 release
+
+commit e9cb6dbd8da80df9b5dd4637e620c87ab3d75ccb
+Merge: 4df48a9 813bc72
+Author: Kevin Sawicki <kevin@github.com>
+Date:   Mon Mar 17 10:26:34 2014 -0700
+
+    Merge pull request #19 from peterfox/master
+
+    Update language-php.cson
+
+commit 4df48a9e571e84dc1e9dde3677c920f092c3de2f
+Merge: c2ac02f 83f79ed
+Author: Kevin Sawicki <kevin@github.com>
+Date:   Mon Mar 17 10:24:23 2014 -0700
+
+    Merge pull request #18 from Atrophius/master
+
+    Add versions of 'this' and 'ethis' snippets that work inside of php tags
+
+commit f86ca61c99648816e1a4eda3a9a107c4424ffbcc
+Author: Thiago Lagden <lagden@gmail.com>
+Date:   Mon Mar 17 12:27:08 2014 -0300
+
+    Add snippet - var_dump
+
+commit 813bc7219ea6bc1851cf4624d459d041e8fd3eb5
+Author: Peter Fox <slyfoxy@gmail.com>
+Date:   Fri Mar 14 21:06:24 2014 +0000
+
+    Update language-php.cson
+
+    Add feature short array 'shorray' snippet as well as a keyval snippet for creating extra key value pairs
+
+commit 83f79edd486375afd7f85052d7e26dfbd474e1e6
+Author: Jeremy Privett <jeremy@jeremyprivett.com>
+Date:   Thu Mar 13 18:53:04 2014 -0400
+
+    Add versions of 'this' and 'ethis' snippets that work inside of php tags.
+
+commit c2ac02fe18448f04b4312ac00c00991630f69730
+Author: Kevin Sawicki <kevin@github.com>
+Date:   Wed Mar 12 09:59:15 2014 -0700
+
+    Prepare 0.11.0 release
+
+commit 725f1a4366fc86487f7fe4e9d582360163130387
+Merge: 62070ef 49d5efc
+Author: Kevin Sawicki <kevin@github.com>
+Date:   Wed Mar 12 09:58:19 2014 -0700
+
+    Merge pull request #17 from Andreyco/patch-1
+
+    Add Trait snippet & fix DocBlock intendation for Class structure.
+
+commit 49d5efc106ce2588c0557f1f6af5c33698e5e81f
+Merge: 41490d0 c52f58b
+Author: Andrej Badin <contact@andrejbadin.com>
+Date:   Wed Mar 12 00:42:59 2014 +0100
+
+    Merge pull request #2 from Andreyco/patch-2
+
+    Fix DocBlock intendation for Class snippet
+
+commit c52f58b0201c0aeb7dd8cf14df61387dc3dbd5cc
+Author: Andrej Badin <contact@andrejbadin.com>
+Date:   Wed Mar 12 00:40:41 2014 +0100
+
+    Fix DocBlock intendation for Class snippet
+
+commit 41490d0a095272ade3735aef7de36c5ce62e8be6
+Author: Andrej Badin <contact@andrejbadin.com>
+Date:   Wed Mar 12 00:33:32 2014 +0100
+
+    Add Trait snippet
+
+commit 62070ef0c812951db4bc6627de78c5c5a69d5b89
+Author: Kevin Sawicki <kevin@github.com>
+Date:   Wed Mar 5 16:28:06 2014 -0800
+
+    Prepare 0.10.0 release
+
+commit c9a14eb3fc6a5eb66c6a4b67059fdbb0b3c7a628
+Author: Kevin Sawicki <kevin@github.com>
+Date:   Wed Mar 5 16:27:54 2014 -0800
+
+    Remove unneeded \ before $
+
+commit f6f97e97ebea24a401d0261fd32526139e31573e
+Merge: 67631da d9e4dde
+Author: Kevin Sawicki <kevin@github.com>
+Date:   Wed Mar 5 16:19:27 2014 -0800
+
+    Merge pull request #8 from michaelfavia/snippet-fixes-7
+
+    fixes #7: snippet extra "/" from conversion form textmate
+
+commit 67631daa754e92c17838632ddebb31a8a56ce83d
+Author: Kevin Sawicki <kevin@github.com>
+Date:   Sat Mar 1 15:50:52 2014 -0800
+
+    Prepare 0.9.0 release
+
+commit bd078b1c6d2ca5e362daea80ddf3b38cc2bf4a9b
+Merge: 475c59e b2a1e37
+Author: Kevin Sawicki <kevin@github.com>
+Date:   Sat Mar 1 15:50:21 2014 -0800
+
+    Merge pull request #1 from jacobbednarz/add-more-php-file-ext
+
+    Add in support for 'inc' and 'module' extensions
+
+commit b2a1e37393434a8f1a60a84740b50202c44e722f
+Author: Jacob Bednarz <jacob.bednarz@gmail.com>
+Date:   Sun Mar 2 09:34:09 2014 +1000
+
+    Re-add inc file extension and sort alphabetically :sparkles:
+
+commit cdd6afc0440422522ed0d9a53512149d0fcebd9e
+Author: Jacob Bednarz <jacob.bednarz@gmail.com>
+Date:   Sun Mar 2 09:13:23 2014 +1000
+
+    Remove 'inc' file extension
+
+commit d9e4dde69557d26376da5fe9447de61ac1797e66
+Author: Michael Favia <michael@favish.com>
+Date:   Sat Mar 1 09:52:56 2014 -0600
+
+    fixes #7: snippet extra "/" from conversion form textmate
+
+commit 475c59e7467058c5af1bd61ba6d6eb4f2af021d1
+Merge: 842b22e 1c0f8e1
+Author: Nathan Sobo <nathan@github.com>
+Date:   Sat Mar 1 00:19:06 2014 +0200
+
+    Merge pull request #5 from bjacobel/master
+
+    Updates package.json 'bug' field to point to this repo
+
+commit 1c0f8e1a4b57c1db14698c64d370e08047739329
+Author: Brian Jacobel <bjacobel@gmail.com>
+Date:   Thu Feb 27 14:23:41 2014 -0500
+
+    Changes bug link in package.json to point to this repo
+
+commit 5c113b78fa22b203c82b98902792c9e37dae96c6
+Author: Jacob Bednarz <jacob.bednarz@gmail.com>
+Date:   Thu Feb 27 11:04:49 2014 +1000
+
+    Add in support for 'inc' and 'module' extensions
+
+    'inc' and 'module' file extensions are used by Drupal and other CMS's.
+
+commit 842b22e0e3ac2f1835673c801b90f3675e9bfb73
+Author: Kevin Sawicki <kevin@github.com>
+Date:   Sat Feb 22 15:02:45 2014 -0800
+
+    Prepare 0.8.0 release
+
+commit f8137de4cd93e438444f4c143ae9fa27ed3b2bdc
+Author: Kevin Sawicki <kevin@github.com>
+Date:   Sat Feb 22 15:02:41 2014 -0800
+
+    Add CONTRIBUTING.md
+
+commit e966a3339149c7f5c7ea184ff76f3df498d39b19
+Author: Kevin Sawicki <kevin@github.com>
+Date:   Sat Feb 22 15:02:00 2014 -0800
+
+    Convert to CSON and consolidate snippets/properties
+
+commit efbdd0074d7e2a6602f12dd85ce10dabbeb1817f
+Author: Nathan Sobo <nathan@github.com>
+Date:   Wed Feb 19 10:28:47 2014 -0700
+
+    Prepare 0.7.0 release
+
+commit 1f0dccfb4e8a75a3d51c334e26627ad195da6e21
+Author: Nathan Sobo <nathan@github.com>
+Date:   Wed Feb 19 10:28:42 2014 -0700
+
+    Link to bundle conversion docs in README
+
+commit 2802523fee24f0b4de40f42d11f2dccfeccfc757
+Author: Nathan Sobo <nathan@github.com>
+Date:   Wed Feb 19 10:26:44 2014 -0700
+
+    Add MIT license
+
+commit 386921a3547e178553fb29a9331ee6a911bd03ac
+Author: Kevin Sawicki <kevin@github.com>
+Date:   Mon Feb 17 14:29:22 2014 -0800
+
+    Prepare 0.6.0 release
+
+commit 5a8f803b264950ad2eda711c1cf626406f4cd22f
+Author: Kevin Sawicki <kevin@github.com>
+Date:   Mon Feb 17 14:29:20 2014 -0800
+
+    Use CSS selectors in scoped properties
+
+commit 9161f622f5afbee2018fa74b4f44bc094df8aae7
+Author: Kevin Sawicki <kevin@github.com>
+Date:   Mon Feb 17 11:13:26 2014 -0800
+
+    Prepare 0.5.0 release
+
+commit a7a5c55b924e340d0db746a81c3e4107a7cad776
+Author: Kevin Sawicki <kevin@github.com>
+Date:   Mon Feb 17 11:13:21 2014 -0800
+
+    Convert to Atom package layout
+
+commit 2c0ee90a82cfc7061b7a369787952f55cfdefaca
+Author: Kevin Sawicki <kevin@github.com>
+Date:   Fri Feb 7 12:49:16 2014 -0800
+
+    Prepare 0.4.0 release
+
+commit a747828626780f915abd4976cf321ec2d95d6c95
+Author: Kevin Sawicki <kevin@github.com>
+Date:   Fri Feb 7 12:49:14 2014 -0800
+
+    Remove unused files
+
+commit a840ebfde200edcf5a508037d36a5dd584278d93
+Author: Kevin Sawicki <kevin@github.com>
+Date:   Wed Jan 15 12:58:17 2014 -0800
+
+    Prepare 0.3.0 release
+
+commit a17eee5def7d4980767dccd12f0b58b805718301
+Author: Kevin Sawicki <kevin@github.com>
+Date:   Wed Jan 15 12:58:00 2014 -0800
+
+    Remove unused support folder
+
+commit be8a6c95dc4ee6ba9b8c183e99483e7312aaf132
+Author: Kevin Sawicki <kevin@github.com>
+Date:   Fri Oct 25 11:44:08 2013 -0700
+
+    Prepare 0.2.0 release
+
+commit 42b245aca579ad7bfa32d91a03a847c3435b22d9
+Author: Kevin Sawicki <kevin@github.com>
+Date:   Fri Oct 25 11:44:08 2013 -0700
+
+    Convert file names to be Windows friendly
+
+commit 9d8da9e562ee3764909a6948c93bb1a101cab85c
+Author: Kevin Sawicki <kevin@github.com>
+Date:   Mon Oct 21 16:32:29 2013 -0700
+
+    Prepare 0.1.0 release
+
+commit 882eb75771720c4d982ce3412ff4d51781ed8436
+Author: Kevin Sawicki <kevin@github.com>
+Date:   Sat Oct 19 19:41:01 2013 -0700
+
+    Initial commit
