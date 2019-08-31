@@ -488,7 +488,7 @@
       (function)\\s+
       (?i:
         (__(?:call|construct|debugInfo|destruct|get|set|isset|unset|toString|
-              clone|set_state|sleep|wakeup|autoload|invoke|callStatic))
+              clone|set_state|sleep|wakeup|autoload|invoke|callStatic|serialize|unserialize))
         |([a-zA-Z_\\x{7f}-\\x{7fffffff}][a-zA-Z0-9_\\x{7f}-\\x{7fffffff}]*)
       )
       \\s*(\\()
