@@ -719,6 +719,34 @@ describe 'PHP grammar', ->
         expect(lines[2][8]).toEqual value: ';', scopes: ['source.php', 'meta.class.php', 'meta.class.body.php', 'meta.use.php', 'punctuation.terminator.expression.php']
         expect(lines[3][1]).toEqual value: '}', scopes: ['source.php', 'meta.class.php', 'meta.class.body.php', 'meta.use.php', 'punctuation.definition.use.end.bracket.curly.php']
 
+    describe 'anonymous', ->
+
+      it 'tokenizes anonymous class declarations', ->
+        {tokens} = grammar.tokenizeLine '$a = new class{  /* stuff */ };'
+
+        expect(tokens[5]).toEqual value: 'new', scopes: ["source.php", "meta.class.php", "keyword.other.new.php"]
+        expect(tokens[6]).toEqual value: ' ', scopes: ["source.php", "meta.class.php"]
+        expect(tokens[7]).toEqual value: 'class', scopes: ["source.php", "meta.class.php", "storage.type.class.php"]
+        expect(tokens[8]).toEqual value: '{', scopes: ["source.php", "meta.class.php", "punctuation.definition.class.begin.bracket.curly.php"]
+        expect(tokens[9]).toEqual value: '  ', scopes: ["source.php", "meta.class.php", "meta.class.body.php"]
+        expect(tokens[10]).toEqual value: '/*', scopes: ["source.php", "meta.class.php", "meta.class.body.php", "comment.block.php", "punctuation.definition.comment.php"]
+        expect(tokens[11]).toEqual value: ' stuff ', scopes: ["source.php", "meta.class.php", "meta.class.body.php", "comment.block.php"]
+        expect(tokens[12]).toEqual value: '*/', scopes: ["source.php", "meta.class.php", "meta.class.body.php", "comment.block.php", "punctuation.definition.comment.php"]
+        expect(tokens[13]).toEqual value: ' ', scopes: ["source.php", "meta.class.php", "meta.class.body.php"]
+        expect(tokens[14]).toEqual value: '}', scopes: ["source.php", "meta.class.php", "punctuation.definition.class.end.bracket.curly.php"]
+        expect(tokens[15]).toEqual value: ';', scopes: ["source.php", "punctuation.terminator.expression.php"]
+
+      it 'tokenizes inheritance correctly', ->
+        {tokens} = grammar.tokenizeLine '$a = new class extends Test implements ITest {  /* stuff */ };'
+
+        expect(tokens[5]).toEqual value: 'new', scopes: ["source.php", "meta.class.php", "keyword.other.new.php"]
+        expect(tokens[7]).toEqual value: 'class', scopes: ["source.php", "meta.class.php", "storage.type.class.php"]
+        expect(tokens[9]).toEqual value: 'extends', scopes: ["source.php", "meta.class.php", "storage.modifier.extends.php"]
+        expect(tokens[11]).toEqual value: 'Test', scopes: ["source.php", "meta.class.php", "meta.other.inherited-class.php", "entity.other.inherited-class.php"]
+        expect(tokens[13]).toEqual value: 'implements', scopes: ["source.php", "meta.class.php", "storage.modifier.implements.php"]
+        expect(tokens[15]).toEqual value: 'ITest', scopes: ["source.php", "meta.class.php", "meta.other.inherited-class.php", "entity.other.inherited-class.php"]
+
+
   describe 'functions', ->
     it 'tokenizes functions with no arguments', ->
       {tokens} = grammar.tokenizeLine 'function test() {}'

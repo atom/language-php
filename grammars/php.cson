@@ -201,7 +201,12 @@
     ]
   }
   {
-    'begin': '(?i)(?:^|(?<=}))\\s*(?:(abstract|final)\\s+)?(class)\\s+([a-z_\\x{7f}-\\x{7fffffff}][a-z0-9_\\x{7f}-\\x{7fffffff}]*)'
+    'begin':  '''(?ix)
+        (?:
+          (?:^|(?<=}))\\s*(?:(abstract|final)\\s+)?(class)\\s+([a-z_\\x{7f}-\\x{7fffffff}][a-z0-9_\\x{7f}-\\x{7fffffff}]*)
+          |(\\bnew\\b)\\s+(\\bclass\\b) # anonymous class
+        )
+      '''
     'beginCaptures':
       '1':
         'name': 'storage.modifier.${1:/downcase}.php'
@@ -209,6 +214,10 @@
         'name': 'storage.type.class.php'
       '3':
         'name': 'entity.name.type.class.php'
+      '4':
+        'name': 'keyword.other.new.php'
+      '5':
+        'name': 'storage.type.class.php'
     'end': '}|(?=\\?>)'
     'endCaptures':
       '0':
@@ -1925,7 +1934,7 @@
       }
     ]
   'instantiation':
-    'begin': '(?i)(new)\\s+'
+    'begin': '(?i)(new)\\s+(?!class)'
     'beginCaptures':
       '1':
         'name': 'keyword.other.new.php'
