@@ -987,7 +987,9 @@
           |SEEK_(CUR|END|SET)|SORT_(ASC|DESC|LOCALE_STRING|REGULAR|STRING)|STR_PAD_(BOTH|LEFT|RIGHT)
           |T_FMT(_AMPM)?|THOUSEP|THOUSANDS_SEP
           |UPLOAD_ERR_(CANT_WRITE|EXTENSION|(FORM|INI)_SIZE|NO_(FILE|TMP_DIR)|OK|PARTIAL)
-          |YES(EXPR|STR))
+          |YES(EXPR|STR)
+          |PASSWORD_(DEFAULT|BCRYPT(_DEFAULT_COST)?|ARGON2((I|ID)?
+                    |_(DEFAULT_(MEMORY_COST|TIME_COST|THREADS)|PROVIDER))))
           \\b
         '''
         'name': 'support.constant.std.php'
@@ -1113,6 +1115,18 @@
                                      |FILTERED|HUFFMAN_ONLY|FIXED|RLE|DEFAULT_STRATEGY|BLOCK|FINISH)
           |LIBXML_(BIGLINES|XINCLUDE|NSCLEAN|NO(XMLDECL|BLANKS|NET|CDATA|ERROR|EMPTYTAG|ENT|WARNING)
                   |COMPACT|DTD(VALID|LOAD|ATTR)|((DOTTED|LOADED)_)?VERSION|PARSEHUGE|ERR_(NONE|ERROR|FATAL|WARNING)))
+          |SODIUM_(BASE64_VARIANT_(ORIGINAL(_NO_PADDING)?|URLSAFE(_NO_PADDING)?)|LIBRARY_(M(AJOR_VERSION|INOR_VERSION)|VERSION)
+            |CRYPTO_(
+              A(EAD_(AES256GCM_(ABYTES|KEYBYTES|N(PUBBYTES|SECBYTES))|CHACHA20POLY1305_(ABYTES|IETF_(ABYTES|KEYBYTES|N(PUBBYTES|SECBYTES))|KEYBYTES
+               |N(PUBBYTES|SECBYTES))|XCHACHA20POLY1305_IETF_(ABYTES|KEYBYTES|N(PUBBYTES|SECBYTES)))|UTH_(BYTES|KEYBYTES))
+              |BOX_(KEYPAIRBYTES|MACBYTES|NONCEBYTES|PUBLICKEYBYTES|SE(ALBYTES|CRETKEYBYTES|EDBYTES))|GENERICHASH_(BYTES(_M(AX|IN))?|KEYBYTES(_M(AX|IN))?)
+              |K(DF_(BYTES_M(AX|IN)|CONTEXTBYTES|KEYBYTES)|X_(KEYPAIRBYTES|PUBLICKEYBYTES|SE(CRETKEYBYTES|EDBYTES|SSIONKEYBYTES)))
+              |PWHASH_(ALG_(ARGON2I(13|D13)|DEFAULT)|MEMLIMIT_(INTERACTIVE|MODERATE|SENSITIVE)|OPSLIMIT_(INTERACTIVE|MODERATE|SENSITIVE)
+                      |S(ALTBYTES|CRYPTSALSA208SHA256_(MEMLIMIT_(INTERACTIVE|SENSITIVE)|OPSLIMIT_(INTERACTIVE|SENSITIVE)|S(ALTBYTES|TRPREFIX))|TRPREFIX))
+              |S(CALARMULT_(BYTES|SCALARBYTES)|ECRET(BOX_(KEYBYTES|MACBYTES|NONCEBYTES)
+                |STREAM_XCHACHA20POLY1305_(ABYTES|HEADERBYTES|KEYBYTES|MESSAGEBYTES_MAX|TAG_(FINAL|MESSAGE|PUSH|REKEY)))
+                |HORTHASH_(BYTES|KEYBYTES)|IGN_(BYTES|KEYPAIRBYTES|PUBLICKEYBYTES|SE(CRETKEYBYTES|EDBYTES))|TREAM_(KEYBYTES|NONCEBYTES)
+            )))
           \\b
         '''
         'name': 'support.constant.ext.php'
@@ -1123,7 +1137,7 @@
       {
         'match': '''(?x)
           (\\\\)?\\b
-          (T_(RETURN|REQUIRE(_ONCE)?|GOTO|GLOBAL|(MINUS|MOD|MUL|XOR)_EQUAL|METHOD_C|ML_COMMENT|BREAK
+          (T_(RETURN|REQUIRE(_ONCE)?|GOTO|GLOBAL|(MINUS|MOD|MUL|XOR|POW|COALESCE)_EQUAL|METHOD_C|ML_COMMENT|BREAK
              |BOOL_CAST|BOOLEAN_(AND|OR)|BAD_CHARACTER|SR(_EQUAL)?|STRING(_CAST|VARNAME)?|START_HEREDOC|STATIC
              |SWITCH|SL(_EQUAL)?|HALT_COMPILER|NS_(C|SEPARATOR)|NUM_STRING|NEW|NAMESPACE|CHARACTER|COMMENT
              |CONSTANT(_ENCAPSED_STRING)?|CONCAT_EQUAL|CONTINUE|CURLY_OPEN|CLOSE_TAG|CLONE|CLASS(_C)?
@@ -1134,7 +1148,8 @@
              |PLUS_EQUAL|PAAMAYIM_NEKUDOTAYIM|EXTENDS|EXIT|EMPTY|ENCAPSED_AND_WHITESPACE
              |END(SWITCH|IF|DECLARE|FOR(EACH)?|WHILE)|END_HEREDOC|ECHO|EVAL|ELSE(IF)?|VAR(IABLE)?|FINAL|FILE
              |FOR(EACH)?|FUNC_C|FUNCTION|WHITESPACE|WHILE|LNUMBER|LIST|LINE|LOGICAL_(AND|OR|XOR)
-             |ARRAY_(CAST)?|ABSTRACT|AS|AND_EQUAL))
+             |ARRAY_(CAST)?|ABSTRACT|AS|AND_EQUAL|YIELD(_FROM)?|COALESCE|SPACESHIP|POW|STRING_VARNAME
+             |FN|CONST|FINALLY|INSTEADOF|TRAIT(_C)?|ARRAY|CALLABLE|ELLIPSIS))
           \\b
         '''
         'name': 'support.constant.parser-token.php'
@@ -3251,6 +3266,26 @@
       }
       {
         'match': '''(?xi)\\b
+          sodium_(
+            add|base642bin|bin2(base64|hex)|compare|hex2bin|increment|mem(cmp|zero)|(un)?pad
+            |crypto_(
+              aead_(aes256gcm_((de|en)crypt|is_available|keygen)|chacha20poly1305_((de|en)crypt
+              |ietf_((de|en)crypt|keygen)|keygen)|xchacha20poly1305_ietf_((de|en)crypt|keygen))
+              |auth(_(keygen|verify))?|generichash(_(final|init|keygen|update))?|kdf_(derive_from_key|keygen)
+              |box(_(keypair(_from_secretkey_and_publickey)?|open|publickey(_from_secretkey)?|seal(_open)?|secretkey|seed_keypair))?
+              |kx_((client|server)_session_keys|(public|secret)key|(seed_)?keypair)
+              |pwhash(_(scryptsalsa208sha256(_str(_verify)?)?|str(_(needs_rehash|verify))?))?
+              |scalarmult(_base)?|secretbox(_(keygen|open))?|shorthash(_keygen)?
+              |secretstream_xchacha20poly1305_(init_(pull|push)|keygen|pull|push|rekey)|stream(_(keygen|xor))?
+              |sign(_(detached|ed25519_(p|s)k_to_curve25519|keypair(_from_secretkey_and_publickey)?|open
+                    |publickey(_from_secretkey)?|secretkey|seed_keypair|verify_detached))?
+            )
+          )\\b
+        '''
+        'name': 'support.function.sodium.php'
+      }
+      {
+        'match': '''(?xi)\\b
           sqlite_(
             single_query|seek|has_(more|prev)|num_(fields|rows)|next|changes|column|current|close|
             create_(aggregate|function)|open|unbuffered_query|udf_(decode|encode)_binary|popen|prev|
@@ -3382,8 +3417,8 @@
         'match': '''(?xi)\\b
           (
             strval|settype|serialize|(bool|double|float)val|debug_zval_dump|intval|import_request_variables|isset|
-            is_(scalar|string|null|numeric|callable|int(eger)?|object|double|float|long|array|resource|real|bool|iterable)|
-            unset|unserialize|print_r|empty|var_(dump|export)|gettype|get_(defined_vars|resource_type)|countable
+            is_(scalar|string|null|numeric|callable|int(eger)?|object|double|float|long|array|resource|real|bool|iterable|countable)|
+            unset|unserialize|print_r|empty|var_(dump|export)|gettype|get_(defined_vars|resource_type)
           )\\b
         '''
         'name': 'support.function.var.php'
