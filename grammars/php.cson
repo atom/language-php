@@ -617,6 +617,10 @@
     'name': 'keyword.other.clone.php'
   }
   {
+    'match': '\\.\\.\\.'
+    'name': 'keyword.operator.spread.php'
+  }
+  {
     'match': '\\.=?'
     'name': 'keyword.operator.string.php'
   }

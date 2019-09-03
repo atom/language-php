@@ -246,6 +246,25 @@ describe 'PHP grammar', ->
         expect(tokens[5]).toEqual value: '2', scopes: ['source.php', 'constant.numeric.decimal.php']
         expect(tokens[6]).toEqual value: ';', scopes: ['source.php', 'punctuation.terminator.expression.php']
 
+      it 'should tokenize ... correctly', ->
+        {tokens} = grammar.tokenizeLine '[0,...$b,2]'
+
+        expect(tokens[0]).toEqual value: '[', scopes: ["source.php", "punctuation.section.array.begin.php"]
+        expect(tokens[3]).toEqual value: '...', scopes: ["source.php", "keyword.operator.spread.php"]
+        expect(tokens[4]).toEqual value: '$', scopes: ["source.php", "variable.other.php", "punctuation.definition.variable.php"]
+        expect(tokens[5]).toEqual value: 'b', scopes: ["source.php", "variable.other.php"]
+        expect(tokens[8]).toEqual value: ']', scopes: ["source.php", "punctuation.section.array.end.php"]
+
+        {tokens} = grammar.tokenizeLine 'test($a, ...$b)'
+
+        expect(tokens[0]).toEqual value: 'test', scopes: ["source.php", "meta.function-call.php", "entity.name.function.php"]
+        expect(tokens[1]).toEqual value: '(', scopes: ["source.php", "meta.function-call.php", "punctuation.definition.arguments.begin.bracket.round.php"]
+        expect(tokens[5]).toEqual value: ' ', scopes: ["source.php", "meta.function-call.php"]
+        expect(tokens[6]).toEqual value: '...', scopes: ["source.php", "meta.function-call.php", "keyword.operator.spread.php"]
+        expect(tokens[7]).toEqual value: '$', scopes: ["source.php", "meta.function-call.php", "variable.other.php", "punctuation.definition.variable.php"]
+        expect(tokens[8]).toEqual value: 'b', scopes: ["source.php", "meta.function-call.php", "variable.other.php"]
+        expect(tokens[9]).toEqual value: ')', scopes: ["source.php", "meta.function-call.php", "punctuation.definition.arguments.end.bracket.round.php"]
+
       describe 'ternaries', ->
         it 'should tokenize ternary expressions', ->
           {tokens} = grammar.tokenizeLine '$foo = 1 == 3 ? true : false;'
