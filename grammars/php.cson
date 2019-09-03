@@ -537,6 +537,43 @@
     ]
   }
   {
+    'match': '''(?xi)
+      ((?:(?:public|private|protected|static)(?:\\s+|(?=\\?)))+)                     # At least one modifier
+      (?:(\\?)?\\s*                                                                  # Optional nullable
+        (\\\\?(?:[a-z_\\x{7f}-\\x{7fffffff}][a-z0-9_\\x{7f}-\\x{7fffffff}]*\\\\)*)   # Optional namespace
+        ([a-z_\\x{7f}-\\x{7fffffff}][a-z0-9_\\x{7f}-\\x{7fffffff}]*))?               # Typehinted class name
+      \\s+((\\$)[a-z_\\x{7f}-\\x{7fffffff}][a-z0-9_\\x{7f}-\\x{7fffffff}]*)          # Variable name
+    '''
+    'captures':
+      '1':
+        'patterns': [
+          {
+            'match': 'final|abstract|public|private|protected|static'
+            'name': 'storage.modifier.php'
+          }
+        ]
+      '2':
+        'name': 'keyword.operator.nullable-type.php'
+      '3':
+        'name': 'support.other.namespace.php'
+        'patterns': [
+          {
+            'match': '(?i)[a-z_\\x{7f}-\\x{7fffffff}][a-z0-9_\\x{7f}-\\x{7fffffff}]*'
+            'name': 'storage.type.php'
+          }
+          {
+            'match': '\\\\'
+            'name': 'punctuation.separator.inheritance.php'
+          }
+        ]
+      '4':
+        'name': 'storage.type.php'
+      '5':
+        'name': 'variable.other.php'
+      '6':
+        'name': 'punctuation.definition.variable.php'
+  }
+  {
     'include': '#invoke-call'
   }
   {
