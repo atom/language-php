@@ -1990,7 +1990,7 @@
       }
     ]
   'instantiation':
-    'begin': '(?i)(new)\\s+(?!class)'
+    'begin': '(?i)(new)\\s+(?!class\\b)'
     'beginCaptures':
       '1':
         'name': 'keyword.other.new.php'

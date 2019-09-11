@@ -587,6 +587,16 @@ describe 'PHP grammar', ->
       expect(tokens[6]).toEqual value: '/*', scopes: ['source.php', 'meta.class.php', 'meta.class.body.php', 'comment.block.php', 'punctuation.definition.comment.php']
       expect(tokens[10]).toEqual value: '}', scopes: ['source.php', 'meta.class.php', 'punctuation.definition.class.end.bracket.curly.php']
 
+    it 'tokenizes class instantiation', ->
+      {tokens} = grammar.tokenizeLine '$a = new ClassName();'
+
+      expect(tokens[5]).toEqual value: 'new', scopes: ["source.php", "keyword.other.new.php"]
+      expect(tokens[6]).toEqual value: ' ', scopes: ["source.php"]
+      expect(tokens[7]).toEqual value: 'ClassName', scopes: ["source.php", "support.class.php"]
+      expect(tokens[8]).toEqual value: '(', scopes: ["source.php", "punctuation.definition.begin.bracket.round.php"]
+      expect(tokens[9]).toEqual value: ')', scopes: ["source.php", "punctuation.definition.end.bracket.round.php"]
+      expect(tokens[10]).toEqual value: ';', scopes: ["source.php", "punctuation.terminator.expression.php"]
+
     it 'tokenizes class modifiers', ->
       {tokens} = grammar.tokenizeLine 'abstract class Test {}'
 
