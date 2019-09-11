@@ -548,7 +548,7 @@
       '1':
         'patterns': [
           {
-            'match': 'final|abstract|public|private|protected|static'
+            'match': 'public|private|protected|static'
             'name': 'storage.modifier.php'
           }
         ]

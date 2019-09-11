@@ -1567,10 +1567,12 @@ describe 'PHP grammar', ->
       expect(tokens[13]).toEqual value: '+', scopes: ["source.php", "keyword.operator.arithmetic.php"]
       expect(tokens[14]).toEqual value: '0Xf', scopes: ["source.php", "constant.numeric.hex.php"]
       expect(tokens[15]).toEqual value: '*', scopes: ["source.php", "keyword.operator.arithmetic.php"]
+      # invalid number treated as const
       expect(tokens[16]).toEqual value: '_22', scopes: ["source.php", "constant.other.php"]
 
       {tokens} = grammar.tokenizeLine '_23(1_2)+0_655-[0B0_0,0Xf_8,5.4_8][0b1_0]'
 
+      # invalid number treated as function name
       expect(tokens[0]).toEqual value: '_23', scopes: ["source.php", "meta.function-call.php", "entity.name.function.php"]
       expect(tokens[1]).toEqual value: '(', scopes: ["source.php", "meta.function-call.php", "punctuation.definition.arguments.begin.bracket.round.php"]
       expect(tokens[2]).toEqual value: '1_2', scopes: ["source.php", "meta.function-call.php", "constant.numeric.decimal.php"]
