@@ -2272,9 +2272,9 @@
         'match': '''(?x)
           @
           (
-            api|abstract|author|category|copyright|example|global|inherit[Dd]oc|internal|
-            license|link|method|property(-(read|write))?|package|param|return|see|since|source|
-            static|subpackage|throws|todo|var|version|uses|deprecated|final|ignore
+            api|abstract|author|category|copyright|example|filesource|global|inherit[Dd]oc|
+            internal|license|link|method|property(-(read|write))?|package|param|return|see|since|
+            source|static|subpackage|throws|todo|var|version|used-by|uses|deprecated|final|ignore
           )\\b
         '''
         'name': 'keyword.other.phpdoc.php'
