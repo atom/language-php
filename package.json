@@ -15,6 +15,9 @@
   "bugs": {
     "url": "https://github.com/atom/language-php/issues"
   },
+  "dependencies": {
+    "tree-sitter-php": "^0.13.1"
+  },
   "devDependencies": {
     "coffeelint": "^1.10.1"
   }

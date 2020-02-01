@@ -1,0 +1,200 @@
+name: 'PHP'
+scopeName: 'text.html.php'
+type: 'tree-sitter'
+parser: 'tree-sitter-php'
+
+firstLineRegex: [
+  '^\\s*<\\?([pP][hH][pP]|=|\\s|$)'
+]
+
+comments:
+  start: '#'
+
+fileTypes: [
+  'php'
+  'phpt'
+]
+
+folds: [
+  {
+    type: 'comment'
+  }
+  {
+    start: {type: '{', index: 0},
+    end: {'}', index: -1}
+  }
+  {
+    type: ['class_declaration', 'interface_declaration']
+    start: {type: '{'},
+    end: {type: '}'}
+  }
+  {
+    type: 'formal_parameters'
+    start: {type: '('}
+    end: {type: ')'}
+  }
+  {
+    start: {type: '(', index: 0},
+    end: {')', index: -1}
+  }
+  {
+    start: {type: '[', index: 0},
+    end: {']', index: -1}
+  }
+]
+
+scopes:
+  'program': 'source.php'
+
+  '"echo"': 'support.function'
+  '"print"': 'support.function'
+  '"unset"': 'support.function'
+  '"isset"': 'support.function'
+  '"list"': 'support.function'
+  '"eval"': 'support.function'
+  '"array"': 'support.function'
+  '"list"': 'support.function'
+  '"empty"': 'support.function'
+  'string': 'string.quoted'
+  'float': 'constant.numeric'
+
+  'member_access_expression > name': 'variable.other.object.property'
+
+  'class_declaration > name': 'entity.name.type.class'
+  'catch_clause > qualified_name > name': 'entity.name.type.class'
+  'class_base_clause > qualified_name > name': 'entity.other.inherited-class'
+
+  'qualified_name > name': {match: /^(TRUE|FALSE|NULL|__(FILE|DIR|FUNCTION|CLASS|METHOD|LINE|NAMESPACE)__|ON|OFF|YES|NO|NL|BR|TAB)$/i, scopes: 'constant.language.php'}
+
+  'interface_declaration > name': 'entity.name.type.interface'
+  'class_interface_clause > qualified_name > name': 'entity.other.implemented-interface'
+
+  'function_definition > name': 'entity.name.function'
+  'function_call_expression > name': 'entity.name.function'
+  'function_call_expression > qualified_name': 'entity.name.function'
+  'scoped_call_expression > name': 'entity.name.function'
+  'member_call_expression > name': 'entity.name.function'
+  '"require_once", "require", "include_once", "include"': 'entity.name.function'
+
+  'method_declaration > name': 'entity.name.function'
+  'method_declaration > function_definition > name': 'entity.name.function'
+  'constructor_definition > "__construct"': 'entity.name.function'
+
+  'object_creation_expression > qualified_name > name': 'entity.name.type.class'
+  'object_creation_expression > new_variable > simple_variable': 'meta.class.instance.constructor'
+
+  'const_element > name': 'constant'
+  'class_constant_access_expression >name': 'constant'
+  'integer': 'constant.numeric.decimal'
+  'float': 'constant.numeric.decimal'
+  'string': 'string.quoted.single'
+  'regex': 'string.regexp'
+  'true': 'constant.language.boolean.true'
+  'false': 'constant.language.boolean.false'
+  'comment': 'comment.block'
+
+  'variable_name > "$"': 'punctuation.definition.variable.php'
+  '"("': 'punctuation.definition.parameters.begin.bracket.round.php'
+  '")"': 'punctuation.definition.parameters.end.bracket.round.php'
+  '"{"': 'punctuation.definition.begin.bracket.curly.php'
+  '"}"': 'punctuation.definition.end.bracket.curly.php'
+  '"["': 'punctuation.section.array.begin.php'
+  '"]"': 'punctuation.section.array.end.php'
+  '";"': 'punctuation.terminator.expression.php'
+
+  '"static"': 'storage.modifier'
+  '"public"': 'storage.modifier'
+  '"private"': 'storage.modifier'
+  '"protected"': 'storage.modifier'
+  '"global"': 'storage.modifier'
+  '"const"': 'storage.modifier'
+  '"abstract"': 'storage.modifier.abstract'
+  '"extends"': 'storage.modifier.extends'
+  '"implements"': 'storage.modifier.implements'
+  '"final"': 'storage.modifier.final'
+  '"use"': 'keyword.other.use'
+  '"namespace"': 'keyword.other.namespace'
+
+  '"callable"': 'storage.type'
+  '"var"': 'storage.type'
+  '"trait"': 'storage.type.trait'
+  '"class"': 'storage.type.class'
+  '"interface"': 'storage.type.interface'
+  '"function"': 'storage.type.function'
+  '"type"': 'storage.type.type'
+  'cast_expression > cast_type': 'storage.type.cast'
+
+  '"+"': 'keyword.operator.php'
+  '"-"': 'keyword.operator.php'
+  '"*"': 'keyword.operator.php'
+  '"/"': 'keyword.operator.php'
+  '"%"': 'keyword.operator.php'
+  '"**"': 'keyword.operator.php'
+  '"="': 'keyword.operator.php'
+  '"=="': 'keyword.operator.php'
+  '"==="': 'keyword.operator.php'
+  '"!="': 'keyword.operator.php'
+  '"!="': 'keyword.operator.php'
+  '"!=="': 'keyword.operator.php'
+  '"<"': 'keyword.operator.php'
+  '">"': 'keyword.operator.php'
+  '"<>"': 'keyword.operator.php'
+  '"<="': 'keyword.operator.php'
+  '"=>"': 'keyword.operator.php'
+  '">="': 'keyword.operator.php'
+  '"<=>"': 'keyword.operator.php'
+  '"&"': 'keyword.operator.php'
+  '"|"': 'keyword.operator.php'
+  '"^"': 'keyword.operator.php'
+  '"~"': 'keyword.opeator.php'
+  '"<<"': 'keyword.operator.php'
+  '">>"': 'keyword.operator.php'
+  '"++"': 'keyword.operator.php'
+  '"--"': 'keyword.operator.php'
+  '"and"': 'keyword.operator.php'
+  '"or"': 'keyword.operator.php'
+  '"xor"': 'keyword.operator.php'
+  '"!"': 'keyword.operator.php'
+  '"&&"': 'keyword.operator.php'
+  '"||"': 'keyword.operator.php'
+  '"."': 'keyword.operator.php'
+  '"?"': 'keyword.operator.php'
+  '":"': 'keyword.operator.php'
+  '"??"': 'keyword.operator.php'
+  '"as"': 'keyword.logical'
+  '"new"': 'keyword.new'
+  '"clone"': 'keyword.clone'
+  '"insteadof"': 'keyword.insteadof'
+  '"instanceof"': 'keyword.type'
+
+  '"->"': 'keyword.operator.class'
+  '","': 'punctuation.separator.delimiter.php'
+
+  '"if"': 'keyword.control'
+  '"do"': 'keyword.control'
+  '"else"': 'keyword.control'
+  '"elseif"': 'keyword.control'
+  '"endif"': 'keyword.control'
+  '"while"': 'keyword.control'
+  '"endwhile"': 'keyword.control'
+  '"for"': 'keyword.control'
+  '"endfor"': 'keyword.control'
+  '"foreach"': 'keyword.control'
+  '"endforeach"': 'keyword.control'
+  '"declare"': 'keyword.control'
+  '"enddeclare"': 'keyword.control'
+  '"return"': 'keyword.control'
+  '"break"': 'keyword.control'
+  '"continue"': 'keyword.control'
+  '"throw"': 'keyword.control'
+  '"try"': 'keyword.control'
+  '"catch"': 'keyword.control'
+  '"finally"': 'keyword.control'
+  '"switch"': 'keyword.control'
+  '"endswitch"': 'keyword.control'
+  '"case"': 'keyword.control'
+  '"default"': 'keyword.control'
+  '"yield"': 'keyword.control.yield'
+  '"goto"': 'keyword.control.goto'
+  '"exit"': 'keyword.control.exit'
+  '"die"': 'keyword.control.die'
