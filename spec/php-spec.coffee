@@ -1285,7 +1285,7 @@ describe 'PHP grammar', ->
       expect(tokens[3]).toEqual value: ' ', scopes: ["source.php", "meta.function.closure.php"]
       expect(tokens[4]).toEqual value: ':', scopes: ["source.php", "meta.function.closure.php", "keyword.operator.return-value.php"]
       expect(tokens[5]).toEqual value: ' ', scopes: ["source.php", "meta.function.closure.php"]
-      expect(tokens[6]).toEqual value: 'string', scopes: ["source.php", "meta.function.closure.php", "storage.type.php"]
+      expect(tokens[6]).toEqual value: 'string', scopes: ["source.php", "meta.function.closure.php", "storage.type.php", 'storage.primitive.php']
       expect(tokens[7]).toEqual value: ' ', scopes: ["source.php"]
       expect(tokens[8]).toEqual value: '{', scopes: ["source.php", "punctuation.definition.begin.bracket.curly.php"]
       expect(tokens[9]).toEqual value: '}', scopes: ["source.php", "punctuation.definition.end.bracket.curly.php"]
@@ -1310,6 +1310,13 @@ describe 'PHP grammar', ->
       expect(tokens[3]).toEqual value: ':', scopes: ["source.php", "meta.function.closure.php", "keyword.operator.return-value.php"]
       expect(tokens[5]).toEqual value: '?', scopes: ["source.php", "meta.function.closure.php", "keyword.operator.nullable-type.php"]
       expect(tokens[6]).toEqual value: 'Client', scopes: ["source.php", "meta.function.closure.php", "storage.type.php"]
+
+      {tokens} = grammar.tokenizeLine 'function(): ?bool {}'
+
+      expect(tokens[0]).toEqual value: 'function', scopes: ["source.php", "meta.function.closure.php", "storage.type.function.php"]
+      expect(tokens[3]).toEqual value: ':', scopes: ["source.php", "meta.function.closure.php", "keyword.operator.return-value.php"]
+      expect(tokens[5]).toEqual value: '?', scopes: ["source.php", "meta.function.closure.php", "keyword.operator.nullable-type.php"]
+      expect(tokens[6]).toEqual value: 'bool', scopes: ["source.php", "meta.function.closure.php", "storage.type.php", 'storage.primitive.php']
 
     it 'tokenizes closure returning reference', ->
       {tokens} = grammar.tokenizeLine 'function&() {}'
