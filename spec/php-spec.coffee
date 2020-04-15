@@ -1397,7 +1397,7 @@ describe 'PHP grammar', ->
       expect(tokens[5]).toEqual value: 'fn', scopes: ["source.php", "meta.function.closure.php", "storage.type.function.php"]
       expect(tokens[11]).toEqual value: ':', scopes: ["source.php", "meta.function.closure.php", "keyword.operator.return-value.php"]
       expect(tokens[12]).toEqual value: '?', scopes: ["source.php", "meta.function.closure.php", "keyword.operator.nullable-type.php"]
-      expect(tokens[14]).toEqual value: 'int', scopes: ["source.php", "meta.function.closure.php", "storage.type.php"]
+      expect(tokens[14]).toEqual value: 'int', scopes: ["source.php", "meta.function.closure.php", "storage.type.php", 'storage.primitive.php']
 
   describe 'the scope resolution operator', ->
     it 'tokenizes static method calls with no arguments', ->

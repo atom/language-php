@@ -508,6 +508,11 @@
             'name': 'keyword.operator.nullable-type.php'
           '3':
             'name': 'storage.type.php'
+            'patterns': [
+              {
+                'include': '#primitives'
+              }
+            ]
       }
     ]
   }
