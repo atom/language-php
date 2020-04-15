@@ -1088,6 +1088,19 @@ describe 'PHP grammar', ->
       expect(tokens[9]).toEqual value: '   ', scopes: ['source.php', 'meta.function.php']
       expect(tokens[10]).toEqual value: 'Client', scopes: ['source.php', 'meta.function.php', 'storage.type.php']
 
+    it 'tokenizes primitive return types', ->
+      {tokens} = grammar.tokenizeLine 'function test() : string {}'
+      expect(tokens[8]).toEqual value: 'string', scopes: ['source.php', 'meta.function.php', 'storage.type.php', 'storage.primitive.php']
+
+      {tokens} = grammar.tokenizeLine 'function test() : bool {}'
+      expect(tokens[8]).toEqual value: 'bool', scopes: ['source.php', 'meta.function.php', 'storage.type.php', 'storage.primitive.php']
+
+      {tokens} = grammar.tokenizeLine 'function test() : ?int {}'
+      expect(tokens[9]).toEqual value: 'int', scopes: ['source.php', 'meta.function.php', 'storage.type.php', 'storage.primitive.php']
+
+      {tokens} = grammar.tokenizeLine 'function test() : ?array {}'
+      expect(tokens[9]).toEqual value: 'array', scopes: ['source.php', 'meta.function.php', 'storage.type.php', 'storage.primitive.php']
+
     it 'tokenizes function names with characters other than letters or numbers', ->
       # Char 160 is hex 0xA0, which is between 0x7F and 0xFF, making it a valid PHP identifier
       functionName = "foo#{String.fromCharCode(160)}bar"

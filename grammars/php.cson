@@ -556,6 +556,11 @@
         'name': 'keyword.operator.nullable-type.php'
       '4':
         'name': 'storage.type.php'
+        'patterns': [
+          {
+            'include': '#primitives'
+          }
+        ]
     'name': 'meta.function.php'
     'patterns': [
       {
