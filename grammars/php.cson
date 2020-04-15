@@ -854,7 +854,7 @@
     'patterns': [
       {
         'match': 'array|bool|callable|float|int|iterable|object|string'
-        'name': 'storage.primitive.php'
+        'name': 'storage.type.primitive.php'
       }
     ]
   'class-builtin':

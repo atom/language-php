@@ -648,7 +648,7 @@ describe 'PHP grammar', ->
         '''
 
         expect(lines[1][1]).toEqual value: 'public', scopes: ["source.php", "meta.class.php", "meta.class.body.php", "storage.modifier.php"]
-        expect(lines[1][3]).toEqual value: 'int', scopes: ["source.php", "meta.class.php", "meta.class.body.php", "storage.type.php", 'storage.primitive.php']
+        expect(lines[1][3]).toEqual value: 'int', scopes: ["source.php", "meta.class.php", "meta.class.body.php", "storage.type.php", 'storage.type.primitive.php']
         expect(lines[1][5]).toEqual value: '$', scopes: ["source.php", "meta.class.php", "meta.class.body.php", "variable.other.php", "punctuation.definition.variable.php"]
         expect(lines[1][6]).toEqual value: 'a', scopes: ["source.php", "meta.class.php", "meta.class.body.php", "variable.other.php"]
 
@@ -661,7 +661,7 @@ describe 'PHP grammar', ->
 
         expect(lines[1][1]).toEqual value: 'static', scopes: ["source.php", "meta.class.php", "meta.class.body.php", "storage.modifier.php"]
         expect(lines[1][3]).toEqual value: '?', scopes: ["source.php", "meta.class.php", "meta.class.body.php", "keyword.operator.nullable-type.php"]
-        expect(lines[1][4]).toEqual value: 'string', scopes: ["source.php", "meta.class.php", "meta.class.body.php", "storage.type.php", 'storage.primitive.php']
+        expect(lines[1][4]).toEqual value: 'string', scopes: ["source.php", "meta.class.php", "meta.class.body.php", "storage.type.php", 'storage.type.primitive.php']
         expect(lines[1][6]).toEqual value: '$', scopes: ["source.php", "meta.class.php", "meta.class.body.php", "variable.other.php", "punctuation.definition.variable.php"]
         expect(lines[1][7]).toEqual value: 'b', scopes: ["source.php", "meta.class.php", "meta.class.body.php", "variable.other.php"]
 
@@ -673,7 +673,7 @@ describe 'PHP grammar', ->
 
         expect(lines[1][1]).toEqual value: 'static', scopes: ["source.php", "meta.class.php", "meta.class.body.php", "storage.modifier.php"]
         expect(lines[1][2]).toEqual value: '?', scopes: ["source.php", "meta.class.php", "meta.class.body.php", "keyword.operator.nullable-type.php"]
-        expect(lines[1][4]).toEqual value: 'string', scopes: ["source.php", "meta.class.php", "meta.class.body.php", "storage.type.php", 'storage.primitive.php']
+        expect(lines[1][4]).toEqual value: 'string', scopes: ["source.php", "meta.class.php", "meta.class.body.php", "storage.type.php", 'storage.type.primitive.php']
 
       it 'tokenizes namespaces', ->
         lines = grammar.tokenizeLines '''
@@ -701,7 +701,7 @@ describe 'PHP grammar', ->
         '''
 
         expect(lines[1][1]).toEqual value: 'static', scopes: ["source.php", "meta.class.php", "meta.class.body.php", "storage.modifier.php"]
-        expect(lines[1][3]).toEqual value: 'int', scopes: ["source.php", "meta.class.php", "meta.class.body.php", "storage.type.php", 'storage.primitive.php']
+        expect(lines[1][3]).toEqual value: 'int', scopes: ["source.php", "meta.class.php", "meta.class.body.php", "storage.type.php", 'storage.type.primitive.php']
         expect(lines[1][5]).toEqual value: '$', scopes: ["source.php", "meta.class.php", "meta.class.body.php", "variable.other.php", "punctuation.definition.variable.php"]
         expect(lines[1][6]).toEqual value: 'a', scopes: ["source.php", "meta.class.php", "meta.class.body.php", "variable.other.php"]
 
@@ -716,7 +716,7 @@ describe 'PHP grammar', ->
         expect(lines[3][1]).toEqual value: 'private', scopes: ["source.php", "meta.class.php", "meta.class.body.php", "storage.modifier.php"]
         expect(lines[3][3]).toEqual value: 'static', scopes: ["source.php", "meta.class.php", "meta.class.body.php", "storage.modifier.php"]
         expect(lines[3][5]).toEqual value: '?', scopes: ["source.php", "meta.class.php", "meta.class.body.php", "keyword.operator.nullable-type.php"]
-        expect(lines[3][7]).toEqual value: 'array', scopes: ["source.php", "meta.class.php", "meta.class.body.php", "storage.type.php", 'storage.primitive.php']
+        expect(lines[3][7]).toEqual value: 'array', scopes: ["source.php", "meta.class.php", "meta.class.body.php", "storage.type.php", 'storage.type.primitive.php']
         expect(lines[3][9]).toEqual value: '$', scopes: ["source.php", "meta.class.php", "meta.class.body.php", "variable.other.php", "punctuation.definition.variable.php"]
         expect(lines[3][10]).toEqual value: 'c1', scopes: ["source.php", "meta.class.php", "meta.class.body.php", "variable.other.php"]
         expect(lines[3][13]).toEqual value: '$', scopes: ["source.php", "meta.class.php", "meta.class.body.php", "variable.other.php", "punctuation.definition.variable.php"]
@@ -984,7 +984,7 @@ describe 'PHP grammar', ->
       expect(tokens[1]).toEqual value: ' ', scopes: ['source.php', 'meta.function.php']
       expect(tokens[2]).toEqual value: 'array_test', scopes: ['source.php', 'meta.function.php', 'entity.name.function.php']
       expect(tokens[3]).toEqual value: '(', scopes: ['source.php', 'meta.function.php', 'punctuation.definition.parameters.begin.bracket.round.php']
-      expect(tokens[4]).toEqual value: 'array', scopes: ['source.php', 'meta.function.php', 'meta.function.parameters.php', 'meta.function.parameter.array.php', 'storage.type.php', 'storage.primitive.php']
+      expect(tokens[4]).toEqual value: 'array', scopes: ['source.php', 'meta.function.php', 'meta.function.parameters.php', 'meta.function.parameter.array.php', 'storage.type.php', 'storage.type.primitive.php']
       expect(tokens[5]).toEqual value: ' ', scopes: ['source.php', 'meta.function.php', 'meta.function.parameters.php', 'meta.function.parameter.array.php']
       expect(tokens[6]).toEqual value: '$', scopes: ['source.php', 'meta.function.php', 'meta.function.parameters.php', 'meta.function.parameter.array.php', 'variable.other.php', 'punctuation.definition.variable.php']
       expect(tokens[7]).toEqual value: 'value', scopes: ['source.php', 'meta.function.php', 'meta.function.parameters.php', 'meta.function.parameter.array.php', 'variable.other.php']
@@ -1034,31 +1034,31 @@ describe 'PHP grammar', ->
 
     it 'tokenizes primitive types in function parameter typehints', ->
       {tokens} = grammar.tokenizeLine "function type_test(array $value) {}"
-      expect(tokens[4]).toEqual value: 'array', scopes: ['source.php', 'meta.function.php', 'meta.function.parameters.php', 'meta.function.parameter.array.php', 'storage.type.php', 'storage.primitive.php']
+      expect(tokens[4]).toEqual value: 'array', scopes: ['source.php', 'meta.function.php', 'meta.function.parameters.php', 'meta.function.parameter.array.php', 'storage.type.php', 'storage.type.primitive.php']
 
       {tokens} = grammar.tokenizeLine "function type_test(bool $value) {}"
-      expect(tokens[4]).toEqual value: 'bool', scopes: ['source.php', 'meta.function.php', 'meta.function.parameters.php', 'meta.function.parameter.typehinted.php', 'storage.type.php', 'storage.primitive.php']
+      expect(tokens[4]).toEqual value: 'bool', scopes: ['source.php', 'meta.function.php', 'meta.function.parameters.php', 'meta.function.parameter.typehinted.php', 'storage.type.php', 'storage.type.primitive.php']
 
       {tokens} = grammar.tokenizeLine "function type_test(bool $value = false) {}"
-      expect(tokens[4]).toEqual value: 'bool', scopes: ['source.php', 'meta.function.php', 'meta.function.parameters.php', 'meta.function.parameter.typehinted.php', 'storage.type.php', 'storage.primitive.php']
+      expect(tokens[4]).toEqual value: 'bool', scopes: ['source.php', 'meta.function.php', 'meta.function.parameters.php', 'meta.function.parameter.typehinted.php', 'storage.type.php', 'storage.type.primitive.php']
 
       {tokens} = grammar.tokenizeLine "function type_test(int $value = 1) {}"
-      expect(tokens[4]).toEqual value: 'int', scopes: ['source.php', 'meta.function.php', 'meta.function.parameters.php', 'meta.function.parameter.typehinted.php', 'storage.type.php', 'storage.primitive.php']
+      expect(tokens[4]).toEqual value: 'int', scopes: ['source.php', 'meta.function.php', 'meta.function.parameters.php', 'meta.function.parameter.typehinted.php', 'storage.type.php', 'storage.type.primitive.php']
 
       {tokens} = grammar.tokenizeLine "function type_test(?bool $value = null) {}"
-      expect(tokens[5]).toEqual value: 'bool', scopes: ['source.php', 'meta.function.php', 'meta.function.parameters.php', 'meta.function.parameter.typehinted.php', 'storage.type.php', 'storage.primitive.php']
+      expect(tokens[5]).toEqual value: 'bool', scopes: ['source.php', 'meta.function.php', 'meta.function.parameters.php', 'meta.function.parameter.typehinted.php', 'storage.type.php', 'storage.type.primitive.php']
 
       {tokens} = grammar.tokenizeLine "function type_test(callable $value) {}"
-      expect(tokens[4]).toEqual value: 'callable', scopes: ['source.php', 'meta.function.php', 'meta.function.parameters.php', 'meta.function.parameter.array.php', 'storage.type.php', 'storage.primitive.php']
+      expect(tokens[4]).toEqual value: 'callable', scopes: ['source.php', 'meta.function.php', 'meta.function.parameters.php', 'meta.function.parameter.array.php', 'storage.type.php', 'storage.type.primitive.php']
 
       {tokens} = grammar.tokenizeLine "function type_test(iterable $value) {}"
-      expect(tokens[4]).toEqual value: 'iterable', scopes: ['source.php', 'meta.function.php', 'meta.function.parameters.php', 'meta.function.parameter.typehinted.php', 'storage.type.php', 'storage.primitive.php']
+      expect(tokens[4]).toEqual value: 'iterable', scopes: ['source.php', 'meta.function.php', 'meta.function.parameters.php', 'meta.function.parameter.typehinted.php', 'storage.type.php', 'storage.type.primitive.php']
 
       {tokens} = grammar.tokenizeLine "function type_test(?object $value) {}"
-      expect(tokens[5]).toEqual value: 'object', scopes: ['source.php', 'meta.function.php', 'meta.function.parameters.php', 'meta.function.parameter.typehinted.php', 'storage.type.php', 'storage.primitive.php']
+      expect(tokens[5]).toEqual value: 'object', scopes: ['source.php', 'meta.function.php', 'meta.function.parameters.php', 'meta.function.parameter.typehinted.php', 'storage.type.php', 'storage.type.primitive.php']
 
       {tokens} = grammar.tokenizeLine "function type_test(string $value = 'default') {}"
-      expect(tokens[4]).toEqual value: 'string', scopes: ['source.php', 'meta.function.php', 'meta.function.parameters.php', 'meta.function.parameter.typehinted.php', 'storage.type.php', 'storage.primitive.php']
+      expect(tokens[4]).toEqual value: 'string', scopes: ['source.php', 'meta.function.php', 'meta.function.parameters.php', 'meta.function.parameter.typehinted.php', 'storage.type.php', 'storage.type.primitive.php']
 
     it 'tokenizes multiple typehinted arguments with default values', ->
       {tokens} = grammar.tokenizeLine "function test(string $subject = 'no subject', string $body = null) {}"
@@ -1067,7 +1067,7 @@ describe 'PHP grammar', ->
       expect(tokens[1]).toEqual value: ' ', scopes: ['source.php', 'meta.function.php']
       expect(tokens[2]).toEqual value: 'test', scopes: ['source.php', 'meta.function.php', 'entity.name.function.php']
       expect(tokens[3]).toEqual value: '(', scopes: ['source.php', 'meta.function.php', 'punctuation.definition.parameters.begin.bracket.round.php']
-      expect(tokens[4]).toEqual value: 'string', scopes: ['source.php', 'meta.function.php', 'meta.function.parameters.php', 'meta.function.parameter.typehinted.php', 'storage.type.php', 'storage.primitive.php']
+      expect(tokens[4]).toEqual value: 'string', scopes: ['source.php', 'meta.function.php', 'meta.function.parameters.php', 'meta.function.parameter.typehinted.php', 'storage.type.php', 'storage.type.primitive.php']
       expect(tokens[6]).toEqual value: '$', scopes: ['source.php', 'meta.function.php', 'meta.function.parameters.php', 'meta.function.parameter.typehinted.php', 'variable.other.php', 'punctuation.definition.variable.php']
       expect(tokens[7]).toEqual value: 'subject', scopes: ['source.php', 'meta.function.php', 'meta.function.parameters.php', 'meta.function.parameter.typehinted.php', 'variable.other.php']
       expect(tokens[8]).toEqual value: ' ', scopes: ['source.php', 'meta.function.php', 'meta.function.parameters.php', 'meta.function.parameter.typehinted.php']
@@ -1078,7 +1078,7 @@ describe 'PHP grammar', ->
       expect(tokens[13]).toEqual value: "'", scopes: ['source.php', 'meta.function.php', 'meta.function.parameters.php', 'meta.function.parameter.typehinted.php', 'string.quoted.single.php', 'punctuation.definition.string.end.php']
       expect(tokens[14]).toEqual value: ',', scopes: ['source.php', 'meta.function.php', 'meta.function.parameters.php', 'punctuation.separator.delimiter.php']
       expect(tokens[15]).toEqual value: ' ', scopes: ['source.php', 'meta.function.php', 'meta.function.parameters.php']
-      expect(tokens[16]).toEqual value: 'string', scopes: ['source.php', 'meta.function.php', 'meta.function.parameters.php', 'meta.function.parameter.typehinted.php', 'storage.type.php', 'storage.primitive.php']
+      expect(tokens[16]).toEqual value: 'string', scopes: ['source.php', 'meta.function.php', 'meta.function.parameters.php', 'meta.function.parameter.typehinted.php', 'storage.type.php', 'storage.type.primitive.php']
       expect(tokens[18]).toEqual value: '$', scopes: ['source.php', 'meta.function.php', 'meta.function.parameters.php', 'meta.function.parameter.typehinted.php', 'variable.other.php', 'punctuation.definition.variable.php']
       expect(tokens[19]).toEqual value: 'body', scopes: ['source.php', 'meta.function.php', 'meta.function.parameters.php', 'meta.function.parameter.typehinted.php', 'variable.other.php']
       expect(tokens[21]).toEqual value: '=', scopes: ['source.php', 'meta.function.php', 'meta.function.parameters.php', 'meta.function.parameter.typehinted.php', 'keyword.operator.assignment.php']
@@ -1118,16 +1118,16 @@ describe 'PHP grammar', ->
 
     it 'tokenizes primitive return types', ->
       {tokens} = grammar.tokenizeLine 'function test() : string {}'
-      expect(tokens[8]).toEqual value: 'string', scopes: ['source.php', 'meta.function.php', 'storage.type.php', 'storage.primitive.php']
+      expect(tokens[8]).toEqual value: 'string', scopes: ['source.php', 'meta.function.php', 'storage.type.php', 'storage.type.primitive.php']
 
       {tokens} = grammar.tokenizeLine 'function test() : bool {}'
-      expect(tokens[8]).toEqual value: 'bool', scopes: ['source.php', 'meta.function.php', 'storage.type.php', 'storage.primitive.php']
+      expect(tokens[8]).toEqual value: 'bool', scopes: ['source.php', 'meta.function.php', 'storage.type.php', 'storage.type.primitive.php']
 
       {tokens} = grammar.tokenizeLine 'function test() : ?int {}'
-      expect(tokens[9]).toEqual value: 'int', scopes: ['source.php', 'meta.function.php', 'storage.type.php', 'storage.primitive.php']
+      expect(tokens[9]).toEqual value: 'int', scopes: ['source.php', 'meta.function.php', 'storage.type.php', 'storage.type.primitive.php']
 
       {tokens} = grammar.tokenizeLine 'function test() : ?array {}'
-      expect(tokens[9]).toEqual value: 'array', scopes: ['source.php', 'meta.function.php', 'storage.type.php', 'storage.primitive.php']
+      expect(tokens[9]).toEqual value: 'array', scopes: ['source.php', 'meta.function.php', 'storage.type.php', 'storage.type.primitive.php']
 
     it 'tokenizes function names with characters other than letters or numbers', ->
       # Char 160 is hex 0xA0, which is between 0x7F and 0xFF, making it a valid PHP identifier
@@ -1311,7 +1311,7 @@ describe 'PHP grammar', ->
       expect(tokens[3]).toEqual value: 'a', scopes: ["source.php", "meta.function.closure.php", "meta.function.parameters.php", "meta.function.parameter.no-default.php", "variable.other.php"]
       expect(tokens[4]).toEqual value: ',', scopes: ["source.php", "meta.function.closure.php", "meta.function.parameters.php", "punctuation.separator.delimiter.php"]
       expect(tokens[5]).toEqual value: ' ', scopes: ["source.php", "meta.function.closure.php", "meta.function.parameters.php"]
-      expect(tokens[6]).toEqual value: 'string', scopes: ["source.php", "meta.function.closure.php", "meta.function.parameters.php", "meta.function.parameter.typehinted.php", "storage.type.php", 'storage.primitive.php']
+      expect(tokens[6]).toEqual value: 'string', scopes: ["source.php", "meta.function.closure.php", "meta.function.parameters.php", "meta.function.parameter.typehinted.php", "storage.type.php", 'storage.type.primitive.php']
       expect(tokens[7]).toEqual value: ' ', scopes: ["source.php", "meta.function.closure.php", "meta.function.parameters.php", "meta.function.parameter.typehinted.php"]
       expect(tokens[8]).toEqual value: '$', scopes: ["source.php", "meta.function.closure.php", "meta.function.parameters.php", "meta.function.parameter.typehinted.php", "variable.other.php", "punctuation.definition.variable.php"]
       expect(tokens[9]).toEqual value: 'b', scopes: ["source.php", "meta.function.closure.php", "meta.function.parameters.php", "meta.function.parameter.typehinted.php", "variable.other.php"]
@@ -1326,7 +1326,7 @@ describe 'PHP grammar', ->
       expect(tokens[3]).toEqual value: ' ', scopes: ["source.php", "meta.function.closure.php"]
       expect(tokens[4]).toEqual value: ':', scopes: ["source.php", "meta.function.closure.php", "keyword.operator.return-value.php"]
       expect(tokens[5]).toEqual value: ' ', scopes: ["source.php", "meta.function.closure.php"]
-      expect(tokens[6]).toEqual value: 'string', scopes: ["source.php", "meta.function.closure.php", "storage.type.php", 'storage.primitive.php']
+      expect(tokens[6]).toEqual value: 'string', scopes: ["source.php", "meta.function.closure.php", "storage.type.php", 'storage.type.primitive.php']
       expect(tokens[7]).toEqual value: ' ', scopes: ["source.php"]
       expect(tokens[8]).toEqual value: '{', scopes: ["source.php", "punctuation.definition.begin.bracket.curly.php"]
       expect(tokens[9]).toEqual value: '}', scopes: ["source.php", "punctuation.definition.end.bracket.curly.php"]
@@ -1357,7 +1357,7 @@ describe 'PHP grammar', ->
       expect(tokens[0]).toEqual value: 'function', scopes: ["source.php", "meta.function.closure.php", "storage.type.function.php"]
       expect(tokens[3]).toEqual value: ':', scopes: ["source.php", "meta.function.closure.php", "keyword.operator.return-value.php"]
       expect(tokens[5]).toEqual value: '?', scopes: ["source.php", "meta.function.closure.php", "keyword.operator.nullable-type.php"]
-      expect(tokens[6]).toEqual value: 'bool', scopes: ["source.php", "meta.function.closure.php", "storage.type.php", 'storage.primitive.php']
+      expect(tokens[6]).toEqual value: 'bool', scopes: ["source.php", "meta.function.closure.php", "storage.type.php", 'storage.type.primitive.php']
 
     it 'tokenizes closure returning reference', ->
       {tokens} = grammar.tokenizeLine 'function&() {}'
@@ -1425,7 +1425,7 @@ describe 'PHP grammar', ->
       {tokens} = grammar.tokenizeLine '$pow = fn(int $x=0) => $x * 2;'
 
       expect(tokens[5]).toEqual value: 'fn', scopes: ["source.php", "meta.function.closure.php", "storage.type.function.php"]
-      expect(tokens[7]).toEqual value: 'int', scopes: ["source.php", "meta.function.closure.php", "meta.function.parameters.php", "meta.function.parameter.typehinted.php", "storage.type.php", 'storage.primitive.php']
+      expect(tokens[7]).toEqual value: 'int', scopes: ["source.php", "meta.function.closure.php", "meta.function.parameters.php", "meta.function.parameter.typehinted.php", "storage.type.php", 'storage.type.primitive.php']
       expect(tokens[9]).toEqual value: '$', scopes: ["source.php", "meta.function.closure.php", "meta.function.parameters.php", "meta.function.parameter.typehinted.php", "variable.other.php", "punctuation.definition.variable.php"]
       expect(tokens[10]).toEqual value: 'x', scopes: ["source.php", "meta.function.closure.php", "meta.function.parameters.php", "meta.function.parameter.typehinted.php", "variable.other.php"]
       expect(tokens[11]).toEqual value: '=', scopes: ["source.php", "meta.function.closure.php", "meta.function.parameters.php", "meta.function.parameter.typehinted.php", "keyword.operator.assignment.php"]
@@ -1438,7 +1438,7 @@ describe 'PHP grammar', ->
       expect(tokens[5]).toEqual value: 'fn', scopes: ["source.php", "meta.function.closure.php", "storage.type.function.php"]
       expect(tokens[11]).toEqual value: ':', scopes: ["source.php", "meta.function.closure.php", "keyword.operator.return-value.php"]
       expect(tokens[12]).toEqual value: '?', scopes: ["source.php", "meta.function.closure.php", "keyword.operator.nullable-type.php"]
-      expect(tokens[14]).toEqual value: 'int', scopes: ["source.php", "meta.function.closure.php", "storage.type.php", 'storage.primitive.php']
+      expect(tokens[14]).toEqual value: 'int', scopes: ["source.php", "meta.function.closure.php", "storage.type.php", 'storage.type.primitive.php']
 
   describe 'the scope resolution operator', ->
     it 'tokenizes static method calls with no arguments', ->
@@ -1802,14 +1802,14 @@ describe 'PHP grammar', ->
     {tokens} = grammar.tokenizeLine '(int)'
 
     expect(tokens[0]).toEqual value: '(', scopes: ['source.php', 'punctuation.definition.storage-type.begin.bracket.round.php']
-    expect(tokens[1]).toEqual value: 'int', scopes: ['source.php', 'storage.type.php', 'storage.primitive.php']
+    expect(tokens[1]).toEqual value: 'int', scopes: ['source.php', 'storage.type.php', 'storage.type.primitive.php']
     expect(tokens[2]).toEqual value: ')', scopes: ['source.php', 'punctuation.definition.storage-type.end.bracket.round.php']
 
     {tokens} = grammar.tokenizeLine '( int )'
 
     expect(tokens[0]).toEqual value: '(', scopes: ['source.php', 'punctuation.definition.storage-type.begin.bracket.round.php']
     expect(tokens[1]).toEqual value: ' ', scopes: ['source.php']
-    expect(tokens[2]).toEqual value: 'int', scopes: ['source.php', 'storage.type.php', 'storage.primitive.php']
+    expect(tokens[2]).toEqual value: 'int', scopes: ['source.php', 'storage.type.php', 'storage.type.primitive.php']
     expect(tokens[3]).toEqual value: ' ', scopes: ['source.php']
     expect(tokens[4]).toEqual value: ')', scopes: ['source.php', 'punctuation.definition.storage-type.end.bracket.round.php']
 
