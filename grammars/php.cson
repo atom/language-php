@@ -1299,6 +1299,11 @@
             'name': 'keyword.operator.nullable-type.php'
           '2':
             'name': 'storage.type.php'
+            patterns: [
+              {
+                'include': '#primitives'
+              }
+            ]
           '3':
             'name': 'variable.other.php'
           '4':

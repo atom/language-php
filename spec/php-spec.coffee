@@ -984,7 +984,7 @@ describe 'PHP grammar', ->
       expect(tokens[1]).toEqual value: ' ', scopes: ['source.php', 'meta.function.php']
       expect(tokens[2]).toEqual value: 'array_test', scopes: ['source.php', 'meta.function.php', 'entity.name.function.php']
       expect(tokens[3]).toEqual value: '(', scopes: ['source.php', 'meta.function.php', 'punctuation.definition.parameters.begin.bracket.round.php']
-      expect(tokens[4]).toEqual value: 'array', scopes: ['source.php', 'meta.function.php', 'meta.function.parameters.php', 'meta.function.parameter.array.php', 'storage.type.php']
+      expect(tokens[4]).toEqual value: 'array', scopes: ['source.php', 'meta.function.php', 'meta.function.parameters.php', 'meta.function.parameter.array.php', 'storage.type.php', 'storage.primitive.php']
       expect(tokens[5]).toEqual value: ' ', scopes: ['source.php', 'meta.function.php', 'meta.function.parameters.php', 'meta.function.parameter.array.php']
       expect(tokens[6]).toEqual value: '$', scopes: ['source.php', 'meta.function.php', 'meta.function.parameters.php', 'meta.function.parameter.array.php', 'variable.other.php', 'punctuation.definition.variable.php']
       expect(tokens[7]).toEqual value: 'value', scopes: ['source.php', 'meta.function.php', 'meta.function.parameters.php', 'meta.function.parameter.array.php', 'variable.other.php']
@@ -1033,6 +1033,9 @@ describe 'PHP grammar', ->
       expect(tokens[16]).toEqual value: '}', scopes: ['source.php', 'punctuation.definition.end.bracket.curly.php']
 
     it 'tokenizes primitive types in function parameter typehints', ->
+      {tokens} = grammar.tokenizeLine "function type_test(array $value) {}"
+      expect(tokens[4]).toEqual value: 'array', scopes: ['source.php', 'meta.function.php', 'meta.function.parameters.php', 'meta.function.parameter.array.php', 'storage.type.php', 'storage.primitive.php']
+
       {tokens} = grammar.tokenizeLine "function type_test(bool $value) {}"
       expect(tokens[4]).toEqual value: 'bool', scopes: ['source.php', 'meta.function.php', 'meta.function.parameters.php', 'meta.function.parameter.typehinted.php', 'storage.type.php', 'storage.primitive.php']
 
@@ -1044,6 +1047,9 @@ describe 'PHP grammar', ->
 
       {tokens} = grammar.tokenizeLine "function type_test(?bool $value = null) {}"
       expect(tokens[5]).toEqual value: 'bool', scopes: ['source.php', 'meta.function.php', 'meta.function.parameters.php', 'meta.function.parameter.typehinted.php', 'storage.type.php', 'storage.primitive.php']
+
+      {tokens} = grammar.tokenizeLine "function type_test(callable $value) {}"
+      expect(tokens[4]).toEqual value: 'callable', scopes: ['source.php', 'meta.function.php', 'meta.function.parameters.php', 'meta.function.parameter.array.php', 'storage.type.php', 'storage.primitive.php']
 
       {tokens} = grammar.tokenizeLine "function type_test(iterable $value) {}"
       expect(tokens[4]).toEqual value: 'iterable', scopes: ['source.php', 'meta.function.php', 'meta.function.parameters.php', 'meta.function.parameter.typehinted.php', 'storage.type.php', 'storage.primitive.php']
