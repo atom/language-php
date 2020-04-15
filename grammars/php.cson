@@ -825,6 +825,13 @@
   }
 ]
 'repository':
+  'primitives':
+    'patterns': [
+      {
+        'match': 'array|bool|callable|float|int|iterable|object|string'
+        'name': 'storage.primitive.php'
+      }
+    ]
   'class-builtin':
     'patterns': [
       {
