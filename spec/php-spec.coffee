@@ -648,7 +648,7 @@ describe 'PHP grammar', ->
         '''
 
         expect(lines[1][1]).toEqual value: 'public', scopes: ["source.php", "meta.class.php", "meta.class.body.php", "storage.modifier.php"]
-        expect(lines[1][3]).toEqual value: 'int', scopes: ["source.php", "meta.class.php", "meta.class.body.php", "storage.type.php"]
+        expect(lines[1][3]).toEqual value: 'int', scopes: ["source.php", "meta.class.php", "meta.class.body.php", "storage.type.php", 'storage.primitive.php']
         expect(lines[1][5]).toEqual value: '$', scopes: ["source.php", "meta.class.php", "meta.class.body.php", "variable.other.php", "punctuation.definition.variable.php"]
         expect(lines[1][6]).toEqual value: 'a', scopes: ["source.php", "meta.class.php", "meta.class.body.php", "variable.other.php"]
 
@@ -661,7 +661,7 @@ describe 'PHP grammar', ->
 
         expect(lines[1][1]).toEqual value: 'static', scopes: ["source.php", "meta.class.php", "meta.class.body.php", "storage.modifier.php"]
         expect(lines[1][3]).toEqual value: '?', scopes: ["source.php", "meta.class.php", "meta.class.body.php", "keyword.operator.nullable-type.php"]
-        expect(lines[1][4]).toEqual value: 'string', scopes: ["source.php", "meta.class.php", "meta.class.body.php", "storage.type.php"]
+        expect(lines[1][4]).toEqual value: 'string', scopes: ["source.php", "meta.class.php", "meta.class.body.php", "storage.type.php", 'storage.primitive.php']
         expect(lines[1][6]).toEqual value: '$', scopes: ["source.php", "meta.class.php", "meta.class.body.php", "variable.other.php", "punctuation.definition.variable.php"]
         expect(lines[1][7]).toEqual value: 'b', scopes: ["source.php", "meta.class.php", "meta.class.body.php", "variable.other.php"]
 
@@ -673,7 +673,7 @@ describe 'PHP grammar', ->
 
         expect(lines[1][1]).toEqual value: 'static', scopes: ["source.php", "meta.class.php", "meta.class.body.php", "storage.modifier.php"]
         expect(lines[1][2]).toEqual value: '?', scopes: ["source.php", "meta.class.php", "meta.class.body.php", "keyword.operator.nullable-type.php"]
-        expect(lines[1][4]).toEqual value: 'string', scopes: ["source.php", "meta.class.php", "meta.class.body.php", "storage.type.php"]
+        expect(lines[1][4]).toEqual value: 'string', scopes: ["source.php", "meta.class.php", "meta.class.body.php", "storage.type.php", 'storage.primitive.php']
 
       it 'tokenizes namespaces', ->
         lines = grammar.tokenizeLines '''
@@ -701,7 +701,7 @@ describe 'PHP grammar', ->
         '''
 
         expect(lines[1][1]).toEqual value: 'static', scopes: ["source.php", "meta.class.php", "meta.class.body.php", "storage.modifier.php"]
-        expect(lines[1][3]).toEqual value: 'int', scopes: ["source.php", "meta.class.php", "meta.class.body.php", "storage.type.php"]
+        expect(lines[1][3]).toEqual value: 'int', scopes: ["source.php", "meta.class.php", "meta.class.body.php", "storage.type.php", 'storage.primitive.php']
         expect(lines[1][5]).toEqual value: '$', scopes: ["source.php", "meta.class.php", "meta.class.body.php", "variable.other.php", "punctuation.definition.variable.php"]
         expect(lines[1][6]).toEqual value: 'a', scopes: ["source.php", "meta.class.php", "meta.class.body.php", "variable.other.php"]
 
@@ -716,7 +716,7 @@ describe 'PHP grammar', ->
         expect(lines[3][1]).toEqual value: 'private', scopes: ["source.php", "meta.class.php", "meta.class.body.php", "storage.modifier.php"]
         expect(lines[3][3]).toEqual value: 'static', scopes: ["source.php", "meta.class.php", "meta.class.body.php", "storage.modifier.php"]
         expect(lines[3][5]).toEqual value: '?', scopes: ["source.php", "meta.class.php", "meta.class.body.php", "keyword.operator.nullable-type.php"]
-        expect(lines[3][7]).toEqual value: 'array', scopes: ["source.php", "meta.class.php", "meta.class.body.php", "storage.type.php"]
+        expect(lines[3][7]).toEqual value: 'array', scopes: ["source.php", "meta.class.php", "meta.class.body.php", "storage.type.php", 'storage.primitive.php']
         expect(lines[3][9]).toEqual value: '$', scopes: ["source.php", "meta.class.php", "meta.class.body.php", "variable.other.php", "punctuation.definition.variable.php"]
         expect(lines[3][10]).toEqual value: 'c1', scopes: ["source.php", "meta.class.php", "meta.class.body.php", "variable.other.php"]
         expect(lines[3][13]).toEqual value: '$', scopes: ["source.php", "meta.class.php", "meta.class.body.php", "variable.other.php", "punctuation.definition.variable.php"]

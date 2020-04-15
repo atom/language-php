@@ -585,6 +585,11 @@
         ]
       '4':
         'name': 'storage.type.php'
+        'patterns': [
+          {
+            'include': '#primitives'
+          }
+        ]
       '5':
         'name': 'variable.other.php'
       '6':
