@@ -658,6 +658,11 @@
         'name': 'punctuation.definition.storage-type.begin.bracket.round.php'
       '2':
         'name': 'storage.type.php'
+        'patterns': [
+          {
+            'include': '#primitives'
+          }
+        ]
       '3':
         'name': 'punctuation.definition.storage-type.end.bracket.round.php'
   }

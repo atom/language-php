@@ -1774,14 +1774,14 @@ describe 'PHP grammar', ->
     {tokens} = grammar.tokenizeLine '(int)'
 
     expect(tokens[0]).toEqual value: '(', scopes: ['source.php', 'punctuation.definition.storage-type.begin.bracket.round.php']
-    expect(tokens[1]).toEqual value: 'int', scopes: ['source.php', 'storage.type.php']
+    expect(tokens[1]).toEqual value: 'int', scopes: ['source.php', 'storage.type.php', 'storage.primitive.php']
     expect(tokens[2]).toEqual value: ')', scopes: ['source.php', 'punctuation.definition.storage-type.end.bracket.round.php']
 
     {tokens} = grammar.tokenizeLine '( int )'
 
     expect(tokens[0]).toEqual value: '(', scopes: ['source.php', 'punctuation.definition.storage-type.begin.bracket.round.php']
     expect(tokens[1]).toEqual value: ' ', scopes: ['source.php']
-    expect(tokens[2]).toEqual value: 'int', scopes: ['source.php', 'storage.type.php']
+    expect(tokens[2]).toEqual value: 'int', scopes: ['source.php', 'storage.type.php', 'storage.primitive.php']
     expect(tokens[3]).toEqual value: ' ', scopes: ['source.php']
     expect(tokens[4]).toEqual value: ')', scopes: ['source.php', 'punctuation.definition.storage-type.end.bracket.round.php']
 
