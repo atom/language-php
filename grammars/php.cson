@@ -853,7 +853,7 @@
   'primitives':
     'patterns': [
       {
-        'match': '\\b(array|bool|callable|float|int|iterable|object|string)\\b'
+        'match': '^(array|bool|callable|float|int|iterable|object|string)$'
         'name': 'storage.type.primitive.php'
       }
     ]
