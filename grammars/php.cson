@@ -1299,7 +1299,7 @@
             'name': 'keyword.operator.nullable-type.php'
           '2':
             'name': 'storage.type.php'
-            patterns: [
+            'patterns': [
               {
                 'include': '#primitives'
               }
@@ -1351,7 +1351,7 @@
             ]
           '3':
             'name': 'storage.type.php'
-            patterns: [
+            'patterns': [
               {
                 'include': '#primitives'
               }
