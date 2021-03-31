@@ -64,13 +64,15 @@ describe 'PHP in HTML', ->
 
     it 'tokenizes `include` on the same line as <?php', ->
       # https://github.com/atom/language-php/issues/154
-      {tokens} = grammar.tokenizeLine "<?php include 'test'?>"
+      {tokens} = grammar.tokenizeLine "<?php include('test')?>"
 
       expect(tokens[2]).toEqual value: 'include', scopes: ['text.html.php', 'meta.embedded.line.php', 'source.php', 'meta.include.php', 'keyword.control.import.include.php']
+      expect(tokens[3]).toEqual value: "(", scopes: ['text.html.php', 'meta.embedded.line.php', 'source.php', 'meta.include.php', 'punctuation.definition.begin.bracket.round.php']
       expect(tokens[4]).toEqual value: "'", scopes: ['text.html.php', 'meta.embedded.line.php', 'source.php', 'meta.include.php', 'string.quoted.single.php', 'punctuation.definition.string.begin.php']
       expect(tokens[6]).toEqual value: "'", scopes: ['text.html.php', 'meta.embedded.line.php', 'source.php', 'meta.include.php', 'string.quoted.single.php', 'punctuation.definition.string.end.php']
-      expect(tokens[7]).toEqual value: '?', scopes: ['text.html.php', 'meta.embedded.line.php', 'punctuation.section.embedded.end.php', 'source.php']
-      expect(tokens[8]).toEqual value: '>', scopes: ['text.html.php', 'meta.embedded.line.php', 'punctuation.section.embedded.end.php']
+      expect(tokens[7]).toEqual value: ")", scopes: ['text.html.php', 'meta.embedded.line.php', 'source.php', 'meta.include.php', 'punctuation.definition.end.bracket.round.php']
+      expect(tokens[8]).toEqual value: '?', scopes: ['text.html.php', 'meta.embedded.line.php', 'punctuation.section.embedded.end.php', 'source.php']
+      expect(tokens[9]).toEqual value: '>', scopes: ['text.html.php', 'meta.embedded.line.php', 'punctuation.section.embedded.end.php']
 
     it 'tokenizes namespaces immediately following <?php', ->
       {tokens} = grammar.tokenizeLine '<?php namespace Test;'
