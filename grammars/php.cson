@@ -685,6 +685,10 @@
             'name': 'storage.type.php'
           }
           {
+            'match': '\\b(noreturn)\\b',
+            'name': 'keyword.other.type.noreturn.php'
+          }
+          {
             'include': '#php-types'
           }
         ]
