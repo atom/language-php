@@ -1707,7 +1707,7 @@
         ]
       }
       {
-        'begin': '(<<<)\\s*("?)(SQL)(\\2)(\\s*)$'
+        'begin': '(<<<)\\s*("?)((D|S)QL)(\\2)(\\s*)$'
         'beginCaptures':
           '0':
             'name': 'punctuation.section.embedded.begin.php'
@@ -1985,7 +1985,7 @@
         ]
       }
       {
-        'begin': '(<<<)\\s*\'(SQL)\'(\\s*)$'
+        'begin': '(<<<)\\s*\'((D|S)QL)\'(\\s*)$'
         'beginCaptures':
           '0':
             'name': 'punctuation.section.embedded.begin.php'

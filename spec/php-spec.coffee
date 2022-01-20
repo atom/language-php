@@ -3450,6 +3450,74 @@ describe 'PHP grammar', ->
       expect(lines[2][0]).toEqual value: 'SQL', scopes: ['source.php', 'string.unquoted.nowdoc.php', 'meta.embedded.sql', 'punctuation.section.embedded.end.php', 'keyword.operator.nowdoc.php']
       expect(lines[2][1]).toEqual value: ';', scopes: ['source.php', 'punctuation.terminator.expression.php']
 
+  it 'should tokenize a heredoc with embedded DQL correctly', ->
+    waitsForPromise ->
+      atom.packages.activatePackage('language-sql')
+
+    runs ->
+      lines = grammar.tokenizeLines '''
+        $a = <<<DQL
+        SELECT * FROM table
+        DQL;
+      '''
+
+      expect(lines[0][0]).toEqual value: '$', scopes: ['source.php', 'variable.other.php', 'punctuation.definition.variable.php']
+      expect(lines[0][1]).toEqual value: 'a', scopes: ['source.php', 'variable.other.php']
+      expect(lines[0][2]).toEqual value: ' ', scopes: ['source.php']
+      expect(lines[0][3]).toEqual value: '=', scopes: ['source.php', 'keyword.operator.assignment.php']
+      expect(lines[0][4]).toEqual value: ' ', scopes: ['source.php']
+      expect(lines[0][5]).toEqual value: '<<<', scopes: ['source.php', 'string.unquoted.heredoc.php', 'meta.embedded.sql', 'punctuation.section.embedded.begin.php', 'punctuation.definition.string.php']
+      expect(lines[0][6]).toEqual value: 'DQL', scopes: ['source.php', 'string.unquoted.heredoc.php', 'meta.embedded.sql', 'punctuation.section.embedded.begin.php', 'keyword.operator.heredoc.php']
+      expect(lines[1][0].value).toEqual 'SELECT'
+      expect(lines[1][0].scopes).toContainAll ['source.php', 'string.unquoted.heredoc.php', 'meta.embedded.sql', 'source.sql']
+      expect(lines[1][1].value).toEqual ' '
+      expect(lines[1][1].scopes).toContainAll ['source.php', 'string.unquoted.heredoc.php', 'meta.embedded.sql', 'source.sql']
+      expect(lines[1][2].value).toEqual '*'
+      expect(lines[1][2].scopes).toContainAll ['source.php', 'string.unquoted.heredoc.php', 'meta.embedded.sql', 'source.sql']
+      expect(lines[1][3].value).toEqual ' '
+      expect(lines[1][3].scopes).toContainAll ['source.php', 'string.unquoted.heredoc.php', 'meta.embedded.sql', 'source.sql']
+      expect(lines[1][4].value).toEqual 'FROM'
+      expect(lines[1][4].scopes).toContainAll ['source.php', 'string.unquoted.heredoc.php', 'meta.embedded.sql', 'source.sql']
+      expect(lines[1][5].value).toEqual ' table'
+      expect(lines[1][5].scopes).toContainAll ['source.php', 'string.unquoted.heredoc.php', 'meta.embedded.sql', 'source.sql']
+      expect(lines[2][0]).toEqual value: 'DQL', scopes: ['source.php', 'string.unquoted.heredoc.php', 'meta.embedded.sql', 'punctuation.section.embedded.end.php', 'keyword.operator.heredoc.php']
+      expect(lines[2][1]).toEqual value: ';', scopes: ['source.php', 'punctuation.terminator.expression.php']
+
+  it 'should tokenize a nowdoc with embedded DQL correctly', ->
+    waitsForPromise ->
+      atom.packages.activatePackage('language-sql')
+
+    runs ->
+      lines = grammar.tokenizeLines '''
+        $a = <<<'DQL'
+        SELECT * FROM table
+        DQL;
+      '''
+
+      expect(lines[0][0]).toEqual value: '$', scopes: ['source.php', 'variable.other.php', 'punctuation.definition.variable.php']
+      expect(lines[0][1]).toEqual value: 'a', scopes: ['source.php', 'variable.other.php']
+      expect(lines[0][2]).toEqual value: ' ', scopes: ['source.php']
+      expect(lines[0][3]).toEqual value: '=', scopes: ['source.php', 'keyword.operator.assignment.php']
+      expect(lines[0][4]).toEqual value: ' ', scopes: ['source.php']
+      expect(lines[0][5]).toEqual value: '<<<', scopes: ['source.php', 'string.unquoted.nowdoc.php', 'meta.embedded.sql', 'punctuation.section.embedded.begin.php', 'punctuation.definition.string.php']
+      expect(lines[0][6]).toEqual value: '\'', scopes: ['source.php', 'string.unquoted.nowdoc.php', 'meta.embedded.sql', 'punctuation.section.embedded.begin.php']
+      expect(lines[0][7]).toEqual value: 'DQL', scopes: ['source.php', 'string.unquoted.nowdoc.php', 'meta.embedded.sql', 'punctuation.section.embedded.begin.php', 'keyword.operator.nowdoc.php']
+      expect(lines[0][8]).toEqual value: '\'', scopes: ['source.php', 'string.unquoted.nowdoc.php', 'meta.embedded.sql', 'punctuation.section.embedded.begin.php']
+      expect(lines[1][0].value).toEqual 'SELECT'
+      expect(lines[1][0].scopes).toContainAll ['source.php', 'string.unquoted.nowdoc.php', 'meta.embedded.sql', 'source.sql']
+      expect(lines[1][1].value).toEqual ' '
+      expect(lines[1][1].scopes).toContainAll ['source.php', 'string.unquoted.nowdoc.php', 'meta.embedded.sql', 'source.sql']
+      expect(lines[1][2].value).toEqual '*'
+      expect(lines[1][2].scopes).toContainAll ['source.php', 'string.unquoted.nowdoc.php', 'meta.embedded.sql', 'source.sql']
+      expect(lines[1][3].value).toEqual ' '
+      expect(lines[1][3].scopes).toContainAll ['source.php', 'string.unquoted.nowdoc.php', 'meta.embedded.sql', 'source.sql']
+      expect(lines[1][4].value).toEqual 'FROM'
+      expect(lines[1][4].scopes).toContainAll ['source.php', 'string.unquoted.nowdoc.php', 'meta.embedded.sql', 'source.sql']
+      expect(lines[1][5].value).toEqual ' table'
+      expect(lines[1][5].scopes).toContainAll ['source.php', 'string.unquoted.nowdoc.php', 'meta.embedded.sql', 'source.sql']
+      expect(lines[2][0]).toEqual value: 'DQL', scopes: ['source.php', 'string.unquoted.nowdoc.php', 'meta.embedded.sql', 'punctuation.section.embedded.end.php', 'keyword.operator.nowdoc.php']
+      expect(lines[2][1]).toEqual value: ';', scopes: ['source.php', 'punctuation.terminator.expression.php']
+
   it 'should tokenize a heredoc with embedded javascript correctly', ->
     waitsForPromise ->
       atom.packages.activatePackage('language-javascript')
