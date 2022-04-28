@@ -6,6 +6,7 @@
     "atom": "*",
     "node": "*"
   },
+  "main": "lib/main",
   "homepage": "http://atom.github.io/language-php",
   "repository": {
     "type": "git",
@@ -16,7 +17,9 @@
     "url": "https://github.com/atom/language-php/issues"
   },
   "dependencies": {
+    "tree-sitter-embedded-php": "0.0.4",
     "tree-sitter-php-abc": "^0.17.0",
+    "tree-sitter-phpdoc": "0.0.4"
   },
   "devDependencies": {
     "coffeelint": "^1.10.1",

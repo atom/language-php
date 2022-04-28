@@ -1,0 +1,18 @@
+name: 'PHPDoc'
+scopeName: 'comment.block.documentation.phpdoc.php'
+type: 'tree-sitter'
+parser: 'tree-sitter-phpdoc'
+
+injectionRegex: 'phpdoc|PHPDoc'
+
+scopes:
+  tag_name: 'keyword.other.phpdoc.php'
+  type_list: 'meta.other.type.phpdoc.php'
+  'type_list > "|"': 'punctuation.separator.delimiter.php'
+  'array_type > "[]"': 'keyword.other.array.phpdoc.php'
+  primitive_type: 'keyword.other.type.php'
+  'named_type > name': 'support.class.php'
+  '* > namespace_name_as_prefix': 'support.other.namespace.php'
+  # FIXME not working
+  # '* > namespace_name_as_prefix > "\\"': 'punctuation.separator.inheritance.php'
+  '* > qualified_name > name': 'support.class.php'

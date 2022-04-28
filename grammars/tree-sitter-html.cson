@@ -1,0 +1,36 @@
+# This grammar is responsible for injecting the actual PHP or HTML grammars
+# For the actual PHP scopes, see tree-sitter-php.cson
+name: 'PHP'
+scopeName: 'text.html.php'
+type: 'tree-sitter'
+parser: 'tree-sitter-embedded-php'
+
+fileTypes: [
+  'aw'
+  'ctp'
+  'inc'
+  'install'
+  'module'
+  'php'
+  'php_cs'
+  'php3'
+  'php4'
+  'php5'
+  'phpt'
+  'phtml'
+  'profile'
+]
+
+firstLineRegex: [
+  '^\\s*<\\?([pP][hH][pP]|=|\\s|$)'
+]
+
+scopes:
+  'template > content:nth-child(0)': [
+    {match: /^\#!.*(?:\s|\/)php\d?(?:$|\s)/, scopes: 'comment.line.shebang.php'}
+  ],
+
+  'php': [
+    {match: '\\n', scopes: 'meta.embedded.block.php'}
+    'meta.embedded.line.php'
+  ]
