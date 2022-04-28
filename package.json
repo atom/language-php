@@ -19,6 +19,7 @@
     "tree-sitter-php-abc": "^0.17.0",
   },
   "devDependencies": {
-    "coffeelint": "^1.10.1"
+    "coffeelint": "^1.10.1",
+    "dedent": "^0.7.0"
   }
 }
