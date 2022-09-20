@@ -695,6 +695,60 @@ describe 'PHP grammar', ->
       expect(tokens[6]).toEqual value: '/*', scopes: ['source.php', 'meta.class.php', 'meta.class.body.php', 'comment.block.php', 'punctuation.definition.comment.php']
       expect(tokens[10]).toEqual value: '}', scopes: ['source.php', 'meta.class.php', 'punctuation.definition.class.end.bracket.curly.php']
 
+    it 'tokenizes class instantiation with special name "parent" without brackets', ->
+      {tokens} = grammar.tokenizeLine '$a = new parent;'
+
+      expect(tokens[5]).toEqual value: 'new', scopes: ["source.php", "keyword.other.new.php"]
+      expect(tokens[6]).toEqual value: ' ', scopes: ["source.php"]
+      expect(tokens[7]).toEqual value: 'parent', scopes: ["source.php", "storage.type.php"]
+      expect(tokens[8]).toEqual value: ';', scopes: ["source.php", "punctuation.terminator.expression.php"]
+
+    it 'tokenizes class instantiation with special name "parent" with brackets', ->
+      {tokens} = grammar.tokenizeLine '$a = new parent();'
+
+      expect(tokens[5]).toEqual value: 'new', scopes: ["source.php", "keyword.other.new.php"]
+      expect(tokens[6]).toEqual value: ' ', scopes: ["source.php"]
+      expect(tokens[7]).toEqual value: 'parent', scopes: ["source.php", "storage.type.php"]
+      expect(tokens[8]).toEqual value: '(', scopes: ["source.php", "punctuation.definition.arguments.begin.bracket.round.php"]
+      expect(tokens[9]).toEqual value: ')', scopes: ["source.php", "punctuation.definition.arguments.end.bracket.round.php"]
+      expect(tokens[10]).toEqual value: ';', scopes: ["source.php", "punctuation.terminator.expression.php"]
+
+    it 'tokenizes class instantiation with special name "self" without brackets', ->
+      {tokens} = grammar.tokenizeLine '$a = new self;'
+
+      expect(tokens[5]).toEqual value: 'new', scopes: ["source.php", "keyword.other.new.php"]
+      expect(tokens[6]).toEqual value: ' ', scopes: ["source.php"]
+      expect(tokens[7]).toEqual value: 'self', scopes: ["source.php", "storage.type.php"]
+      expect(tokens[8]).toEqual value: ';', scopes: ["source.php", "punctuation.terminator.expression.php"]
+
+    it 'tokenizes class instantiation with special name "self" with brackets', ->
+      {tokens} = grammar.tokenizeLine '$a = new self();'
+
+      expect(tokens[5]).toEqual value: 'new', scopes: ["source.php", "keyword.other.new.php"]
+      expect(tokens[6]).toEqual value: ' ', scopes: ["source.php"]
+      expect(tokens[7]).toEqual value: 'self', scopes: ["source.php", "storage.type.php"]
+      expect(tokens[8]).toEqual value: '(', scopes: ["source.php", "punctuation.definition.arguments.begin.bracket.round.php"]
+      expect(tokens[9]).toEqual value: ')', scopes: ["source.php", "punctuation.definition.arguments.end.bracket.round.php"]
+      expect(tokens[10]).toEqual value: ';', scopes: ["source.php", "punctuation.terminator.expression.php"]
+
+    it 'tokenizes class instantiation with special name "static" without brackets', ->
+      {tokens} = grammar.tokenizeLine '$a = new static;'
+
+      expect(tokens[5]).toEqual value: 'new', scopes: ["source.php", "keyword.other.new.php"]
+      expect(tokens[6]).toEqual value: ' ', scopes: ["source.php"]
+      expect(tokens[7]).toEqual value: 'static', scopes: ["source.php", "storage.type.php"]
+      expect(tokens[8]).toEqual value: ';', scopes: ["source.php", "punctuation.terminator.expression.php"]
+
+    it 'tokenizes class instantiation with special name "static" with brackets', ->
+      {tokens} = grammar.tokenizeLine '$a = new static();'
+
+      expect(tokens[5]).toEqual value: 'new', scopes: ["source.php", "keyword.other.new.php"]
+      expect(tokens[6]).toEqual value: ' ', scopes: ["source.php"]
+      expect(tokens[7]).toEqual value: 'static', scopes: ["source.php", "storage.type.php"]
+      expect(tokens[8]).toEqual value: '(', scopes: ["source.php", "punctuation.definition.arguments.begin.bracket.round.php"]
+      expect(tokens[9]).toEqual value: ')', scopes: ["source.php", "punctuation.definition.arguments.end.bracket.round.php"]
+      expect(tokens[10]).toEqual value: ';', scopes: ["source.php", "punctuation.terminator.expression.php"]
+
     it 'tokenizes class instantiation', ->
       {tokens} = grammar.tokenizeLine '$a = new ClassName();'
 
