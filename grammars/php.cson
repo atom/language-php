@@ -2316,21 +2316,59 @@
       }
     ]
   'instantiation':
-    'begin': '(?i)(new)\\s+(?!class\\b)'
-    'beginCaptures':
-      '1':
-        'name': 'keyword.other.new.php'
-    'end': '(?i)(?=[^a-z0-9_\\x{7f}-\\x{10ffff}\\\\])'
     'patterns': [
       {
-        'match': '(?i)(parent|static|self)(?![a-z0-9_\\x{7f}-\\x{10ffff}])'
-        'name': 'storage.type.php'
-      }
+        'match': '(?i)(new)\\s+(?!class\\b)([$a-z0-9_\\x{7f}-\\x{10ffff}\\\\]+)(?![a-z0-9_\\x{7f}-\\x{10ffff}\\\\(])'
+        'captures':
+          '1':
+            'name': 'keyword.other.new.php'
+          '2':
+            'patterns': [
+              {
+                'match': '(?i)(parent|static|self)(?![a-z0-9_\\x{7f}-\\x{10ffff}])'
+                'name': 'storage.type.php'
+              }
+              {
+                'include': '#class-name'
+              }
+              {
+                'include': '#variable-name'
+              }
+            ]
+      },
       {
-        'include': '#class-name'
-      }
-      {
-        'include': '#variable-name'
+        'begin': '(?i)(new)\\s+(?!class\\b)([$a-z0-9_\\x{7f}-\\x{10ffff}\\\\]+)\\s*(\\()'
+        'beginCaptures':
+          '1':
+            'name': 'keyword.other.new.php'
+          '2':
+            'patterns': [
+              {
+                'match': '(?i)(parent|static|self)(?![a-z0-9_\\x{7f}-\\x{10ffff}])'
+                'name': 'storage.type.php'
+              }
+              {
+                'include': '#class-name'
+              }
+              {
+                'include': '#variable-name'
+              }
+            ]
+          '3':
+            'name': 'punctuation.definition.arguments.begin.bracket.round.php'
+        'end': '\\)'
+        'endCaptures':
+          '0':
+            'name': 'punctuation.definition.arguments.end.bracket.round.php'
+        'contentName': 'meta.function-call.php'
+        'patterns': [
+          {
+            'include': '#named-arguments'
+          }
+          {
+            'include': '$self'
+          }
+        ]
       }
     ]
   'interpolation':
