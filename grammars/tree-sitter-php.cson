@@ -1,0 +1,397 @@
+name: 'PHP'
+scopeName: 'source.php'
+type: 'tree-sitter'
+parser: 'tree-sitter-php-abc'
+
+injectionRegex: 'php|PHP'
+
+comments:
+  start: '//'
+
+folds: [
+  {
+    type: 'comment'
+  }
+  {
+    start: {type: '{', index: 0},
+    end: {type: '}', index: -1}
+  }
+  {
+    start: {type: '(', index: 0},
+    end: {type: ')', index: -1}
+  }
+  {
+    start: {type: '[', index: 0},
+    end: {type: ']', index: -1}
+  }
+]
+
+scopes:
+  'program': 'source.php'
+
+  'php_tag': 'punctuation.section.embedded.begin.php'
+  '"?>"': 'punctuation.section.embedded.end.php'
+
+  'variable_name': [
+    {exact: '$this', scopes: 'variable.language.this.php'},
+    'variable.other.php'
+  ]
+  'variable_name > "$"': 'punctuation.definition.variable.php'
+
+  'name': [
+    {match: 'ArrayObject', scopes: 'support.class.builtin.php'},
+    'support.class.php'
+  ]
+  'variable_name > name': ''
+
+  'class_declaration': 'meta.class.php'
+  'class_declaration > name': 'entity.name.type.class.php'
+  'base_clause > ","': 'punctuation.separator.classes.php'
+  'base_clause > name': 'entity.other.inherited-class.php'
+  'base_clause > qualified_name > name': 'entity.other.inherited-class.php'
+  'class_interface_clause > name': 'entity.name.type.interface.php'
+  'class_declaration > declaration_list > "{"': 'punctuation.definition.class.begin.bracket.curly.php'
+  'class_declaration > declaration_list > "}"': 'punctuation.definition.class.end.bracket.curly.php'
+  'class_declaration > declaration_list': 'meta.class.body.php'
+
+  'interface_declaration': 'meta.interface.php'
+  'interface_declaration > name': 'entity.name.type.interface.php'
+
+  'trait_declaration': 'meta.trait.php'
+  'trait_declaration > name': 'entity.name.type.trait.php'
+
+  'use_declaration': 'meta.use.php'
+  'use_instead_of_clause > "insteadof"': 'keyword.other.use-insteadof.php'
+  'use_list > "{"': 'punctuation.definition.use.begin.bracket.curly.php'
+  'use_list > "}"': 'punctuation.definition.use.end.bracket.curly.php'
+  'use_as_clause > name:nth-child(0)': 'support.class.php'
+  'use_as_clause > "as"': 'keyword.other.use-as.php'
+  'use_as_clause > name': 'entity.other.alias.php'
+
+  'object_creation_expression': {match: '\\bclass\\b', scopes: 'meta.class.php'}
+  'object_creation_expression > declaration_list': 'meta.class.body.php'
+
+  'function_definition': 'meta.function.php'
+  'function_definition > name': 'entity.name.function.php'
+  'function_definition > ":"': 'keyword.operator.return-value.php'
+
+  'anonymous_function_creation_expression': 'meta.function.closure.php'
+  'anonymous_function_creation_expression > ":"': 'keyword.operator.return-value.php'
+  'anonymous_function_use_clause': 'meta.function.closure.use.php'
+  'anonymous_function_use_clause > "use"': 'keyword.other.function.use.php'
+
+  'reference_modifier > "&"': 'storage.modifier.reference.php'
+  'by_ref > "&"': 'storage.modifier.reference.php'
+
+  'arrow_function': 'meta.function.closure.php'
+  'arrow_function > "=>"': 'punctuation.definition.arrow.php'
+  'arrow_function > ":"': 'keyword.operator.return-value.php'
+
+  'method_declaration': 'meta.function.php'
+  'method_declaration > ":"': 'keyword.operator.return-value.php'
+  'method_declaration > name': [
+    # FIXME other special/magic methods?
+    {exact: '__construct', scopes: 'support.function.constructor.php'},
+    {match: '__(call|callStatic|destruct|get|set|isset|unset|sleep|wakeup|serialize|unserialize|toString|invoke|set_state|clone|debugInfo)', scopes: 'support.function.magic.php'},
+    'entity.name.function.php'
+  ]
+
+  # WTF only echo statements w/ parens are scoped as "function calls", but we
+  # can't select for echo_statements that contain parenthesized_expression, so
+  # ... regex it is
+  'echo_statement': { match: '^echo\\s*\\(', scopes: 'meta.function-call.php'}
+  'echo_statement > "echo"': 'support.function.construct.output.php'
+  'unset_statement > "unset"': 'support.function.php'
+
+  'function_call_expression': [
+    {match: '^\\$', scopes: 'meta.function-call.invoke.php'}
+    'meta.function-call.php'
+  ]
+  'function_call_expression > qualified_name > name': 'entity.name.function.php'
+
+  'member_call_expression': 'meta.method-call.php'
+  'nullsafe_member_call_expression': 'meta.method-call.php'
+  'scoped_call_expression': 'meta.method-call.static.php'
+  '''
+    member_call_expression > name,
+    nullsafe_member_call_expression > name,
+    scoped_call_expression > name
+  ''': 'entity.name.function.php'
+  'nullsafe_member_call_expression > "?->"': 'keyword.operator.class.php'
+  'scoped_call_expression > name:nth-child(0)': 'support.class.php'
+  'scoped_call_expression > relative_scope': {match: /(parent|static|self)/i, scopes: 'storage.type.php'}
+
+  'argument > name': 'entity.name.variable.parameter.php'
+  'argument > ":"': 'punctuation.separator.colon.php'
+
+  'formal_parameters': 'meta.function.parameters.php'
+  'formal_parameters > simple_parameter': [
+    {match: '=', scopes:'meta.function.parameter.default.php'},
+    'meta.function.parameter.no-default.php'
+  ]
+  'formal_parameters > variadic_parameter': 'meta.function.parameter.variadic.php'
+  'formal_parameters > variadic_parameter > "..."': 'keyword.operator.variadic.php'
+
+  'property_promotion_parameter': 'meta.function.parameter.promoted-property.php'
+
+  'primitive_type': [
+    {exact: 'static', scopes: 'storage.type.php'},
+    'keyword.other.type.php'
+  ]
+  'optional_type > "?"': 'keyword.operator.nullable-type.php'
+  '* > named_type > name': [
+    {exact: 'self', scopes: 'storage.type.php'},
+    # FIXME need to support ALL of the types, I suppose...
+    {match: 'Array', scopes: 'keyword.other.type.php'},
+    'support.class.php'
+  ]
+  'type_list > "|"' : 'punctuation.separator.delimiter.php'
+  # FIXME TS-php doesn't currently support php8.1 intersection types. When it
+  # does, this will start working
+  'type_list > "&"' : 'punctuation.separator.delimiter.php'
+
+  'member_access_expression > name': 'variable.other.object.property'
+  'scoped_property_access_expression > variable_name': 'variable.other.class.php'
+  'class_constant_access_expression > name:nth-child(0)': [
+    # FIXME there are lots of these
+    {exact: 'Attribute', scopes: 'support.class.builtin.php'},
+    'support.class.php'
+  ]
+  'class_constant_access_expression > name': [
+      {exact: 'class', scopes: 'keyword.other.class.php'},
+      'constant.other.class.php'
+  ]
+
+  # FIXME we need to select "\", but this appears to be broken in Atom's selector implementation
+  # 'namespace_name > "\\"': 'punctuation.separator.inheritance.php'
+  # HACK
+  'namespace_name > name': ''
+  '* > namespace_name_as_prefix': 'support.other.namespace.php'
+
+  'namespace_definition': 'meta.namespace.php'
+  'namespace_definition > namespace_name': 'entity.name.type.namespace.php'
+  'namespace_definition > compound_statement > "{"': 'punctuation.definition.namespace.begin.bracket.curly.php'
+  'namespace_definition > compound_statement > "}"': 'punctuation.definition.namespace.end.bracket.curly.php'
+
+  'namespace_use_declaration': 'meta.use.php'
+  'namespace_use_declaration > namespace_name': 'support.other.namespace.php'
+  'namespace_use_declaration > "const"': 'storage.type.const.php'
+  'namespace_use_group > "{"': 'punctuation.definition.use.begin.bracket.curly.php'
+  'namespace_use_group > "}"': 'punctuation.definition.use.end.bracket.curly.php'
+  'namespace_use_group_clause > namespace_name > name': 'support.class.php'
+  'namespace_aliasing_clause > "as"': 'keyword.other.use-as.php'
+  'namespace_aliasing_clause > name': 'entity.other.alias.php'
+
+  'attribute_list': 'meta.attribute.php'
+  'attribute_list > attribute > name': [
+    # FIXME are there more of these?
+    {exact: 'Attribute', scopes: 'support.attribute.builtin.php'}
+    'support.attribute.php'
+  ]
+  # prevent the end bracket from being scoped as part of an array
+  'attribute_list > "]"': ''
+
+  'switch_statement': 'meta.switch-statement.php'
+  'switch_statement > parenthesized_expression > "("': 'punctuation.definition.switch-expression.begin.bracket.round.php'
+  'switch_statement > parenthesized_expression > ")"': 'punctuation.definition.switch-expression.end.bracket.round.php'
+  'switch_block > "{"': 'punctuation.definition.section.switch-block.begin.bracket.curly.php'
+  'switch_block > "}"': 'punctuation.definition.section.switch-block.end.bracket.curly.php'
+  'case_statement > ":", default_statement > ":"': 'punctuation.terminator.statement.php'
+
+  'match_expression': 'meta.match-statement.php'
+  'match_expression > parenthesized_expression > "("': 'punctuation.definition.match-expression.begin.bracket.round.php'
+  'match_expression > parenthesized_expression > ")"': 'punctuation.definition.match-expression.end.bracket.round.php'
+  'match_conditional_expression > "=>"': 'keyword.definition.arrow.php'
+  'match_default_expression > "=>"': 'keyword.definition.arrow.php'
+  'match_block > "{"': 'punctuation.definition.section.match-block.begin.bracket.curly.php'
+  'match_block > "}"': 'punctuation.definition.section.match-block.end.bracket.curly.php'
+
+  'catch_clause': 'meta.catch.php'
+  'catch_clause > type_list > named_type > name': 'support.class.exception.php'
+  'catch_clause > type_list > named_type > qualified_name > name': 'support.class.exception.php'
+
+  'const_element > name': 'constant'
+  'boolean, null': 'constant.language.php'
+  'integer': [
+    {match: '^0[xX]', scopes: 'constant.numeric.hex.php'},
+    {match: '^0[bB]', scopes: 'constant.numeric.binary.php'},
+    {match: '^0[oO0-7]', scopes: 'constant.numeric.octal.php'},
+    'constant.numeric.decimal.php'
+  ]
+  'float': 'constant.numeric.decimal.php'
+  'array_creation_expression': 'meta.array.php'
+  # FIXME this isn't working, how to scope the . in floats?
+  # NOTE the anonymous scope appears to be saved into the grammar scopeMap, but
+  # it's not being applied
+  # 'float > "."': 'punctuation.separator.decimal.period.php'
+
+  'string': 'string.quoted.single.php'
+  'encapsed_string': 'string.quoted.double.php'
+  'encapsed_string > string': 'string.quoted.double.php'
+  'encapsed_string > escape_sequence': [
+    {match: '^\\\\[xX]', scopes: 'constant.character.escape.hex.php'},
+    {match: '^\\\\[0-7]', scopes: 'constant.character.escape.octal.php'},
+    {match: '^\\\\[uU]', scopes: 'constant.character.escape.unicode.php'},
+    'constant.character.escape.php'
+  ]
+  # FIXME this DOES work
+  # "'\"'": 'punctuation.definition.string.end.php'
+  # "'\"':nth-child(0)": 'punctuation.definition.string.begin.php'
+  # FIXME this does NOT work
+  # '"\'"': 'punctuation.definition.string.end.php'
+  # "'\'':nth-child(0)": 'punctuation.definition.string.begin.php'
+  # FIXME this DOES work
+  # "encapsed_string > '\"'": 'punctuation.definition.string.php'
+  # FIXME this doesn't work
+  # 'string > "\'"': 'punctuation.definition.string.begin.php'
+  # NOTE the following works in language-ruby, but TS-ruby scopes string content
+  # separately from the string punctuation
+  # "string > '\"':nth-child(0)": 'punctuation.definition.string.begin'
+  # "string > '\"':nth-child(1)": 'punctuation.definition.string.end'
+
+  'heredoc': [
+    {match: "^[\r\n\s]*<<<'", scopes: 'string.unquoted.nowdoc.php'},
+    'string.unquoted.heredoc.php'
+  ]
+
+  'comment': [
+      {match: '^/\\*\\*', scopes: 'comment.block.documentation.phpdoc.php'},
+      {match: '^//', scopes: 'comment.line.double-slash.php'},
+      {match: '^#', scopes: 'comment.line.number-sign.php'},
+      'comment.block.php'
+  ]
+  # FIXME these do NOT work
+  # 'comment > "//"': 'punctuation.definition.comment.php'
+  # 'comment > "/*"': 'punctuation.definition.comment.php'
+  # 'comment > "/**"': 'punctuation.definition.comment.php'
+  # 'comment > "*/"': 'punctuation.definition.comment.php'
+  # 'comment > "#"': 'punctuation.definition.comment.php'
+
+  'parenthesized_expression > "("': 'punctuation.definition.begin.bracket.round.php'
+  'parenthesized_expression > ")"': 'punctuation.definition.end.bracket.round.php'
+  'object_creation_expression > arguments > "("': 'punctuation.definition.begin.bracket.round.php'
+  'object_creation_expression > arguments > ")"': 'punctuation.definition.end.bracket.round.php'
+  'arguments > "("': 'punctuation.definition.arguments.begin.bracket.round.php'
+  'arguments > ")"': 'punctuation.definition.arguments.end.bracket.round.php'
+  'echo_statement > parenthesized_expression > "("': 'punctuation.definition.arguments.begin.bracket.round.php'
+  'echo_statement > parenthesized_expression > ")"': 'punctuation.definition.arguments.end.bracket.round.php'
+  'array_creation_expression > "("': 'punctuation.definition.array.begin.bracket.round.php'
+  'array_creation_expression > ")"': 'punctuation.definition.array.end.bracket.round.php'
+  'formal_parameters > "("': 'punctuation.definition.parameters.begin.bracket.round.php'
+  'formal_parameters > ")"': 'punctuation.definition.parameters.end.bracket.round.php'
+  'anonymous_function_use_clause > "("': 'punctuation.definition.parameters.begin.bracket.round.php'
+  'anonymous_function_use_clause > ")"': 'punctuation.definition.parameters.end.bracket.round.php'
+  'catch_clause > "("': 'punctuation.definition.parameters.begin.bracket.round.php'
+  'catch_clause > ")"': 'punctuation.definition.parameters.end.bracket.round.php'
+  '"{"': 'punctuation.definition.begin.bracket.curly.php'
+  '"}"': 'punctuation.definition.end.bracket.curly.php'
+  'object_creation_expression > declaration_list > "{"': 'punctuation.definition.class.begin.bracket.curly.php'
+  'object_creation_expression > declaration_list > "}"': 'punctuation.definition.class.end.bracket.curly.php'
+  '"["': 'punctuation.section.array.begin.php'
+  '"]"': 'punctuation.section.array.end.php'
+  '";"': 'punctuation.terminator.expression.php'
+
+  'visibility_modifier, static_modifier': 'storage.modifier.php'
+  '"global"': 'storage.modifier'
+  '"const"': 'storage.modifier'
+  '"abstract"': 'storage.modifier.abstract.php'
+  '"extends"': 'storage.modifier.extends.php'
+  '"implements"': 'storage.modifier.implements.php'
+  '"final"': 'storage.modifier.final.php'
+  '"use"': 'keyword.other.use.php'
+  '"namespace"': 'keyword.other.namespace.php'
+
+  '"callable"': 'storage.type'
+  '"var"': 'storage.type'
+  '"trait"': 'storage.type.trait.php'
+  '"class"': 'storage.type.class.php'
+  '"interface"': 'storage.type.interface.php'
+  '"function"': 'storage.type.function.php'
+  '"fn"': 'storage.type.function.php'
+  '"type"': 'storage.type.type'
+  'cast_expression > cast_type': 'storage.type.cast'
+
+  '"+", "-", "*", "/", "%", "**"': 'keyword.operator.arithmetic.php'
+  '"=", "+=", "-=", "*=", "/=", "%=", "**=", "&=", "|=", "^=", "<<=", ">>=", "??="': 'keyword.operator.assignment.php'
+  '"==", "===", "!=", "!==", "<", ">", "<>", "<=", ">=", "<=>"': 'keyword.operator.comparison.php'
+  '"<<", ">>", "~", "^", "&", "|"': 'keyword.operator.bitwise.php'
+  '"@"': 'keyword.operator.error-control.php'
+  '"++", "--"': 'keyword.operator.increment-decrement.php'
+  '"!", "&&", "||", "and", "or", "xor", "as"': 'keyword.operator.logical.php'
+  '"?", ":", "?:"': 'keyword.operator.ternary.php'
+  '"??"': 'keyword.operator.null-coalescing.php'
+  '"..."': 'keyword.operator.spread.php'
+  '".", ".="': 'keyword.operator.string.php'
+  '"=>"': 'keyword.operator.key.php'
+  '"->", "::"': 'keyword.operator.class.php'
+
+  '"new"': 'keyword.other.new.php'
+  '"clone"': 'keyword.other.clone.php'
+  '"instanceof"': 'keyword.operator.type.php'
+
+  '","': 'punctuation.separator.delimiter.php'
+
+  '"if"': 'keyword.control'
+  '"elseif"': 'keyword.control'
+  '"else"': 'keyword.control'
+  '"endif"': 'keyword.control'
+  '"do"': 'keyword.control'
+  '"while"': 'keyword.control'
+  '"endwhile"': 'keyword.control'
+  '"for"': 'keyword.control'
+  '"endfor"': 'keyword.control'
+  '"foreach"': 'keyword.control'
+  '"endforeach"': 'keyword.control'
+  '"declare"': 'keyword.control'
+  '"enddeclare"': 'keyword.control'
+  '"return"': 'keyword.control.return.php'
+  '"break"': 'keyword.control.break.php'
+  '"continue"': 'keyword.control.continue.php'
+  '"throw"': 'keyword.control'
+  '"try"': 'keyword.control.exception.php'
+  '"catch"': 'keyword.control.exception.catch.php'
+  '"finally"': 'keyword.control'
+  '"switch"': 'keyword.control.switch.php'
+  '"endswitch"': 'keyword.control'
+  '"match"': 'keyword.control.match.php'
+  '"case"': 'keyword.control.case.php'
+  '"default"': 'keyword.control.default.php'
+  '"yield"': 'keyword.control.yield.php'
+  'yield_expression > "from"': 'keyword.control.yield-from.php'
+  '"goto"': 'keyword.control.goto'
+  '"exit"': 'keyword.control.exit'
+  '"die"': 'keyword.control.die'
+
+  '''
+    include_expression, include_once_expression,
+    require_expression, require_once_expression
+  ''': 'meta.include.php'
+  '''
+    include_expression > "include",
+    require_expression > "require",
+    include_once_expression > "include_once",
+    require_once_expression > "require_once",
+  ''': 'keyword.control.import.include.php'
+
+  'qualified_name > name': [
+    {
+      # from TM grammar, but removed true/false/null b/c they are named nodes in TS
+      match: '^(__(FILE|DIR|FUNCTION|CLASS|METHOD|LINE|NAMESPACE)__|ON|OFF|YES|NO|NL|BR|TAB)$',
+      scopes: 'constant.language.php'
+    },
+    'support.class.php'
+  ]
+
+  # FIXME there are *lots* of these...
+  'function_call_expression > name': [
+      {match: '^(un|is)set$', scopes: 'support.function.php'},
+      {exact: '^in_array$', scopes: 'support.function.php'},
+      {match: '^array_(filter|map)$', scopes: 'support.function.php'},
+      {match: '^str_(replace|contains)$', scopes: 'support.function.php'},
+      {match: '^preg_(replace|match)$', scopes: 'support.function.php'},
+      {match: '^is_(null|string|int|float|callable)$', scopes: 'support.function.php'},
+      {match: '^(empty|list|eval|trim)$', scopes: 'support.function.php'},
+      {exact: '^html_entity_decode$', scopes: 'support.function.php'}
+
+      'entity.name.function.php'
+  ]
