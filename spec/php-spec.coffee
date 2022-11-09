@@ -3134,6 +3134,24 @@ describe 'PHP grammar', ->
         expect(tokens[2]).toEqual value: ' something', scopes: ['source.php', scope, 'source.sql.embedded.php']
         expect(tokens[3]).toEqual value: delim, scopes: ['source.php', scope, 'punctuation.definition.string.end.php']
 
+        {tokens} = grammar.tokenizeLine "#{delim}sEleCT something#{delim}"
+
+        # Case insensitive
+        expect(tokens[0]).toEqual value: delim, scopes: ['source.php', scope, 'punctuation.definition.string.begin.php']
+        expect(tokens[1]).toEqual value: 'sEleCT', scopes: ['source.php', scope, 'source.sql.embedded.php', 'keyword.other.DML.sql']
+        expect(tokens[2]).toEqual value: ' something', scopes: ['source.php', scope, 'source.sql.embedded.php']
+        expect(tokens[3]).toEqual value: delim, scopes: ['source.php', scope, 'punctuation.definition.string.end.php']
+
+        {tokens} = grammar.tokenizeLine "#{delim}(select something)#{delim}"
+
+        # Surrounded by brackets
+        expect(tokens[0]).toEqual value: delim, scopes: ['source.php', scope, 'punctuation.definition.string.begin.php']
+        expect(tokens[1]).toEqual value: '(', scopes: ['source.php', scope, 'source.sql.embedded.php', 'punctuation.definition.section.bracket.round.begin.sql']
+        expect(tokens[2]).toEqual value: 'select', scopes: ['source.php', scope, 'source.sql.embedded.php', 'keyword.other.DML.sql']
+        expect(tokens[3]).toEqual value: ' something', scopes: ['source.php', scope, 'source.sql.embedded.php']
+        expect(tokens[4]).toEqual value: ')', scopes: ['source.php', scope, 'source.sql.embedded.php', 'punctuation.definition.section.bracket.round.end.sql']
+        expect(tokens[5]).toEqual value: delim, scopes: ['source.php', scope, 'punctuation.definition.string.end.php']
+
         lines = grammar.tokenizeLines """
           #{delim}SELECT something
           -- uh oh a comment SELECT#{delim}
