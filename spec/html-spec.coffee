@@ -1,17 +1,12 @@
+{loadGrammar} = require('../utils/loadGrammar')
+require('../utils/compatibleExpect')
+{expect} = require('chai')
+
 describe 'PHP in HTML', ->
   grammar = null
-
-  beforeEach ->
-    waitsForPromise ->
-      atom.packages.activatePackage 'language-php'
-
-    waitsForPromise ->
-      # While not used explicitly in any tests, we still activate language-html
-      # to mirror how language-php behaves outside of specs
-      atom.packages.activatePackage 'language-html'
-
-    runs ->
-      grammar = atom.grammars.grammarForScopeName 'text.html.php'
+  before( ->
+    grammar = await loadGrammar('text.html.php')
+  )
 
   it 'parses the grammar', ->
     expect(grammar).toBeTruthy()

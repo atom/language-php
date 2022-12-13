@@ -158,7 +158,7 @@
     ]
   }
   {
-    'begin':  '''(?ix)
+    'begin': '''(?ix)
         \\b(trait)\\s+([a-z_\\x{7f}-\\x{10ffff}][a-z0-9_\\x{7f}-\\x{10ffff}]*)
       '''
     'beginCaptures':
@@ -191,7 +191,7 @@
     ]
   }
   {
-    'begin':  '''(?ix)
+    'begin': '''(?ix)
         \\b(interface)\\s+([a-z_\\x{7f}-\\x{10ffff}][a-z0-9_\\x{7f}-\\x{10ffff}]*)
       '''
     'beginCaptures':
@@ -230,7 +230,7 @@
     ]
   }
   {
-    'begin':  '''(?ix)
+    'begin': '''(?ix)
         \\b(enum)\\s+([a-z_\\x{7f}-\\x{10ffff}][a-z0-9_\\x{7f}-\\x{10ffff}]*)
         (?: \\s* (:) \\s* (int | string) \\b )?
       '''
@@ -282,7 +282,7 @@
     ]
   }
   {
-    'begin':  '''(?ix)
+    'begin': '''(?ix)
         (?:
           \\b(?:(abstract|final)\\s+)?(class)\\s+([a-z_\\x{7f}-\\x{10ffff}][a-z0-9_\\x{7f}-\\x{10ffff}]*)
           |\\b(new)\\b\\s*(\\#\\[.*\\])?\\s*\\b(class)\\b # anonymous class

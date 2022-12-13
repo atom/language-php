@@ -1,16 +1,12 @@
+{loadGrammar} = require('../utils/loadGrammar')
+require('../utils/compatibleExpect')
+{expect} = require('chai')
+
 describe 'PHP grammar', ->
   grammar = null
-
-  beforeEach ->
-    waitsForPromise ->
-      atom.packages.activatePackage 'language-php'
-
-    runs ->
-      grammar = atom.grammars.grammarForScopeName 'source.php'
-      @addMatchers
-        toContainAll: (arr) ->
-          arr.every (el) =>
-            @actual.includes el
+  before(->
+    grammar = await loadGrammar('source.php')
+  )
 
   it 'parses the grammar', ->
     expect(grammar).toBeTruthy()
@@ -3118,29 +3114,25 @@ describe 'PHP grammar', ->
     expect(tokens[12]).toEqual value: ';', scopes: ['source.php', 'punctuation.terminator.expression.php']
 
   it 'should tokenize embedded SQL in a string', ->
-    waitsForPromise ->
-      atom.packages.activatePackage('language-sql')
+    delimsByScope =
+      'string.quoted.double.sql.php': '"'
+      'string.quoted.single.sql.php': "'"
 
-    runs ->
-      delimsByScope =
-        'string.quoted.double.sql.php': '"'
-        'string.quoted.single.sql.php': "'"
+    for scope, delim of delimsByScope
+      {tokens} = grammar.tokenizeLine "#{delim}SELECT something#{delim}"
 
-      for scope, delim of delimsByScope
-        {tokens} = grammar.tokenizeLine "#{delim}SELECT something#{delim}"
+      expect(tokens[0]).toEqual value: delim, scopes: ['source.php', scope, 'punctuation.definition.string.begin.php']
+      expect(tokens[1]).toEqual value: 'SELECT', scopes: ['source.php', scope, 'source.sql.embedded.php', 'keyword.other.DML.sql']
+      expect(tokens[2]).toEqual value: ' something', scopes: ['source.php', scope, 'source.sql.embedded.php']
+      expect(tokens[3]).toEqual value: delim, scopes: ['source.php', scope, 'punctuation.definition.string.end.php']
 
-        expect(tokens[0]).toEqual value: delim, scopes: ['source.php', scope, 'punctuation.definition.string.begin.php']
-        expect(tokens[1]).toEqual value: 'SELECT', scopes: ['source.php', scope, 'source.sql.embedded.php', 'keyword.other.DML.sql']
-        expect(tokens[2]).toEqual value: ' something', scopes: ['source.php', scope, 'source.sql.embedded.php']
-        expect(tokens[3]).toEqual value: delim, scopes: ['source.php', scope, 'punctuation.definition.string.end.php']
-
-        lines = grammar.tokenizeLines """
-          #{delim}SELECT something
-          -- uh oh a comment SELECT#{delim}
-        """
-        expect(lines[1][0]).toEqual value: '--', scopes: ['source.php', scope, 'source.sql.embedded.php', 'comment.line.double-dash.sql', 'punctuation.definition.comment.sql']
-        expect(lines[1][1]).toEqual value: ' uh oh a comment SELECT', scopes: ['source.php', scope, 'source.sql.embedded.php', 'comment.line.double-dash.sql']
-        expect(lines[1][2]).toEqual value: delim, scopes: ['source.php', scope, 'punctuation.definition.string.end.php']
+      lines = grammar.tokenizeLines """
+        #{delim}SELECT something
+        -- uh oh a comment SELECT#{delim}
+      """
+      expect(lines[1][0]).toEqual value: '--', scopes: ['source.php', scope, 'source.sql.embedded.php', 'comment.line.double-dash.sql', 'punctuation.definition.comment.sql']
+      expect(lines[1][1]).toEqual value: ' uh oh a comment SELECT', scopes: ['source.php', scope, 'source.sql.embedded.php', 'comment.line.double-dash.sql']
+      expect(lines[1][2]).toEqual value: delim, scopes: ['source.php', scope, 'punctuation.definition.string.end.php']
 
   it 'should tokenize single quoted string regex escape characters correctly', ->
     {tokens} = grammar.tokenizeLine "'/[\\\\\\\\]/';"
@@ -3409,89 +3401,81 @@ describe 'PHP grammar', ->
     expect(lines[12][1]).toEqual value: ';', scopes: ['source.php', 'punctuation.terminator.expression.php']
 
   it 'should tokenize a heredoc with embedded HTML and interpolation correctly', ->
-    waitsForPromise ->
-      atom.packages.activatePackage('language-html')
+    lines = grammar.tokenizeLines '''
+      $a = <<<HTML
+      <strong>rainbows</strong>
+      Jumpin' Juniper is \\"The $thing\\"
+      C:\\\\no\\\\turning\\back.exe
+      HTML;
+    '''
 
-    runs ->
-      lines = grammar.tokenizeLines '''
-        $a = <<<HTML
-        <strong>rainbows</strong>
-        Jumpin' Juniper is \\"The $thing\\"
-        C:\\\\no\\\\turning\\back.exe
-        HTML;
-      '''
-
-      expect(lines[0][0]).toEqual value: '$', scopes: ['source.php', 'variable.other.php', 'punctuation.definition.variable.php']
-      expect(lines[0][1]).toEqual value: 'a', scopes: ['source.php', 'variable.other.php']
-      expect(lines[0][2]).toEqual value: ' ', scopes: ['source.php']
-      expect(lines[0][3]).toEqual value: '=', scopes: ['source.php', 'keyword.operator.assignment.php']
-      expect(lines[0][4]).toEqual value: ' ', scopes: ['source.php']
-      expect(lines[0][5]).toEqual value: '<<<', scopes: ['source.php', 'string.unquoted.heredoc.php', 'meta.embedded.html', 'punctuation.section.embedded.begin.php', 'punctuation.definition.string.php']
-      expect(lines[0][6]).toEqual value: 'HTML', scopes: ['source.php', 'string.unquoted.heredoc.php', 'meta.embedded.html', 'punctuation.section.embedded.begin.php', 'keyword.operator.heredoc.php']
-      expect(lines[1][0].value).toEqual '<'
-      expect(lines[1][0].scopes).toContainAll ['source.php', 'string.unquoted.heredoc.php', 'meta.embedded.html', 'text.html']
-      expect(lines[1][1].value).toEqual 'strong'
-      expect(lines[1][1].scopes).toContainAll ['source.php', 'string.unquoted.heredoc.php', 'meta.embedded.html', 'text.html']
-      expect(lines[1][2].value).toEqual '>'
-      expect(lines[1][2].scopes).toContainAll ['source.php', 'string.unquoted.heredoc.php', 'meta.embedded.html', 'text.html']
-      expect(lines[1][3].value).toEqual 'rainbows'
-      expect(lines[1][3].scopes).toContainAll ['source.php', 'string.unquoted.heredoc.php', 'meta.embedded.html', 'text.html']
-      expect(lines[1][4].value).toEqual '</'
-      expect(lines[1][4].scopes).toContainAll ['source.php', 'string.unquoted.heredoc.php', 'meta.embedded.html', 'text.html']
-      expect(lines[1][5].value).toEqual 'strong'
-      expect(lines[1][5].scopes).toContainAll ['source.php', 'string.unquoted.heredoc.php', 'meta.embedded.html', 'text.html']
-      expect(lines[1][6].value).toEqual '>'
-      expect(lines[1][6].scopes).toContainAll ['source.php', 'string.unquoted.heredoc.php', 'meta.embedded.html', 'text.html']
-      expect(lines[2][0]).toEqual value: 'Jumpin\' Juniper is \\"The ', scopes: ['source.php', 'string.unquoted.heredoc.php', 'meta.embedded.html', 'text.html']
-      expect(lines[2][1]).toEqual value: '$', scopes: ['source.php', 'string.unquoted.heredoc.php', 'meta.embedded.html', 'text.html', 'variable.other.php', 'punctuation.definition.variable.php']
-      expect(lines[2][2]).toEqual value: 'thing', scopes: ['source.php', 'string.unquoted.heredoc.php', 'meta.embedded.html', 'text.html', 'variable.other.php']
-      expect(lines[2][3]).toEqual value: '\\"', scopes: ['source.php', 'string.unquoted.heredoc.php', 'meta.embedded.html', 'text.html']
-      expect(lines[3][0]).toEqual value: 'C:', scopes: ['source.php', 'string.unquoted.heredoc.php', 'meta.embedded.html', 'text.html']
-      expect(lines[3][1]).toEqual value: '\\\\', scopes: ['source.php', 'string.unquoted.heredoc.php', 'meta.embedded.html', 'text.html', 'constant.character.escape.php']
-      expect(lines[3][2]).toEqual value: 'no', scopes: ['source.php', 'string.unquoted.heredoc.php', 'meta.embedded.html', 'text.html']
-      expect(lines[3][3]).toEqual value: '\\\\', scopes: ['source.php', 'string.unquoted.heredoc.php', 'meta.embedded.html', 'text.html', 'constant.character.escape.php']
-      expect(lines[3][4]).toEqual value: 'turning\\back.exe', scopes: ['source.php', 'string.unquoted.heredoc.php', 'meta.embedded.html', 'text.html']
-      expect(lines[4][0]).toEqual value: 'HTML', scopes: ['source.php', 'string.unquoted.heredoc.php', 'meta.embedded.html', 'punctuation.section.embedded.end.php', 'keyword.operator.heredoc.php']
-      expect(lines[4][1]).toEqual value: ';', scopes: ['source.php', 'punctuation.terminator.expression.php']
+    expect(lines[0][0]).toEqual value: '$', scopes: ['source.php', 'variable.other.php', 'punctuation.definition.variable.php']
+    expect(lines[0][1]).toEqual value: 'a', scopes: ['source.php', 'variable.other.php']
+    expect(lines[0][2]).toEqual value: ' ', scopes: ['source.php']
+    expect(lines[0][3]).toEqual value: '=', scopes: ['source.php', 'keyword.operator.assignment.php']
+    expect(lines[0][4]).toEqual value: ' ', scopes: ['source.php']
+    expect(lines[0][5]).toEqual value: '<<<', scopes: ['source.php', 'string.unquoted.heredoc.php', 'meta.embedded.html', 'punctuation.section.embedded.begin.php', 'punctuation.definition.string.php']
+    expect(lines[0][6]).toEqual value: 'HTML', scopes: ['source.php', 'string.unquoted.heredoc.php', 'meta.embedded.html', 'punctuation.section.embedded.begin.php', 'keyword.operator.heredoc.php']
+    expect(lines[1][0].value).toEqual '<'
+    expect(lines[1][0].scopes).toContainAll ['source.php', 'string.unquoted.heredoc.php', 'meta.embedded.html', 'text.html']
+    expect(lines[1][1].value).toEqual 'strong'
+    expect(lines[1][1].scopes).toContainAll ['source.php', 'string.unquoted.heredoc.php', 'meta.embedded.html', 'text.html']
+    expect(lines[1][2].value).toEqual '>'
+    expect(lines[1][2].scopes).toContainAll ['source.php', 'string.unquoted.heredoc.php', 'meta.embedded.html', 'text.html']
+    expect(lines[1][3].value).toEqual 'rainbows'
+    expect(lines[1][3].scopes).toContainAll ['source.php', 'string.unquoted.heredoc.php', 'meta.embedded.html', 'text.html']
+    expect(lines[1][4].value).toEqual '</'
+    expect(lines[1][4].scopes).toContainAll ['source.php', 'string.unquoted.heredoc.php', 'meta.embedded.html', 'text.html']
+    expect(lines[1][5].value).toEqual 'strong'
+    expect(lines[1][5].scopes).toContainAll ['source.php', 'string.unquoted.heredoc.php', 'meta.embedded.html', 'text.html']
+    expect(lines[1][6].value).toEqual '>'
+    expect(lines[1][6].scopes).toContainAll ['source.php', 'string.unquoted.heredoc.php', 'meta.embedded.html', 'text.html']
+    expect(lines[2][0]).toEqual value: 'Jumpin\' Juniper is \\"The ', scopes: ['source.php', 'string.unquoted.heredoc.php', 'meta.embedded.html', 'text.html']
+    expect(lines[2][1]).toEqual value: '$', scopes: ['source.php', 'string.unquoted.heredoc.php', 'meta.embedded.html', 'text.html', 'variable.other.php', 'punctuation.definition.variable.php']
+    expect(lines[2][2]).toEqual value: 'thing', scopes: ['source.php', 'string.unquoted.heredoc.php', 'meta.embedded.html', 'text.html', 'variable.other.php']
+    expect(lines[2][3]).toEqual value: '\\"', scopes: ['source.php', 'string.unquoted.heredoc.php', 'meta.embedded.html', 'text.html']
+    expect(lines[3][0]).toEqual value: 'C:', scopes: ['source.php', 'string.unquoted.heredoc.php', 'meta.embedded.html', 'text.html']
+    expect(lines[3][1]).toEqual value: '\\\\', scopes: ['source.php', 'string.unquoted.heredoc.php', 'meta.embedded.html', 'text.html', 'constant.character.escape.php']
+    expect(lines[3][2]).toEqual value: 'no', scopes: ['source.php', 'string.unquoted.heredoc.php', 'meta.embedded.html', 'text.html']
+    expect(lines[3][3]).toEqual value: '\\\\', scopes: ['source.php', 'string.unquoted.heredoc.php', 'meta.embedded.html', 'text.html', 'constant.character.escape.php']
+    expect(lines[3][4]).toEqual value: 'turning\\back.exe', scopes: ['source.php', 'string.unquoted.heredoc.php', 'meta.embedded.html', 'text.html']
+    expect(lines[4][0]).toEqual value: 'HTML', scopes: ['source.php', 'string.unquoted.heredoc.php', 'meta.embedded.html', 'punctuation.section.embedded.end.php', 'keyword.operator.heredoc.php']
+    expect(lines[4][1]).toEqual value: ';', scopes: ['source.php', 'punctuation.terminator.expression.php']
 
   it 'should tokenize a nowdoc with embedded HTML and interpolation correctly', ->
-    waitsForPromise ->
-      atom.packages.activatePackage('language-html')
+    lines = grammar.tokenizeLines '''
+      $a = <<<'HTML'
+      <strong>rainbows</strong>
+      Jumpin' Juniper is \\"The $thing\\"
+      HTML;
+    '''
 
-    runs ->
-      lines = grammar.tokenizeLines '''
-        $a = <<<'HTML'
-        <strong>rainbows</strong>
-        Jumpin' Juniper is \\"The $thing\\"
-        HTML;
-      '''
-
-      expect(lines[0][0]).toEqual value: '$', scopes: ['source.php', 'variable.other.php', 'punctuation.definition.variable.php']
-      expect(lines[0][1]).toEqual value: 'a', scopes: ['source.php', 'variable.other.php']
-      expect(lines[0][2]).toEqual value: ' ', scopes: ['source.php']
-      expect(lines[0][3]).toEqual value: '=', scopes: ['source.php', 'keyword.operator.assignment.php']
-      expect(lines[0][4]).toEqual value: ' ', scopes: ['source.php']
-      expect(lines[0][5]).toEqual value: '<<<', scopes: ['source.php', 'string.unquoted.nowdoc.php', 'meta.embedded.html', 'punctuation.section.embedded.begin.php', 'punctuation.definition.string.php']
-      expect(lines[0][6]).toEqual value: '\'', scopes: ['source.php', 'string.unquoted.nowdoc.php', 'meta.embedded.html', 'punctuation.section.embedded.begin.php']
-      expect(lines[0][7]).toEqual value: 'HTML', scopes: ['source.php', 'string.unquoted.nowdoc.php', 'meta.embedded.html', 'punctuation.section.embedded.begin.php', 'keyword.operator.nowdoc.php']
-      expect(lines[0][8]).toEqual value: '\'', scopes: ['source.php', 'string.unquoted.nowdoc.php', 'meta.embedded.html', 'punctuation.section.embedded.begin.php']
-      expect(lines[1][0].value).toEqual '<'
-      expect(lines[1][0].scopes).toContainAll ['source.php', 'string.unquoted.nowdoc.php', 'meta.embedded.html', 'text.html']
-      expect(lines[1][1].value).toEqual 'strong'
-      expect(lines[1][1].scopes).toContainAll ['source.php', 'string.unquoted.nowdoc.php', 'meta.embedded.html', 'text.html']
-      expect(lines[1][2].value).toEqual '>'
-      expect(lines[1][2].scopes).toContainAll ['source.php', 'string.unquoted.nowdoc.php', 'meta.embedded.html', 'text.html']
-      expect(lines[1][3].value).toEqual 'rainbows'
-      expect(lines[1][3].scopes).toContainAll ['source.php', 'string.unquoted.nowdoc.php', 'meta.embedded.html', 'text.html']
-      expect(lines[1][4].value).toEqual '</'
-      expect(lines[1][4].scopes).toContainAll ['source.php', 'string.unquoted.nowdoc.php', 'meta.embedded.html', 'text.html']
-      expect(lines[1][5].value).toEqual 'strong'
-      expect(lines[1][5].scopes).toContainAll ['source.php', 'string.unquoted.nowdoc.php', 'meta.embedded.html', 'text.html']
-      expect(lines[1][6].value).toEqual '>'
-      expect(lines[1][6].scopes).toContainAll ['source.php', 'string.unquoted.nowdoc.php', 'meta.embedded.html', 'text.html']
-      expect(lines[2][0]).toEqual value: 'Jumpin\' Juniper is \\"The $thing\\"', scopes: ['source.php', 'string.unquoted.nowdoc.php', 'meta.embedded.html', 'text.html']
-      expect(lines[3][0]).toEqual value: 'HTML', scopes: ['source.php', 'string.unquoted.nowdoc.php', 'meta.embedded.html', 'punctuation.section.embedded.end.php', 'keyword.operator.nowdoc.php']
-      expect(lines[3][1]).toEqual value: ';', scopes: ['source.php', 'punctuation.terminator.expression.php']
+    expect(lines[0][0]).toEqual value: '$', scopes: ['source.php', 'variable.other.php', 'punctuation.definition.variable.php']
+    expect(lines[0][1]).toEqual value: 'a', scopes: ['source.php', 'variable.other.php']
+    expect(lines[0][2]).toEqual value: ' ', scopes: ['source.php']
+    expect(lines[0][3]).toEqual value: '=', scopes: ['source.php', 'keyword.operator.assignment.php']
+    expect(lines[0][4]).toEqual value: ' ', scopes: ['source.php']
+    expect(lines[0][5]).toEqual value: '<<<', scopes: ['source.php', 'string.unquoted.nowdoc.php', 'meta.embedded.html', 'punctuation.section.embedded.begin.php', 'punctuation.definition.string.php']
+    expect(lines[0][6]).toEqual value: '\'', scopes: ['source.php', 'string.unquoted.nowdoc.php', 'meta.embedded.html', 'punctuation.section.embedded.begin.php']
+    expect(lines[0][7]).toEqual value: 'HTML', scopes: ['source.php', 'string.unquoted.nowdoc.php', 'meta.embedded.html', 'punctuation.section.embedded.begin.php', 'keyword.operator.nowdoc.php']
+    expect(lines[0][8]).toEqual value: '\'', scopes: ['source.php', 'string.unquoted.nowdoc.php', 'meta.embedded.html', 'punctuation.section.embedded.begin.php']
+    expect(lines[1][0].value).toEqual '<'
+    expect(lines[1][0].scopes).toContainAll ['source.php', 'string.unquoted.nowdoc.php', 'meta.embedded.html', 'text.html']
+    expect(lines[1][1].value).toEqual 'strong'
+    expect(lines[1][1].scopes).toContainAll ['source.php', 'string.unquoted.nowdoc.php', 'meta.embedded.html', 'text.html']
+    expect(lines[1][2].value).toEqual '>'
+    expect(lines[1][2].scopes).toContainAll ['source.php', 'string.unquoted.nowdoc.php', 'meta.embedded.html', 'text.html']
+    expect(lines[1][3].value).toEqual 'rainbows'
+    expect(lines[1][3].scopes).toContainAll ['source.php', 'string.unquoted.nowdoc.php', 'meta.embedded.html', 'text.html']
+    expect(lines[1][4].value).toEqual '</'
+    expect(lines[1][4].scopes).toContainAll ['source.php', 'string.unquoted.nowdoc.php', 'meta.embedded.html', 'text.html']
+    expect(lines[1][5].value).toEqual 'strong'
+    expect(lines[1][5].scopes).toContainAll ['source.php', 'string.unquoted.nowdoc.php', 'meta.embedded.html', 'text.html']
+    expect(lines[1][6].value).toEqual '>'
+    expect(lines[1][6].scopes).toContainAll ['source.php', 'string.unquoted.nowdoc.php', 'meta.embedded.html', 'text.html']
+    expect(lines[2][0]).toEqual value: 'Jumpin\' Juniper is \\"The $thing\\"', scopes: ['source.php', 'string.unquoted.nowdoc.php', 'meta.embedded.html', 'text.html']
+    expect(lines[3][0]).toEqual value: 'HTML', scopes: ['source.php', 'string.unquoted.nowdoc.php', 'meta.embedded.html', 'punctuation.section.embedded.end.php', 'keyword.operator.nowdoc.php']
+    expect(lines[3][1]).toEqual value: ';', scopes: ['source.php', 'punctuation.terminator.expression.php']
 
   it 'should tokenize a heredoc with illegal whitespace at the end of the line correctly', ->
     lines = grammar.tokenizeLines '''
@@ -3513,454 +3497,414 @@ describe 'PHP grammar', ->
     expect(lines[2][1]).toEqual value: ';', scopes: ['source.php', 'punctuation.terminator.expression.php']
 
   it 'should tokenize a heredoc with embedded XML correctly', ->
-    waitsForPromise ->
-      atom.packages.activatePackage('language-xml')
+    lines = grammar.tokenizeLines '''
+      $a = <<<XML
+      <root/>
+      XML;
+    '''
 
-    runs ->
-      lines = grammar.tokenizeLines '''
-        $a = <<<XML
-        <root/>
-        XML;
-      '''
-
-      expect(lines[0][0]).toEqual value: '$', scopes: ['source.php', 'variable.other.php', 'punctuation.definition.variable.php']
-      expect(lines[0][1]).toEqual value: 'a', scopes: ['source.php', 'variable.other.php']
-      expect(lines[0][2]).toEqual value: ' ', scopes: ['source.php']
-      expect(lines[0][3]).toEqual value: '=', scopes: ['source.php', 'keyword.operator.assignment.php']
-      expect(lines[0][4]).toEqual value: ' ', scopes: ['source.php']
-      expect(lines[0][5]).toEqual value: '<<<', scopes: ['source.php', 'string.unquoted.heredoc.php', 'meta.embedded.xml', 'punctuation.section.embedded.begin.php', 'punctuation.definition.string.php']
-      expect(lines[0][6]).toEqual value: 'XML', scopes: ['source.php', 'string.unquoted.heredoc.php', 'meta.embedded.xml', 'punctuation.section.embedded.begin.php', 'keyword.operator.heredoc.php']
-      expect(lines[1][0].value).toEqual '<'
-      expect(lines[1][0].scopes).toContainAll ['source.php', 'string.unquoted.heredoc.php', 'meta.embedded.xml', 'text.xml']
-      expect(lines[1][1].value).toEqual 'root'
-      expect(lines[1][1].scopes).toContainAll ['source.php', 'string.unquoted.heredoc.php', 'meta.embedded.xml', 'text.xml']
-      expect(lines[1][2].value).toEqual '/>'
-      expect(lines[1][2].scopes).toContainAll ['source.php', 'string.unquoted.heredoc.php', 'meta.embedded.xml', 'text.xml']
-      expect(lines[2][0]).toEqual value: 'XML', scopes: ['source.php', 'string.unquoted.heredoc.php', 'meta.embedded.xml', 'punctuation.section.embedded.end.php', 'keyword.operator.heredoc.php']
-      expect(lines[2][1]).toEqual value: ';', scopes: ['source.php', 'punctuation.terminator.expression.php']
+    expect(lines[0][0]).toEqual value: '$', scopes: ['source.php', 'variable.other.php', 'punctuation.definition.variable.php']
+    expect(lines[0][1]).toEqual value: 'a', scopes: ['source.php', 'variable.other.php']
+    expect(lines[0][2]).toEqual value: ' ', scopes: ['source.php']
+    expect(lines[0][3]).toEqual value: '=', scopes: ['source.php', 'keyword.operator.assignment.php']
+    expect(lines[0][4]).toEqual value: ' ', scopes: ['source.php']
+    expect(lines[0][5]).toEqual value: '<<<', scopes: ['source.php', 'string.unquoted.heredoc.php', 'meta.embedded.xml', 'punctuation.section.embedded.begin.php', 'punctuation.definition.string.php']
+    expect(lines[0][6]).toEqual value: 'XML', scopes: ['source.php', 'string.unquoted.heredoc.php', 'meta.embedded.xml', 'punctuation.section.embedded.begin.php', 'keyword.operator.heredoc.php']
+    expect(lines[1][0].value).toEqual '<'
+    expect(lines[1][0].scopes).toContainAll ['source.php', 'string.unquoted.heredoc.php', 'meta.embedded.xml', 'text.xml']
+    expect(lines[1][1].value).toEqual 'root'
+    expect(lines[1][1].scopes).toContainAll ['source.php', 'string.unquoted.heredoc.php', 'meta.embedded.xml', 'text.xml']
+    expect(lines[1][2].value).toEqual '/>'
+    expect(lines[1][2].scopes).toContainAll ['source.php', 'string.unquoted.heredoc.php', 'meta.embedded.xml', 'text.xml']
+    expect(lines[2][0]).toEqual value: 'XML', scopes: ['source.php', 'string.unquoted.heredoc.php', 'meta.embedded.xml', 'punctuation.section.embedded.end.php', 'keyword.operator.heredoc.php']
+    expect(lines[2][1]).toEqual value: ';', scopes: ['source.php', 'punctuation.terminator.expression.php']
 
   it 'should tokenize a nowdoc with embedded XML correctly', ->
-    waitsForPromise ->
-      atom.packages.activatePackage('language-xml')
+    lines = grammar.tokenizeLines '''
+      $a = <<<'XML'
+      <root/>
+      XML;
+    '''
 
-    runs ->
-      lines = grammar.tokenizeLines '''
-        $a = <<<'XML'
-        <root/>
-        XML;
-      '''
-
-      expect(lines[0][0]).toEqual value: '$', scopes: ['source.php', 'variable.other.php', 'punctuation.definition.variable.php']
-      expect(lines[0][1]).toEqual value: 'a', scopes: ['source.php', 'variable.other.php']
-      expect(lines[0][2]).toEqual value: ' ', scopes: ['source.php']
-      expect(lines[0][3]).toEqual value: '=', scopes: ['source.php', 'keyword.operator.assignment.php']
-      expect(lines[0][4]).toEqual value: ' ', scopes: ['source.php']
-      expect(lines[0][5]).toEqual value: '<<<', scopes: ['source.php', 'string.unquoted.nowdoc.php', 'meta.embedded.xml', 'punctuation.section.embedded.begin.php', 'punctuation.definition.string.php']
-      expect(lines[0][6]).toEqual value: '\'', scopes: ['source.php', 'string.unquoted.nowdoc.php', 'meta.embedded.xml', 'punctuation.section.embedded.begin.php']
-      expect(lines[0][7]).toEqual value: 'XML', scopes: ['source.php', 'string.unquoted.nowdoc.php', 'meta.embedded.xml', 'punctuation.section.embedded.begin.php', 'keyword.operator.nowdoc.php']
-      expect(lines[0][8]).toEqual value: '\'', scopes: ['source.php', 'string.unquoted.nowdoc.php', 'meta.embedded.xml', 'punctuation.section.embedded.begin.php']
-      expect(lines[1][0].value).toEqual '<'
-      expect(lines[1][0].scopes).toContainAll ['source.php', 'string.unquoted.nowdoc.php', 'meta.embedded.xml', 'text.xml']
-      expect(lines[1][1].value).toEqual 'root'
-      expect(lines[1][1].scopes).toContainAll ['source.php', 'string.unquoted.nowdoc.php', 'meta.embedded.xml', 'text.xml']
-      expect(lines[1][2].value).toEqual '/>'
-      expect(lines[1][2].scopes).toContainAll ['source.php', 'string.unquoted.nowdoc.php', 'meta.embedded.xml', 'text.xml']
-      expect(lines[2][0]).toEqual value: 'XML', scopes: ['source.php', 'string.unquoted.nowdoc.php', 'meta.embedded.xml', 'punctuation.section.embedded.end.php', 'keyword.operator.nowdoc.php']
-      expect(lines[2][1]).toEqual value: ';', scopes: ['source.php', 'punctuation.terminator.expression.php']
+    expect(lines[0][0]).toEqual value: '$', scopes: ['source.php', 'variable.other.php', 'punctuation.definition.variable.php']
+    expect(lines[0][1]).toEqual value: 'a', scopes: ['source.php', 'variable.other.php']
+    expect(lines[0][2]).toEqual value: ' ', scopes: ['source.php']
+    expect(lines[0][3]).toEqual value: '=', scopes: ['source.php', 'keyword.operator.assignment.php']
+    expect(lines[0][4]).toEqual value: ' ', scopes: ['source.php']
+    expect(lines[0][5]).toEqual value: '<<<', scopes: ['source.php', 'string.unquoted.nowdoc.php', 'meta.embedded.xml', 'punctuation.section.embedded.begin.php', 'punctuation.definition.string.php']
+    expect(lines[0][6]).toEqual value: '\'', scopes: ['source.php', 'string.unquoted.nowdoc.php', 'meta.embedded.xml', 'punctuation.section.embedded.begin.php']
+    expect(lines[0][7]).toEqual value: 'XML', scopes: ['source.php', 'string.unquoted.nowdoc.php', 'meta.embedded.xml', 'punctuation.section.embedded.begin.php', 'keyword.operator.nowdoc.php']
+    expect(lines[0][8]).toEqual value: '\'', scopes: ['source.php', 'string.unquoted.nowdoc.php', 'meta.embedded.xml', 'punctuation.section.embedded.begin.php']
+    expect(lines[1][0].value).toEqual '<'
+    expect(lines[1][0].scopes).toContainAll ['source.php', 'string.unquoted.nowdoc.php', 'meta.embedded.xml', 'text.xml']
+    expect(lines[1][1].value).toEqual 'root'
+    expect(lines[1][1].scopes).toContainAll ['source.php', 'string.unquoted.nowdoc.php', 'meta.embedded.xml', 'text.xml']
+    expect(lines[1][2].value).toEqual '/>'
+    expect(lines[1][2].scopes).toContainAll ['source.php', 'string.unquoted.nowdoc.php', 'meta.embedded.xml', 'text.xml']
+    expect(lines[2][0]).toEqual value: 'XML', scopes: ['source.php', 'string.unquoted.nowdoc.php', 'meta.embedded.xml', 'punctuation.section.embedded.end.php', 'keyword.operator.nowdoc.php']
+    expect(lines[2][1]).toEqual value: ';', scopes: ['source.php', 'punctuation.terminator.expression.php']
 
   it 'should tokenize a heredoc with embedded SQL correctly', ->
-    waitsForPromise ->
-      atom.packages.activatePackage('language-sql')
+    lines = grammar.tokenizeLines '''
+      $a = <<<SQL
+      SELECT * FROM table
+      SQL;
+    '''
 
-    runs ->
-      lines = grammar.tokenizeLines '''
-        $a = <<<SQL
-        SELECT * FROM table
-        SQL;
-      '''
-
-      expect(lines[0][0]).toEqual value: '$', scopes: ['source.php', 'variable.other.php', 'punctuation.definition.variable.php']
-      expect(lines[0][1]).toEqual value: 'a', scopes: ['source.php', 'variable.other.php']
-      expect(lines[0][2]).toEqual value: ' ', scopes: ['source.php']
-      expect(lines[0][3]).toEqual value: '=', scopes: ['source.php', 'keyword.operator.assignment.php']
-      expect(lines[0][4]).toEqual value: ' ', scopes: ['source.php']
-      expect(lines[0][5]).toEqual value: '<<<', scopes: ['source.php', 'string.unquoted.heredoc.php', 'meta.embedded.sql', 'punctuation.section.embedded.begin.php', 'punctuation.definition.string.php']
-      expect(lines[0][6]).toEqual value: 'SQL', scopes: ['source.php', 'string.unquoted.heredoc.php', 'meta.embedded.sql', 'punctuation.section.embedded.begin.php', 'keyword.operator.heredoc.php']
-      expect(lines[1][0].value).toEqual 'SELECT'
-      expect(lines[1][0].scopes).toContainAll ['source.php', 'string.unquoted.heredoc.php', 'meta.embedded.sql', 'source.sql']
-      expect(lines[1][1].value).toEqual ' '
-      expect(lines[1][1].scopes).toContainAll ['source.php', 'string.unquoted.heredoc.php', 'meta.embedded.sql', 'source.sql']
-      expect(lines[1][2].value).toEqual '*'
-      expect(lines[1][2].scopes).toContainAll ['source.php', 'string.unquoted.heredoc.php', 'meta.embedded.sql', 'source.sql']
-      expect(lines[1][3].value).toEqual ' '
-      expect(lines[1][3].scopes).toContainAll ['source.php', 'string.unquoted.heredoc.php', 'meta.embedded.sql', 'source.sql']
-      expect(lines[1][4].value).toEqual 'FROM'
-      expect(lines[1][4].scopes).toContainAll ['source.php', 'string.unquoted.heredoc.php', 'meta.embedded.sql', 'source.sql']
-      expect(lines[1][5].value).toEqual ' table'
-      expect(lines[1][5].scopes).toContainAll ['source.php', 'string.unquoted.heredoc.php', 'meta.embedded.sql', 'source.sql']
-      expect(lines[2][0]).toEqual value: 'SQL', scopes: ['source.php', 'string.unquoted.heredoc.php', 'meta.embedded.sql', 'punctuation.section.embedded.end.php', 'keyword.operator.heredoc.php']
-      expect(lines[2][1]).toEqual value: ';', scopes: ['source.php', 'punctuation.terminator.expression.php']
+    expect(lines[0][0]).toEqual value: '$', scopes: ['source.php', 'variable.other.php', 'punctuation.definition.variable.php']
+    expect(lines[0][1]).toEqual value: 'a', scopes: ['source.php', 'variable.other.php']
+    expect(lines[0][2]).toEqual value: ' ', scopes: ['source.php']
+    expect(lines[0][3]).toEqual value: '=', scopes: ['source.php', 'keyword.operator.assignment.php']
+    expect(lines[0][4]).toEqual value: ' ', scopes: ['source.php']
+    expect(lines[0][5]).toEqual value: '<<<', scopes: ['source.php', 'string.unquoted.heredoc.php', 'meta.embedded.sql', 'punctuation.section.embedded.begin.php', 'punctuation.definition.string.php']
+    expect(lines[0][6]).toEqual value: 'SQL', scopes: ['source.php', 'string.unquoted.heredoc.php', 'meta.embedded.sql', 'punctuation.section.embedded.begin.php', 'keyword.operator.heredoc.php']
+    expect(lines[1][0].value).toEqual 'SELECT'
+    expect(lines[1][0].scopes).toContainAll ['source.php', 'string.unquoted.heredoc.php', 'meta.embedded.sql', 'source.sql']
+    expect(lines[1][1].value).toEqual ' '
+    expect(lines[1][1].scopes).toContainAll ['source.php', 'string.unquoted.heredoc.php', 'meta.embedded.sql', 'source.sql']
+    expect(lines[1][2].value).toEqual '*'
+    expect(lines[1][2].scopes).toContainAll ['source.php', 'string.unquoted.heredoc.php', 'meta.embedded.sql', 'source.sql']
+    expect(lines[1][3].value).toEqual ' '
+    expect(lines[1][3].scopes).toContainAll ['source.php', 'string.unquoted.heredoc.php', 'meta.embedded.sql', 'source.sql']
+    expect(lines[1][4].value).toEqual 'FROM'
+    expect(lines[1][4].scopes).toContainAll ['source.php', 'string.unquoted.heredoc.php', 'meta.embedded.sql', 'source.sql']
+    expect(lines[1][5].value).toEqual ' '
+    expect(lines[1][5].scopes).toContainAll ['source.php', 'string.unquoted.heredoc.php', 'meta.embedded.sql', 'source.sql']
+    expect(lines[1][6].value).toEqual 'table'
+    expect(lines[1][6].scopes).toContainAll ['source.php', 'string.unquoted.heredoc.php', 'meta.embedded.sql', 'source.sql']
+    expect(lines[2][0]).toEqual value: 'SQL', scopes: ['source.php', 'string.unquoted.heredoc.php', 'meta.embedded.sql', 'punctuation.section.embedded.end.php', 'keyword.operator.heredoc.php']
+    expect(lines[2][1]).toEqual value: ';', scopes: ['source.php', 'punctuation.terminator.expression.php']
 
   it 'should tokenize a nowdoc with embedded SQL correctly', ->
-    waitsForPromise ->
-      atom.packages.activatePackage('language-sql')
+    lines = grammar.tokenizeLines '''
+      $a = <<<'SQL'
+      SELECT * FROM table
+      SQL;
+    '''
 
-    runs ->
-      lines = grammar.tokenizeLines '''
-        $a = <<<'SQL'
-        SELECT * FROM table
-        SQL;
-      '''
-
-      expect(lines[0][0]).toEqual value: '$', scopes: ['source.php', 'variable.other.php', 'punctuation.definition.variable.php']
-      expect(lines[0][1]).toEqual value: 'a', scopes: ['source.php', 'variable.other.php']
-      expect(lines[0][2]).toEqual value: ' ', scopes: ['source.php']
-      expect(lines[0][3]).toEqual value: '=', scopes: ['source.php', 'keyword.operator.assignment.php']
-      expect(lines[0][4]).toEqual value: ' ', scopes: ['source.php']
-      expect(lines[0][5]).toEqual value: '<<<', scopes: ['source.php', 'string.unquoted.nowdoc.php', 'meta.embedded.sql', 'punctuation.section.embedded.begin.php', 'punctuation.definition.string.php']
-      expect(lines[0][6]).toEqual value: '\'', scopes: ['source.php', 'string.unquoted.nowdoc.php', 'meta.embedded.sql', 'punctuation.section.embedded.begin.php']
-      expect(lines[0][7]).toEqual value: 'SQL', scopes: ['source.php', 'string.unquoted.nowdoc.php', 'meta.embedded.sql', 'punctuation.section.embedded.begin.php', 'keyword.operator.nowdoc.php']
-      expect(lines[0][8]).toEqual value: '\'', scopes: ['source.php', 'string.unquoted.nowdoc.php', 'meta.embedded.sql', 'punctuation.section.embedded.begin.php']
-      expect(lines[1][0].value).toEqual 'SELECT'
-      expect(lines[1][0].scopes).toContainAll ['source.php', 'string.unquoted.nowdoc.php', 'meta.embedded.sql', 'source.sql']
-      expect(lines[1][1].value).toEqual ' '
-      expect(lines[1][1].scopes).toContainAll ['source.php', 'string.unquoted.nowdoc.php', 'meta.embedded.sql', 'source.sql']
-      expect(lines[1][2].value).toEqual '*'
-      expect(lines[1][2].scopes).toContainAll ['source.php', 'string.unquoted.nowdoc.php', 'meta.embedded.sql', 'source.sql']
-      expect(lines[1][3].value).toEqual ' '
-      expect(lines[1][3].scopes).toContainAll ['source.php', 'string.unquoted.nowdoc.php', 'meta.embedded.sql', 'source.sql']
-      expect(lines[1][4].value).toEqual 'FROM'
-      expect(lines[1][4].scopes).toContainAll ['source.php', 'string.unquoted.nowdoc.php', 'meta.embedded.sql', 'source.sql']
-      expect(lines[1][5].value).toEqual ' table'
-      expect(lines[1][5].scopes).toContainAll ['source.php', 'string.unquoted.nowdoc.php', 'meta.embedded.sql', 'source.sql']
-      expect(lines[2][0]).toEqual value: 'SQL', scopes: ['source.php', 'string.unquoted.nowdoc.php', 'meta.embedded.sql', 'punctuation.section.embedded.end.php', 'keyword.operator.nowdoc.php']
-      expect(lines[2][1]).toEqual value: ';', scopes: ['source.php', 'punctuation.terminator.expression.php']
+    expect(lines[0][0]).toEqual value: '$', scopes: ['source.php', 'variable.other.php', 'punctuation.definition.variable.php']
+    expect(lines[0][1]).toEqual value: 'a', scopes: ['source.php', 'variable.other.php']
+    expect(lines[0][2]).toEqual value: ' ', scopes: ['source.php']
+    expect(lines[0][3]).toEqual value: '=', scopes: ['source.php', 'keyword.operator.assignment.php']
+    expect(lines[0][4]).toEqual value: ' ', scopes: ['source.php']
+    expect(lines[0][5]).toEqual value: '<<<', scopes: ['source.php', 'string.unquoted.nowdoc.php', 'meta.embedded.sql', 'punctuation.section.embedded.begin.php', 'punctuation.definition.string.php']
+    expect(lines[0][6]).toEqual value: '\'', scopes: ['source.php', 'string.unquoted.nowdoc.php', 'meta.embedded.sql', 'punctuation.section.embedded.begin.php']
+    expect(lines[0][7]).toEqual value: 'SQL', scopes: ['source.php', 'string.unquoted.nowdoc.php', 'meta.embedded.sql', 'punctuation.section.embedded.begin.php', 'keyword.operator.nowdoc.php']
+    expect(lines[0][8]).toEqual value: '\'', scopes: ['source.php', 'string.unquoted.nowdoc.php', 'meta.embedded.sql', 'punctuation.section.embedded.begin.php']
+    expect(lines[1][0].value).toEqual 'SELECT'
+    expect(lines[1][0].scopes).toContainAll ['source.php', 'string.unquoted.nowdoc.php', 'meta.embedded.sql', 'source.sql']
+    expect(lines[1][1].value).toEqual ' '
+    expect(lines[1][1].scopes).toContainAll ['source.php', 'string.unquoted.nowdoc.php', 'meta.embedded.sql', 'source.sql']
+    expect(lines[1][2].value).toEqual '*'
+    expect(lines[1][2].scopes).toContainAll ['source.php', 'string.unquoted.nowdoc.php', 'meta.embedded.sql', 'source.sql']
+    expect(lines[1][3].value).toEqual ' '
+    expect(lines[1][3].scopes).toContainAll ['source.php', 'string.unquoted.nowdoc.php', 'meta.embedded.sql', 'source.sql']
+    expect(lines[1][4].value).toEqual 'FROM'
+    expect(lines[1][4].scopes).toContainAll ['source.php', 'string.unquoted.nowdoc.php', 'meta.embedded.sql', 'source.sql']
+    expect(lines[1][5].value).toEqual ' '
+    expect(lines[1][5].scopes).toContainAll ['source.php', 'string.unquoted.nowdoc.php', 'meta.embedded.sql', 'source.sql']
+    expect(lines[1][6].value).toEqual 'table'
+    expect(lines[1][6].scopes).toContainAll ['source.php', 'string.unquoted.nowdoc.php', 'meta.embedded.sql', 'source.sql']
+    expect(lines[2][0]).toEqual value: 'SQL', scopes: ['source.php', 'string.unquoted.nowdoc.php', 'meta.embedded.sql', 'punctuation.section.embedded.end.php', 'keyword.operator.nowdoc.php']
+    expect(lines[2][1]).toEqual value: ';', scopes: ['source.php', 'punctuation.terminator.expression.php']
 
   it 'should tokenize a heredoc with embedded DQL correctly', ->
-    waitsForPromise ->
-      atom.packages.activatePackage('language-sql')
+    lines = grammar.tokenizeLines '''
+      $a = <<<DQL
+      SELECT * FROM table
+      DQL;
+    '''
 
-    runs ->
-      lines = grammar.tokenizeLines '''
-        $a = <<<DQL
-        SELECT * FROM table
-        DQL;
-      '''
-
-      expect(lines[0][0]).toEqual value: '$', scopes: ['source.php', 'variable.other.php', 'punctuation.definition.variable.php']
-      expect(lines[0][1]).toEqual value: 'a', scopes: ['source.php', 'variable.other.php']
-      expect(lines[0][2]).toEqual value: ' ', scopes: ['source.php']
-      expect(lines[0][3]).toEqual value: '=', scopes: ['source.php', 'keyword.operator.assignment.php']
-      expect(lines[0][4]).toEqual value: ' ', scopes: ['source.php']
-      expect(lines[0][5]).toEqual value: '<<<', scopes: ['source.php', 'string.unquoted.heredoc.php', 'meta.embedded.sql', 'punctuation.section.embedded.begin.php', 'punctuation.definition.string.php']
-      expect(lines[0][6]).toEqual value: 'DQL', scopes: ['source.php', 'string.unquoted.heredoc.php', 'meta.embedded.sql', 'punctuation.section.embedded.begin.php', 'keyword.operator.heredoc.php']
-      expect(lines[1][0].value).toEqual 'SELECT'
-      expect(lines[1][0].scopes).toContainAll ['source.php', 'string.unquoted.heredoc.php', 'meta.embedded.sql', 'source.sql']
-      expect(lines[1][1].value).toEqual ' '
-      expect(lines[1][1].scopes).toContainAll ['source.php', 'string.unquoted.heredoc.php', 'meta.embedded.sql', 'source.sql']
-      expect(lines[1][2].value).toEqual '*'
-      expect(lines[1][2].scopes).toContainAll ['source.php', 'string.unquoted.heredoc.php', 'meta.embedded.sql', 'source.sql']
-      expect(lines[1][3].value).toEqual ' '
-      expect(lines[1][3].scopes).toContainAll ['source.php', 'string.unquoted.heredoc.php', 'meta.embedded.sql', 'source.sql']
-      expect(lines[1][4].value).toEqual 'FROM'
-      expect(lines[1][4].scopes).toContainAll ['source.php', 'string.unquoted.heredoc.php', 'meta.embedded.sql', 'source.sql']
-      expect(lines[1][5].value).toEqual ' table'
-      expect(lines[1][5].scopes).toContainAll ['source.php', 'string.unquoted.heredoc.php', 'meta.embedded.sql', 'source.sql']
-      expect(lines[2][0]).toEqual value: 'DQL', scopes: ['source.php', 'string.unquoted.heredoc.php', 'meta.embedded.sql', 'punctuation.section.embedded.end.php', 'keyword.operator.heredoc.php']
-      expect(lines[2][1]).toEqual value: ';', scopes: ['source.php', 'punctuation.terminator.expression.php']
+    expect(lines[0][0]).toEqual value: '$', scopes: ['source.php', 'variable.other.php', 'punctuation.definition.variable.php']
+    expect(lines[0][1]).toEqual value: 'a', scopes: ['source.php', 'variable.other.php']
+    expect(lines[0][2]).toEqual value: ' ', scopes: ['source.php']
+    expect(lines[0][3]).toEqual value: '=', scopes: ['source.php', 'keyword.operator.assignment.php']
+    expect(lines[0][4]).toEqual value: ' ', scopes: ['source.php']
+    expect(lines[0][5]).toEqual value: '<<<', scopes: ['source.php', 'string.unquoted.heredoc.php', 'meta.embedded.sql', 'punctuation.section.embedded.begin.php', 'punctuation.definition.string.php']
+    expect(lines[0][6]).toEqual value: 'DQL', scopes: ['source.php', 'string.unquoted.heredoc.php', 'meta.embedded.sql', 'punctuation.section.embedded.begin.php', 'keyword.operator.heredoc.php']
+    expect(lines[1][0].value).toEqual 'SELECT'
+    expect(lines[1][0].scopes).toContainAll ['source.php', 'string.unquoted.heredoc.php', 'meta.embedded.sql', 'source.sql']
+    expect(lines[1][1].value).toEqual ' '
+    expect(lines[1][1].scopes).toContainAll ['source.php', 'string.unquoted.heredoc.php', 'meta.embedded.sql', 'source.sql']
+    expect(lines[1][2].value).toEqual '*'
+    expect(lines[1][2].scopes).toContainAll ['source.php', 'string.unquoted.heredoc.php', 'meta.embedded.sql', 'source.sql']
+    expect(lines[1][3].value).toEqual ' '
+    expect(lines[1][3].scopes).toContainAll ['source.php', 'string.unquoted.heredoc.php', 'meta.embedded.sql', 'source.sql']
+    expect(lines[1][4].value).toEqual 'FROM'
+    expect(lines[1][4].scopes).toContainAll ['source.php', 'string.unquoted.heredoc.php', 'meta.embedded.sql', 'source.sql']
+    expect(lines[1][5].value).toEqual ' '
+    expect(lines[1][5].scopes).toContainAll ['source.php', 'string.unquoted.heredoc.php', 'meta.embedded.sql', 'source.sql']
+    expect(lines[1][6].value).toEqual 'table'
+    expect(lines[1][6].scopes).toContainAll ['source.php', 'string.unquoted.heredoc.php', 'meta.embedded.sql', 'source.sql']
+    expect(lines[2][0]).toEqual value: 'DQL', scopes: ['source.php', 'string.unquoted.heredoc.php', 'meta.embedded.sql', 'punctuation.section.embedded.end.php', 'keyword.operator.heredoc.php']
+    expect(lines[2][1]).toEqual value: ';', scopes: ['source.php', 'punctuation.terminator.expression.php']
 
   it 'should tokenize a nowdoc with embedded DQL correctly', ->
-    waitsForPromise ->
-      atom.packages.activatePackage('language-sql')
+    lines = grammar.tokenizeLines '''
+      $a = <<<'DQL'
+      SELECT * FROM table
+      DQL;
+    '''
 
-    runs ->
-      lines = grammar.tokenizeLines '''
-        $a = <<<'DQL'
-        SELECT * FROM table
-        DQL;
-      '''
-
-      expect(lines[0][0]).toEqual value: '$', scopes: ['source.php', 'variable.other.php', 'punctuation.definition.variable.php']
-      expect(lines[0][1]).toEqual value: 'a', scopes: ['source.php', 'variable.other.php']
-      expect(lines[0][2]).toEqual value: ' ', scopes: ['source.php']
-      expect(lines[0][3]).toEqual value: '=', scopes: ['source.php', 'keyword.operator.assignment.php']
-      expect(lines[0][4]).toEqual value: ' ', scopes: ['source.php']
-      expect(lines[0][5]).toEqual value: '<<<', scopes: ['source.php', 'string.unquoted.nowdoc.php', 'meta.embedded.sql', 'punctuation.section.embedded.begin.php', 'punctuation.definition.string.php']
-      expect(lines[0][6]).toEqual value: '\'', scopes: ['source.php', 'string.unquoted.nowdoc.php', 'meta.embedded.sql', 'punctuation.section.embedded.begin.php']
-      expect(lines[0][7]).toEqual value: 'DQL', scopes: ['source.php', 'string.unquoted.nowdoc.php', 'meta.embedded.sql', 'punctuation.section.embedded.begin.php', 'keyword.operator.nowdoc.php']
-      expect(lines[0][8]).toEqual value: '\'', scopes: ['source.php', 'string.unquoted.nowdoc.php', 'meta.embedded.sql', 'punctuation.section.embedded.begin.php']
-      expect(lines[1][0].value).toEqual 'SELECT'
-      expect(lines[1][0].scopes).toContainAll ['source.php', 'string.unquoted.nowdoc.php', 'meta.embedded.sql', 'source.sql']
-      expect(lines[1][1].value).toEqual ' '
-      expect(lines[1][1].scopes).toContainAll ['source.php', 'string.unquoted.nowdoc.php', 'meta.embedded.sql', 'source.sql']
-      expect(lines[1][2].value).toEqual '*'
-      expect(lines[1][2].scopes).toContainAll ['source.php', 'string.unquoted.nowdoc.php', 'meta.embedded.sql', 'source.sql']
-      expect(lines[1][3].value).toEqual ' '
-      expect(lines[1][3].scopes).toContainAll ['source.php', 'string.unquoted.nowdoc.php', 'meta.embedded.sql', 'source.sql']
-      expect(lines[1][4].value).toEqual 'FROM'
-      expect(lines[1][4].scopes).toContainAll ['source.php', 'string.unquoted.nowdoc.php', 'meta.embedded.sql', 'source.sql']
-      expect(lines[1][5].value).toEqual ' table'
-      expect(lines[1][5].scopes).toContainAll ['source.php', 'string.unquoted.nowdoc.php', 'meta.embedded.sql', 'source.sql']
-      expect(lines[2][0]).toEqual value: 'DQL', scopes: ['source.php', 'string.unquoted.nowdoc.php', 'meta.embedded.sql', 'punctuation.section.embedded.end.php', 'keyword.operator.nowdoc.php']
-      expect(lines[2][1]).toEqual value: ';', scopes: ['source.php', 'punctuation.terminator.expression.php']
+    expect(lines[0][0]).toEqual value: '$', scopes: ['source.php', 'variable.other.php', 'punctuation.definition.variable.php']
+    expect(lines[0][1]).toEqual value: 'a', scopes: ['source.php', 'variable.other.php']
+    expect(lines[0][2]).toEqual value: ' ', scopes: ['source.php']
+    expect(lines[0][3]).toEqual value: '=', scopes: ['source.php', 'keyword.operator.assignment.php']
+    expect(lines[0][4]).toEqual value: ' ', scopes: ['source.php']
+    expect(lines[0][5]).toEqual value: '<<<', scopes: ['source.php', 'string.unquoted.nowdoc.php', 'meta.embedded.sql', 'punctuation.section.embedded.begin.php', 'punctuation.definition.string.php']
+    expect(lines[0][6]).toEqual value: '\'', scopes: ['source.php', 'string.unquoted.nowdoc.php', 'meta.embedded.sql', 'punctuation.section.embedded.begin.php']
+    expect(lines[0][7]).toEqual value: 'DQL', scopes: ['source.php', 'string.unquoted.nowdoc.php', 'meta.embedded.sql', 'punctuation.section.embedded.begin.php', 'keyword.operator.nowdoc.php']
+    expect(lines[0][8]).toEqual value: '\'', scopes: ['source.php', 'string.unquoted.nowdoc.php', 'meta.embedded.sql', 'punctuation.section.embedded.begin.php']
+    expect(lines[1][0].value).toEqual 'SELECT'
+    expect(lines[1][0].scopes).toContainAll ['source.php', 'string.unquoted.nowdoc.php', 'meta.embedded.sql', 'source.sql']
+    expect(lines[1][1].value).toEqual ' '
+    expect(lines[1][1].scopes).toContainAll ['source.php', 'string.unquoted.nowdoc.php', 'meta.embedded.sql', 'source.sql']
+    expect(lines[1][2].value).toEqual '*'
+    expect(lines[1][2].scopes).toContainAll ['source.php', 'string.unquoted.nowdoc.php', 'meta.embedded.sql', 'source.sql']
+    expect(lines[1][3].value).toEqual ' '
+    expect(lines[1][3].scopes).toContainAll ['source.php', 'string.unquoted.nowdoc.php', 'meta.embedded.sql', 'source.sql']
+    expect(lines[1][4].value).toEqual 'FROM'
+    expect(lines[1][4].scopes).toContainAll ['source.php', 'string.unquoted.nowdoc.php', 'meta.embedded.sql', 'source.sql']
+    expect(lines[1][5].value).toEqual ' '
+    expect(lines[1][5].scopes).toContainAll ['source.php', 'string.unquoted.nowdoc.php', 'meta.embedded.sql', 'source.sql']
+    expect(lines[1][6].value).toEqual 'table'
+    expect(lines[1][6].scopes).toContainAll ['source.php', 'string.unquoted.nowdoc.php', 'meta.embedded.sql', 'source.sql']
+    expect(lines[2][0]).toEqual value: 'DQL', scopes: ['source.php', 'string.unquoted.nowdoc.php', 'meta.embedded.sql', 'punctuation.section.embedded.end.php', 'keyword.operator.nowdoc.php']
+    expect(lines[2][1]).toEqual value: ';', scopes: ['source.php', 'punctuation.terminator.expression.php']
 
   it 'should tokenize a heredoc with embedded javascript correctly', ->
-    waitsForPromise ->
-      atom.packages.activatePackage('language-javascript')
+    lines = grammar.tokenizeLines '''
+      $a = <<<JAVASCRIPT
+      var a = 1;
+      JAVASCRIPT;
 
-    runs ->
-      lines = grammar.tokenizeLines '''
-        $a = <<<JAVASCRIPT
-        var a = 1;
-        JAVASCRIPT;
+      $a = <<<JS
+      var a = 1;
+      JS;
+    '''
 
-        $a = <<<JS
-        var a = 1;
-        JS;
-      '''
+    expect(lines[0][0]).toEqual value: '$', scopes: ['source.php', 'variable.other.php', 'punctuation.definition.variable.php']
+    expect(lines[0][1]).toEqual value: 'a', scopes: ['source.php', 'variable.other.php']
+    expect(lines[0][2]).toEqual value: ' ', scopes: ['source.php']
+    expect(lines[0][3]).toEqual value: '=', scopes: ['source.php', 'keyword.operator.assignment.php']
+    expect(lines[0][4]).toEqual value: ' ', scopes: ['source.php']
+    expect(lines[0][5]).toEqual value: '<<<', scopes: ['source.php', 'string.unquoted.heredoc.php', 'meta.embedded.js', 'punctuation.section.embedded.begin.php', 'punctuation.definition.string.php']
+    expect(lines[0][6]).toEqual value: 'JAVASCRIPT', scopes: ['source.php', 'string.unquoted.heredoc.php', 'meta.embedded.js', 'punctuation.section.embedded.begin.php', 'keyword.operator.heredoc.php']
+    expect(lines[1][0].value).toEqual 'var'
+    expect(lines[1][0].scopes).toContainAll ['source.php', 'string.unquoted.heredoc.php', 'meta.embedded.js', 'source.js']
+    expect(lines[1][1].value).toEqual ' a '
+    expect(lines[1][1].scopes).toContainAll ['source.php', 'string.unquoted.heredoc.php', 'meta.embedded.js', 'source.js']
+    expect(lines[1][2].value).toEqual '='
+    expect(lines[1][2].scopes).toContainAll ['source.php', 'string.unquoted.heredoc.php', 'meta.embedded.js', 'source.js']
+    expect(lines[1][3].value).toEqual ' '
+    expect(lines[1][3].scopes).toContainAll ['source.php', 'string.unquoted.heredoc.php', 'meta.embedded.js', 'source.js']
+    expect(lines[1][4].value).toEqual '1'
+    expect(lines[1][4].scopes).toContainAll ['source.php', 'string.unquoted.heredoc.php', 'meta.embedded.js', 'source.js']
+    expect(lines[1][5].value).toEqual ';'
+    expect(lines[1][5].scopes).toContainAll ['source.php', 'string.unquoted.heredoc.php', 'meta.embedded.js', 'source.js']
+    expect(lines[2][0]).toEqual value: 'JAVASCRIPT', scopes: ['source.php', 'string.unquoted.heredoc.php', 'meta.embedded.js', 'punctuation.section.embedded.end.php', 'keyword.operator.heredoc.php']
+    expect(lines[2][1]).toEqual value: ';', scopes: ['source.php', 'punctuation.terminator.expression.php']
 
-      expect(lines[0][0]).toEqual value: '$', scopes: ['source.php', 'variable.other.php', 'punctuation.definition.variable.php']
-      expect(lines[0][1]).toEqual value: 'a', scopes: ['source.php', 'variable.other.php']
-      expect(lines[0][2]).toEqual value: ' ', scopes: ['source.php']
-      expect(lines[0][3]).toEqual value: '=', scopes: ['source.php', 'keyword.operator.assignment.php']
-      expect(lines[0][4]).toEqual value: ' ', scopes: ['source.php']
-      expect(lines[0][5]).toEqual value: '<<<', scopes: ['source.php', 'string.unquoted.heredoc.php', 'meta.embedded.js', 'punctuation.section.embedded.begin.php', 'punctuation.definition.string.php']
-      expect(lines[0][6]).toEqual value: 'JAVASCRIPT', scopes: ['source.php', 'string.unquoted.heredoc.php', 'meta.embedded.js', 'punctuation.section.embedded.begin.php', 'keyword.operator.heredoc.php']
-      expect(lines[1][0].value).toEqual 'var'
-      expect(lines[1][0].scopes).toContainAll ['source.php', 'string.unquoted.heredoc.php', 'meta.embedded.js', 'source.js']
-      expect(lines[1][1].value).toEqual ' a '
-      expect(lines[1][1].scopes).toContainAll ['source.php', 'string.unquoted.heredoc.php', 'meta.embedded.js', 'source.js']
-      expect(lines[1][2].value).toEqual '='
-      expect(lines[1][2].scopes).toContainAll ['source.php', 'string.unquoted.heredoc.php', 'meta.embedded.js', 'source.js']
-      expect(lines[1][3].value).toEqual ' '
-      expect(lines[1][3].scopes).toContainAll ['source.php', 'string.unquoted.heredoc.php', 'meta.embedded.js', 'source.js']
-      expect(lines[1][4].value).toEqual '1'
-      expect(lines[1][4].scopes).toContainAll ['source.php', 'string.unquoted.heredoc.php', 'meta.embedded.js', 'source.js']
-      expect(lines[1][5].value).toEqual ';'
-      expect(lines[1][5].scopes).toContainAll ['source.php', 'string.unquoted.heredoc.php', 'meta.embedded.js', 'source.js']
-      expect(lines[2][0]).toEqual value: 'JAVASCRIPT', scopes: ['source.php', 'string.unquoted.heredoc.php', 'meta.embedded.js', 'punctuation.section.embedded.end.php', 'keyword.operator.heredoc.php']
-      expect(lines[2][1]).toEqual value: ';', scopes: ['source.php', 'punctuation.terminator.expression.php']
-
-      expect(lines[4][0]).toEqual value: '$', scopes: ['source.php', 'variable.other.php', 'punctuation.definition.variable.php']
-      expect(lines[4][1]).toEqual value: 'a', scopes: ['source.php', 'variable.other.php']
-      expect(lines[4][2]).toEqual value: ' ', scopes: ['source.php']
-      expect(lines[4][3]).toEqual value: '=', scopes: ['source.php', 'keyword.operator.assignment.php']
-      expect(lines[4][4]).toEqual value: ' ', scopes: ['source.php']
-      expect(lines[4][5]).toEqual value: '<<<', scopes: ['source.php', 'string.unquoted.heredoc.php', 'meta.embedded.js', 'punctuation.section.embedded.begin.php', 'punctuation.definition.string.php']
-      expect(lines[4][6]).toEqual value: 'JS', scopes: ['source.php', 'string.unquoted.heredoc.php', 'meta.embedded.js', 'punctuation.section.embedded.begin.php', 'keyword.operator.heredoc.php']
-      expect(lines[5][0].value).toEqual 'var'
-      expect(lines[5][0].scopes).toContainAll ['source.php', 'string.unquoted.heredoc.php', 'meta.embedded.js', 'source.js']
-      expect(lines[5][1].value).toEqual ' a '
-      expect(lines[5][1].scopes).toContainAll ['source.php', 'string.unquoted.heredoc.php', 'meta.embedded.js', 'source.js']
-      expect(lines[5][2].value).toEqual '='
-      expect(lines[5][2].scopes).toContainAll ['source.php', 'string.unquoted.heredoc.php', 'meta.embedded.js', 'source.js']
-      expect(lines[5][3].value).toEqual ' '
-      expect(lines[5][3].scopes).toContainAll ['source.php', 'string.unquoted.heredoc.php', 'meta.embedded.js', 'source.js']
-      expect(lines[5][4].value).toEqual '1'
-      expect(lines[5][4].scopes).toContainAll ['source.php', 'string.unquoted.heredoc.php', 'meta.embedded.js', 'source.js']
-      expect(lines[5][5].value).toEqual ';'
-      expect(lines[5][5].scopes).toContainAll ['source.php', 'string.unquoted.heredoc.php', 'meta.embedded.js', 'source.js']
-      expect(lines[6][0]).toEqual value: 'JS', scopes: ['source.php', 'string.unquoted.heredoc.php', 'meta.embedded.js', 'punctuation.section.embedded.end.php', 'keyword.operator.heredoc.php']
-      expect(lines[6][1]).toEqual value: ';', scopes: ['source.php', 'punctuation.terminator.expression.php']
+    expect(lines[4][0]).toEqual value: '$', scopes: ['source.php', 'variable.other.php', 'punctuation.definition.variable.php']
+    expect(lines[4][1]).toEqual value: 'a', scopes: ['source.php', 'variable.other.php']
+    expect(lines[4][2]).toEqual value: ' ', scopes: ['source.php']
+    expect(lines[4][3]).toEqual value: '=', scopes: ['source.php', 'keyword.operator.assignment.php']
+    expect(lines[4][4]).toEqual value: ' ', scopes: ['source.php']
+    expect(lines[4][5]).toEqual value: '<<<', scopes: ['source.php', 'string.unquoted.heredoc.php', 'meta.embedded.js', 'punctuation.section.embedded.begin.php', 'punctuation.definition.string.php']
+    expect(lines[4][6]).toEqual value: 'JS', scopes: ['source.php', 'string.unquoted.heredoc.php', 'meta.embedded.js', 'punctuation.section.embedded.begin.php', 'keyword.operator.heredoc.php']
+    expect(lines[5][0].value).toEqual 'var'
+    expect(lines[5][0].scopes).toContainAll ['source.php', 'string.unquoted.heredoc.php', 'meta.embedded.js', 'source.js']
+    expect(lines[5][1].value).toEqual ' a '
+    expect(lines[5][1].scopes).toContainAll ['source.php', 'string.unquoted.heredoc.php', 'meta.embedded.js', 'source.js']
+    expect(lines[5][2].value).toEqual '='
+    expect(lines[5][2].scopes).toContainAll ['source.php', 'string.unquoted.heredoc.php', 'meta.embedded.js', 'source.js']
+    expect(lines[5][3].value).toEqual ' '
+    expect(lines[5][3].scopes).toContainAll ['source.php', 'string.unquoted.heredoc.php', 'meta.embedded.js', 'source.js']
+    expect(lines[5][4].value).toEqual '1'
+    expect(lines[5][4].scopes).toContainAll ['source.php', 'string.unquoted.heredoc.php', 'meta.embedded.js', 'source.js']
+    expect(lines[5][5].value).toEqual ';'
+    expect(lines[5][5].scopes).toContainAll ['source.php', 'string.unquoted.heredoc.php', 'meta.embedded.js', 'source.js']
+    expect(lines[6][0]).toEqual value: 'JS', scopes: ['source.php', 'string.unquoted.heredoc.php', 'meta.embedded.js', 'punctuation.section.embedded.end.php', 'keyword.operator.heredoc.php']
+    expect(lines[6][1]).toEqual value: ';', scopes: ['source.php', 'punctuation.terminator.expression.php']
 
   it 'should tokenize a nowdoc with embedded javascript correctly', ->
-    waitsForPromise ->
-      atom.packages.activatePackage('language-javascript')
+    lines = grammar.tokenizeLines '''
+      $a = <<<'JAVASCRIPT'
+      var a = 1;
+      JAVASCRIPT;
 
-    runs ->
-      lines = grammar.tokenizeLines '''
-        $a = <<<'JAVASCRIPT'
-        var a = 1;
-        JAVASCRIPT;
+      $a = <<<'JS'
+      var a = 1;
+      JS;
+    '''
 
-        $a = <<<'JS'
-        var a = 1;
-        JS;
-      '''
+    expect(lines[0][0]).toEqual value: '$', scopes: ['source.php', 'variable.other.php', 'punctuation.definition.variable.php']
+    expect(lines[0][1]).toEqual value: 'a', scopes: ['source.php', 'variable.other.php']
+    expect(lines[0][2]).toEqual value: ' ', scopes: ['source.php']
+    expect(lines[0][3]).toEqual value: '=', scopes: ['source.php', 'keyword.operator.assignment.php']
+    expect(lines[0][4]).toEqual value: ' ', scopes: ['source.php']
+    expect(lines[0][5]).toEqual value: '<<<', scopes: ['source.php', 'string.unquoted.nowdoc.php', 'meta.embedded.js', 'punctuation.section.embedded.begin.php', 'punctuation.definition.string.php']
+    expect(lines[0][6]).toEqual value: '\'', scopes: ['source.php', 'string.unquoted.nowdoc.php', 'meta.embedded.js', 'punctuation.section.embedded.begin.php']
+    expect(lines[0][7]).toEqual value: 'JAVASCRIPT', scopes: ['source.php', 'string.unquoted.nowdoc.php', 'meta.embedded.js', 'punctuation.section.embedded.begin.php', 'keyword.operator.nowdoc.php']
+    expect(lines[0][8]).toEqual value: '\'', scopes: ['source.php', 'string.unquoted.nowdoc.php', 'meta.embedded.js', 'punctuation.section.embedded.begin.php']
+    expect(lines[1][0].value).toEqual 'var'
+    expect(lines[1][0].scopes).toContainAll ['source.php', 'string.unquoted.nowdoc.php', 'meta.embedded.js', 'source.js']
+    expect(lines[1][1].value).toEqual ' a '
+    expect(lines[1][1].scopes).toContainAll ['source.php', 'string.unquoted.nowdoc.php', 'meta.embedded.js', 'source.js']
+    expect(lines[1][2].value).toEqual '='
+    expect(lines[1][2].scopes).toContainAll ['source.php', 'string.unquoted.nowdoc.php', 'meta.embedded.js', 'source.js']
+    expect(lines[1][3].value).toEqual ' '
+    expect(lines[1][3].scopes).toContainAll ['source.php', 'string.unquoted.nowdoc.php', 'meta.embedded.js', 'source.js']
+    expect(lines[1][4].value).toEqual '1'
+    expect(lines[1][4].scopes).toContainAll ['source.php', 'string.unquoted.nowdoc.php', 'meta.embedded.js', 'source.js']
+    expect(lines[1][5].value).toEqual ';'
+    expect(lines[1][5].scopes).toContainAll ['source.php', 'string.unquoted.nowdoc.php', 'meta.embedded.js', 'source.js']
+    expect(lines[2][0]).toEqual value: 'JAVASCRIPT', scopes: ['source.php', 'string.unquoted.nowdoc.php', 'meta.embedded.js', 'punctuation.section.embedded.end.php', 'keyword.operator.nowdoc.php']
+    expect(lines[2][1]).toEqual value: ';', scopes: ['source.php', 'punctuation.terminator.expression.php']
 
-      expect(lines[0][0]).toEqual value: '$', scopes: ['source.php', 'variable.other.php', 'punctuation.definition.variable.php']
-      expect(lines[0][1]).toEqual value: 'a', scopes: ['source.php', 'variable.other.php']
-      expect(lines[0][2]).toEqual value: ' ', scopes: ['source.php']
-      expect(lines[0][3]).toEqual value: '=', scopes: ['source.php', 'keyword.operator.assignment.php']
-      expect(lines[0][4]).toEqual value: ' ', scopes: ['source.php']
-      expect(lines[0][5]).toEqual value: '<<<', scopes: ['source.php', 'string.unquoted.nowdoc.php', 'meta.embedded.js', 'punctuation.section.embedded.begin.php', 'punctuation.definition.string.php']
-      expect(lines[0][6]).toEqual value: '\'', scopes: ['source.php', 'string.unquoted.nowdoc.php', 'meta.embedded.js', 'punctuation.section.embedded.begin.php']
-      expect(lines[0][7]).toEqual value: 'JAVASCRIPT', scopes: ['source.php', 'string.unquoted.nowdoc.php', 'meta.embedded.js', 'punctuation.section.embedded.begin.php', 'keyword.operator.nowdoc.php']
-      expect(lines[0][8]).toEqual value: '\'', scopes: ['source.php', 'string.unquoted.nowdoc.php', 'meta.embedded.js', 'punctuation.section.embedded.begin.php']
-      expect(lines[1][0].value).toEqual 'var'
-      expect(lines[1][0].scopes).toContainAll ['source.php', 'string.unquoted.nowdoc.php', 'meta.embedded.js', 'source.js']
-      expect(lines[1][1].value).toEqual ' a '
-      expect(lines[1][1].scopes).toContainAll ['source.php', 'string.unquoted.nowdoc.php', 'meta.embedded.js', 'source.js']
-      expect(lines[1][2].value).toEqual '='
-      expect(lines[1][2].scopes).toContainAll ['source.php', 'string.unquoted.nowdoc.php', 'meta.embedded.js', 'source.js']
-      expect(lines[1][3].value).toEqual ' '
-      expect(lines[1][3].scopes).toContainAll ['source.php', 'string.unquoted.nowdoc.php', 'meta.embedded.js', 'source.js']
-      expect(lines[1][4].value).toEqual '1'
-      expect(lines[1][4].scopes).toContainAll ['source.php', 'string.unquoted.nowdoc.php', 'meta.embedded.js', 'source.js']
-      expect(lines[1][5].value).toEqual ';'
-      expect(lines[1][5].scopes).toContainAll ['source.php', 'string.unquoted.nowdoc.php', 'meta.embedded.js', 'source.js']
-      expect(lines[2][0]).toEqual value: 'JAVASCRIPT', scopes: ['source.php', 'string.unquoted.nowdoc.php', 'meta.embedded.js', 'punctuation.section.embedded.end.php', 'keyword.operator.nowdoc.php']
-      expect(lines[2][1]).toEqual value: ';', scopes: ['source.php', 'punctuation.terminator.expression.php']
-
-      expect(lines[4][0]).toEqual value: '$', scopes: ['source.php', 'variable.other.php', 'punctuation.definition.variable.php']
-      expect(lines[4][1]).toEqual value: 'a', scopes: ['source.php', 'variable.other.php']
-      expect(lines[4][2]).toEqual value: ' ', scopes: ['source.php']
-      expect(lines[4][3]).toEqual value: '=', scopes: ['source.php', 'keyword.operator.assignment.php']
-      expect(lines[4][4]).toEqual value: ' ', scopes: ['source.php']
-      expect(lines[4][5]).toEqual value: '<<<', scopes: ['source.php', 'string.unquoted.nowdoc.php', 'meta.embedded.js', 'punctuation.section.embedded.begin.php', 'punctuation.definition.string.php']
-      expect(lines[4][6]).toEqual value: '\'', scopes: ['source.php', 'string.unquoted.nowdoc.php', 'meta.embedded.js', 'punctuation.section.embedded.begin.php']
-      expect(lines[4][7]).toEqual value: 'JS', scopes: ['source.php', 'string.unquoted.nowdoc.php', 'meta.embedded.js', 'punctuation.section.embedded.begin.php', 'keyword.operator.nowdoc.php']
-      expect(lines[4][8]).toEqual value: '\'', scopes: ['source.php', 'string.unquoted.nowdoc.php', 'meta.embedded.js', 'punctuation.section.embedded.begin.php']
-      expect(lines[5][0].value).toEqual 'var'
-      expect(lines[5][0].scopes).toContainAll ['source.php', 'string.unquoted.nowdoc.php', 'meta.embedded.js', 'source.js']
-      expect(lines[5][1].value).toEqual ' a '
-      expect(lines[5][1].scopes).toContainAll ['source.php', 'string.unquoted.nowdoc.php', 'meta.embedded.js', 'source.js']
-      expect(lines[5][2].value).toEqual '='
-      expect(lines[5][2].scopes).toContainAll ['source.php', 'string.unquoted.nowdoc.php', 'meta.embedded.js', 'source.js']
-      expect(lines[5][3].value).toEqual ' '
-      expect(lines[5][3].scopes).toContainAll ['source.php', 'string.unquoted.nowdoc.php', 'meta.embedded.js', 'source.js']
-      expect(lines[5][4].value).toEqual '1'
-      expect(lines[5][4].scopes).toContainAll ['source.php', 'string.unquoted.nowdoc.php', 'meta.embedded.js', 'source.js']
-      expect(lines[5][5].value).toEqual ';'
-      expect(lines[5][5].scopes).toContainAll ['source.php', 'string.unquoted.nowdoc.php', 'meta.embedded.js', 'source.js']
-      expect(lines[6][0]).toEqual value: 'JS', scopes: ['source.php', 'string.unquoted.nowdoc.php', 'meta.embedded.js', 'punctuation.section.embedded.end.php', 'keyword.operator.nowdoc.php']
-      expect(lines[6][1]).toEqual value: ';', scopes: ['source.php', 'punctuation.terminator.expression.php']
+    expect(lines[4][0]).toEqual value: '$', scopes: ['source.php', 'variable.other.php', 'punctuation.definition.variable.php']
+    expect(lines[4][1]).toEqual value: 'a', scopes: ['source.php', 'variable.other.php']
+    expect(lines[4][2]).toEqual value: ' ', scopes: ['source.php']
+    expect(lines[4][3]).toEqual value: '=', scopes: ['source.php', 'keyword.operator.assignment.php']
+    expect(lines[4][4]).toEqual value: ' ', scopes: ['source.php']
+    expect(lines[4][5]).toEqual value: '<<<', scopes: ['source.php', 'string.unquoted.nowdoc.php', 'meta.embedded.js', 'punctuation.section.embedded.begin.php', 'punctuation.definition.string.php']
+    expect(lines[4][6]).toEqual value: '\'', scopes: ['source.php', 'string.unquoted.nowdoc.php', 'meta.embedded.js', 'punctuation.section.embedded.begin.php']
+    expect(lines[4][7]).toEqual value: 'JS', scopes: ['source.php', 'string.unquoted.nowdoc.php', 'meta.embedded.js', 'punctuation.section.embedded.begin.php', 'keyword.operator.nowdoc.php']
+    expect(lines[4][8]).toEqual value: '\'', scopes: ['source.php', 'string.unquoted.nowdoc.php', 'meta.embedded.js', 'punctuation.section.embedded.begin.php']
+    expect(lines[5][0].value).toEqual 'var'
+    expect(lines[5][0].scopes).toContainAll ['source.php', 'string.unquoted.nowdoc.php', 'meta.embedded.js', 'source.js']
+    expect(lines[5][1].value).toEqual ' a '
+    expect(lines[5][1].scopes).toContainAll ['source.php', 'string.unquoted.nowdoc.php', 'meta.embedded.js', 'source.js']
+    expect(lines[5][2].value).toEqual '='
+    expect(lines[5][2].scopes).toContainAll ['source.php', 'string.unquoted.nowdoc.php', 'meta.embedded.js', 'source.js']
+    expect(lines[5][3].value).toEqual ' '
+    expect(lines[5][3].scopes).toContainAll ['source.php', 'string.unquoted.nowdoc.php', 'meta.embedded.js', 'source.js']
+    expect(lines[5][4].value).toEqual '1'
+    expect(lines[5][4].scopes).toContainAll ['source.php', 'string.unquoted.nowdoc.php', 'meta.embedded.js', 'source.js']
+    expect(lines[5][5].value).toEqual ';'
+    expect(lines[5][5].scopes).toContainAll ['source.php', 'string.unquoted.nowdoc.php', 'meta.embedded.js', 'source.js']
+    expect(lines[6][0]).toEqual value: 'JS', scopes: ['source.php', 'string.unquoted.nowdoc.php', 'meta.embedded.js', 'punctuation.section.embedded.end.php', 'keyword.operator.nowdoc.php']
+    expect(lines[6][1]).toEqual value: ';', scopes: ['source.php', 'punctuation.terminator.expression.php']
 
   it 'should tokenize a heredoc with embedded json correctly', ->
-    waitsForPromise ->
-      atom.packages.activatePackage('language-json')
+    lines = grammar.tokenizeLines '''
+      $a = <<<JSON
+      {"a" : 1}
+      JSON;
+    '''
 
-    runs ->
-      lines = grammar.tokenizeLines '''
-        $a = <<<JSON
-        {"a" : 1}
-        JSON;
-      '''
-
-      expect(lines[0][0]).toEqual value: '$', scopes: ['source.php', 'variable.other.php', 'punctuation.definition.variable.php']
-      expect(lines[0][1]).toEqual value: 'a', scopes: ['source.php', 'variable.other.php']
-      expect(lines[0][2]).toEqual value: ' ', scopes: ['source.php']
-      expect(lines[0][3]).toEqual value: '=', scopes: ['source.php', 'keyword.operator.assignment.php']
-      expect(lines[0][4]).toEqual value: ' ', scopes: ['source.php']
-      expect(lines[0][5]).toEqual value: '<<<', scopes: ['source.php', 'string.unquoted.heredoc.php', 'meta.embedded.json', 'punctuation.section.embedded.begin.php', 'punctuation.definition.string.php']
-      expect(lines[0][6]).toEqual value: 'JSON', scopes: ['source.php', 'string.unquoted.heredoc.php', 'meta.embedded.json', 'punctuation.section.embedded.begin.php', 'keyword.operator.heredoc.php']
-      expect(lines[1][0].value).toEqual '{'
-      expect(lines[1][0].scopes).toContainAll ['source.php', 'string.unquoted.heredoc.php', 'meta.embedded.json', 'source.json']
-      expect(lines[1][1].value).toEqual '"'
-      expect(lines[1][1].scopes).toContainAll ['source.php', 'string.unquoted.heredoc.php', 'meta.embedded.json', 'source.json']
-      expect(lines[1][2].value).toEqual 'a'
-      expect(lines[1][2].scopes).toContainAll ['source.php', 'string.unquoted.heredoc.php', 'meta.embedded.json', 'source.json']
-      expect(lines[1][3].value).toEqual '"'
-      expect(lines[1][3].scopes).toContainAll ['source.php', 'string.unquoted.heredoc.php', 'meta.embedded.json', 'source.json']
-      expect(lines[1][4].value).toEqual ' '
-      expect(lines[1][4].scopes).toContainAll ['source.php', 'string.unquoted.heredoc.php', 'meta.embedded.json', 'source.json']
-      expect(lines[1][5].value).toEqual ':'
-      expect(lines[1][5].scopes).toContainAll ['source.php', 'string.unquoted.heredoc.php', 'meta.embedded.json', 'source.json']
-      expect(lines[1][6].value).toEqual ' '
-      expect(lines[1][6].scopes).toContainAll ['source.php', 'string.unquoted.heredoc.php', 'meta.embedded.json', 'source.json']
-      expect(lines[1][7].value).toEqual '1'
-      expect(lines[1][7].scopes).toContainAll ['source.php', 'string.unquoted.heredoc.php', 'meta.embedded.json', 'source.json']
-      expect(lines[1][8].value).toEqual '}'
-      expect(lines[1][8].scopes).toContainAll ['source.php', 'string.unquoted.heredoc.php', 'meta.embedded.json', 'source.json']
-      expect(lines[2][0]).toEqual value: 'JSON', scopes: ['source.php', 'string.unquoted.heredoc.php', 'meta.embedded.json', 'punctuation.section.embedded.end.php', 'keyword.operator.heredoc.php']
-      expect(lines[2][1]).toEqual value: ';', scopes: ['source.php', 'punctuation.terminator.expression.php']
+    expect(lines[0][0]).toEqual value: '$', scopes: ['source.php', 'variable.other.php', 'punctuation.definition.variable.php']
+    expect(lines[0][1]).toEqual value: 'a', scopes: ['source.php', 'variable.other.php']
+    expect(lines[0][2]).toEqual value: ' ', scopes: ['source.php']
+    expect(lines[0][3]).toEqual value: '=', scopes: ['source.php', 'keyword.operator.assignment.php']
+    expect(lines[0][4]).toEqual value: ' ', scopes: ['source.php']
+    expect(lines[0][5]).toEqual value: '<<<', scopes: ['source.php', 'string.unquoted.heredoc.php', 'meta.embedded.json', 'punctuation.section.embedded.begin.php', 'punctuation.definition.string.php']
+    expect(lines[0][6]).toEqual value: 'JSON', scopes: ['source.php', 'string.unquoted.heredoc.php', 'meta.embedded.json', 'punctuation.section.embedded.begin.php', 'keyword.operator.heredoc.php']
+    expect(lines[1][0].value).toEqual '{'
+    expect(lines[1][0].scopes).toContainAll ['source.php', 'string.unquoted.heredoc.php', 'meta.embedded.json', 'source.json']
+    expect(lines[1][1].value).toEqual '"'
+    expect(lines[1][1].scopes).toContainAll ['source.php', 'string.unquoted.heredoc.php', 'meta.embedded.json', 'source.json']
+    expect(lines[1][2].value).toEqual 'a'
+    expect(lines[1][2].scopes).toContainAll ['source.php', 'string.unquoted.heredoc.php', 'meta.embedded.json', 'source.json']
+    expect(lines[1][3].value).toEqual '"'
+    expect(lines[1][3].scopes).toContainAll ['source.php', 'string.unquoted.heredoc.php', 'meta.embedded.json', 'source.json']
+    expect(lines[1][4].value).toEqual ' '
+    expect(lines[1][4].scopes).toContainAll ['source.php', 'string.unquoted.heredoc.php', 'meta.embedded.json', 'source.json']
+    expect(lines[1][5].value).toEqual ':'
+    expect(lines[1][5].scopes).toContainAll ['source.php', 'string.unquoted.heredoc.php', 'meta.embedded.json', 'source.json']
+    expect(lines[1][6].value).toEqual ' '
+    expect(lines[1][6].scopes).toContainAll ['source.php', 'string.unquoted.heredoc.php', 'meta.embedded.json', 'source.json']
+    expect(lines[1][7].value).toEqual '1'
+    expect(lines[1][7].scopes).toContainAll ['source.php', 'string.unquoted.heredoc.php', 'meta.embedded.json', 'source.json']
+    expect(lines[1][8].value).toEqual '}'
+    expect(lines[1][8].scopes).toContainAll ['source.php', 'string.unquoted.heredoc.php', 'meta.embedded.json', 'source.json']
+    expect(lines[2][0]).toEqual value: 'JSON', scopes: ['source.php', 'string.unquoted.heredoc.php', 'meta.embedded.json', 'punctuation.section.embedded.end.php', 'keyword.operator.heredoc.php']
+    expect(lines[2][1]).toEqual value: ';', scopes: ['source.php', 'punctuation.terminator.expression.php']
 
   it 'should tokenize a nowdoc with embedded json correctly', ->
-    waitsForPromise ->
-      atom.packages.activatePackage('language-json')
+    lines = grammar.tokenizeLines '''
+      $a = <<<'JSON'
+      {"a" : 1}
+      JSON;
+    '''
 
-    runs ->
-      lines = grammar.tokenizeLines '''
-        $a = <<<'JSON'
-        {"a" : 1}
-        JSON;
-      '''
-
-      expect(lines[0][0]).toEqual value: '$', scopes: ['source.php', 'variable.other.php', 'punctuation.definition.variable.php']
-      expect(lines[0][1]).toEqual value: 'a', scopes: ['source.php', 'variable.other.php']
-      expect(lines[0][2]).toEqual value: ' ', scopes: ['source.php']
-      expect(lines[0][3]).toEqual value: '=', scopes: ['source.php', 'keyword.operator.assignment.php']
-      expect(lines[0][4]).toEqual value: ' ', scopes: ['source.php']
-      expect(lines[0][5]).toEqual value: '<<<', scopes: ['source.php', 'string.unquoted.nowdoc.php', 'meta.embedded.json', 'punctuation.section.embedded.begin.php', 'punctuation.definition.string.php']
-      expect(lines[0][6]).toEqual value: '\'', scopes: ['source.php', 'string.unquoted.nowdoc.php', 'meta.embedded.json', 'punctuation.section.embedded.begin.php']
-      expect(lines[0][7]).toEqual value: 'JSON', scopes: ['source.php', 'string.unquoted.nowdoc.php', 'meta.embedded.json', 'punctuation.section.embedded.begin.php', 'keyword.operator.nowdoc.php']
-      expect(lines[0][8]).toEqual value: '\'', scopes: ['source.php', 'string.unquoted.nowdoc.php', 'meta.embedded.json', 'punctuation.section.embedded.begin.php']
-      expect(lines[1][0].value).toEqual '{'
-      expect(lines[1][0].scopes).toContainAll ['source.php', 'string.unquoted.nowdoc.php', 'meta.embedded.json', 'source.json']
-      expect(lines[1][1].value).toEqual '"'
-      expect(lines[1][1].scopes).toContainAll ['source.php', 'string.unquoted.nowdoc.php', 'meta.embedded.json', 'source.json']
-      expect(lines[1][2].value).toEqual 'a'
-      expect(lines[1][2].scopes).toContainAll ['source.php', 'string.unquoted.nowdoc.php', 'meta.embedded.json', 'source.json']
-      expect(lines[1][3].value).toEqual '"'
-      expect(lines[1][3].scopes).toContainAll ['source.php', 'string.unquoted.nowdoc.php', 'meta.embedded.json', 'source.json']
-      expect(lines[1][4].value).toEqual ' '
-      expect(lines[1][4].scopes).toContainAll ['source.php', 'string.unquoted.nowdoc.php', 'meta.embedded.json', 'source.json']
-      expect(lines[1][5].value).toEqual ':'
-      expect(lines[1][5].scopes).toContainAll ['source.php', 'string.unquoted.nowdoc.php', 'meta.embedded.json', 'source.json']
-      expect(lines[1][6].value).toEqual ' '
-      expect(lines[1][6].scopes).toContainAll ['source.php', 'string.unquoted.nowdoc.php', 'meta.embedded.json', 'source.json']
-      expect(lines[1][7].value).toEqual '1'
-      expect(lines[1][7].scopes).toContainAll ['source.php', 'string.unquoted.nowdoc.php', 'meta.embedded.json', 'source.json']
-      expect(lines[1][8].value).toEqual '}'
-      expect(lines[1][8].scopes).toContainAll ['source.php', 'string.unquoted.nowdoc.php', 'meta.embedded.json', 'source.json']
-      expect(lines[2][0]).toEqual value: 'JSON', scopes: ['source.php', 'string.unquoted.nowdoc.php', 'meta.embedded.json', 'punctuation.section.embedded.end.php', 'keyword.operator.nowdoc.php']
-      expect(lines[2][1]).toEqual value: ';', scopes: ['source.php', 'punctuation.terminator.expression.php']
+    expect(lines[0][0]).toEqual value: '$', scopes: ['source.php', 'variable.other.php', 'punctuation.definition.variable.php']
+    expect(lines[0][1]).toEqual value: 'a', scopes: ['source.php', 'variable.other.php']
+    expect(lines[0][2]).toEqual value: ' ', scopes: ['source.php']
+    expect(lines[0][3]).toEqual value: '=', scopes: ['source.php', 'keyword.operator.assignment.php']
+    expect(lines[0][4]).toEqual value: ' ', scopes: ['source.php']
+    expect(lines[0][5]).toEqual value: '<<<', scopes: ['source.php', 'string.unquoted.nowdoc.php', 'meta.embedded.json', 'punctuation.section.embedded.begin.php', 'punctuation.definition.string.php']
+    expect(lines[0][6]).toEqual value: '\'', scopes: ['source.php', 'string.unquoted.nowdoc.php', 'meta.embedded.json', 'punctuation.section.embedded.begin.php']
+    expect(lines[0][7]).toEqual value: 'JSON', scopes: ['source.php', 'string.unquoted.nowdoc.php', 'meta.embedded.json', 'punctuation.section.embedded.begin.php', 'keyword.operator.nowdoc.php']
+    expect(lines[0][8]).toEqual value: '\'', scopes: ['source.php', 'string.unquoted.nowdoc.php', 'meta.embedded.json', 'punctuation.section.embedded.begin.php']
+    expect(lines[1][0].value).toEqual '{'
+    expect(lines[1][0].scopes).toContainAll ['source.php', 'string.unquoted.nowdoc.php', 'meta.embedded.json', 'source.json']
+    expect(lines[1][1].value).toEqual '"'
+    expect(lines[1][1].scopes).toContainAll ['source.php', 'string.unquoted.nowdoc.php', 'meta.embedded.json', 'source.json']
+    expect(lines[1][2].value).toEqual 'a'
+    expect(lines[1][2].scopes).toContainAll ['source.php', 'string.unquoted.nowdoc.php', 'meta.embedded.json', 'source.json']
+    expect(lines[1][3].value).toEqual '"'
+    expect(lines[1][3].scopes).toContainAll ['source.php', 'string.unquoted.nowdoc.php', 'meta.embedded.json', 'source.json']
+    expect(lines[1][4].value).toEqual ' '
+    expect(lines[1][4].scopes).toContainAll ['source.php', 'string.unquoted.nowdoc.php', 'meta.embedded.json', 'source.json']
+    expect(lines[1][5].value).toEqual ':'
+    expect(lines[1][5].scopes).toContainAll ['source.php', 'string.unquoted.nowdoc.php', 'meta.embedded.json', 'source.json']
+    expect(lines[1][6].value).toEqual ' '
+    expect(lines[1][6].scopes).toContainAll ['source.php', 'string.unquoted.nowdoc.php', 'meta.embedded.json', 'source.json']
+    expect(lines[1][7].value).toEqual '1'
+    expect(lines[1][7].scopes).toContainAll ['source.php', 'string.unquoted.nowdoc.php', 'meta.embedded.json', 'source.json']
+    expect(lines[1][8].value).toEqual '}'
+    expect(lines[1][8].scopes).toContainAll ['source.php', 'string.unquoted.nowdoc.php', 'meta.embedded.json', 'source.json']
+    expect(lines[2][0]).toEqual value: 'JSON', scopes: ['source.php', 'string.unquoted.nowdoc.php', 'meta.embedded.json', 'punctuation.section.embedded.end.php', 'keyword.operator.nowdoc.php']
+    expect(lines[2][1]).toEqual value: ';', scopes: ['source.php', 'punctuation.terminator.expression.php']
 
   it 'should tokenize a heredoc with embedded css correctly', ->
-    waitsForPromise ->
-      atom.packages.activatePackage('language-css')
+    lines = grammar.tokenizeLines '''
+      $a = <<<CSS
+      body{}
+      CSS;
+    '''
 
-    runs ->
-      lines = grammar.tokenizeLines '''
-        $a = <<<CSS
-        body{}
-        CSS;
-      '''
-
-      expect(lines[0][0]).toEqual value: '$', scopes: ['source.php', 'variable.other.php', 'punctuation.definition.variable.php']
-      expect(lines[0][1]).toEqual value: 'a', scopes: ['source.php', 'variable.other.php']
-      expect(lines[0][2]).toEqual value: ' ', scopes: ['source.php']
-      expect(lines[0][3]).toEqual value: '=', scopes: ['source.php', 'keyword.operator.assignment.php']
-      expect(lines[0][4]).toEqual value: ' ', scopes: ['source.php']
-      expect(lines[0][5]).toEqual value: '<<<', scopes: ['source.php', 'string.unquoted.heredoc.php', 'meta.embedded.css', 'punctuation.section.embedded.begin.php', 'punctuation.definition.string.php']
-      expect(lines[0][6]).toEqual value: 'CSS', scopes: ['source.php', 'string.unquoted.heredoc.php', 'meta.embedded.css', 'punctuation.section.embedded.begin.php', 'keyword.operator.heredoc.php']
-      expect(lines[1][0].value).toEqual 'body'
-      expect(lines[1][0].scopes).toContainAll ['source.php', 'string.unquoted.heredoc.php', 'meta.embedded.css', 'source.css']
-      expect(lines[1][1].value).toEqual '{'
-      expect(lines[1][1].scopes).toContainAll ['source.php', 'string.unquoted.heredoc.php', 'meta.embedded.css', 'source.css']
-      expect(lines[1][2].value).toEqual '}'
-      expect(lines[1][2].scopes).toContainAll ['source.php', 'string.unquoted.heredoc.php', 'meta.embedded.css', 'source.css']
-      expect(lines[2][0]).toEqual value: 'CSS', scopes: ['source.php', 'string.unquoted.heredoc.php', 'meta.embedded.css', 'punctuation.section.embedded.end.php', 'keyword.operator.heredoc.php']
-      expect(lines[2][1]).toEqual value: ';', scopes: ['source.php', 'punctuation.terminator.expression.php']
+    expect(lines[0][0]).toEqual value: '$', scopes: ['source.php', 'variable.other.php', 'punctuation.definition.variable.php']
+    expect(lines[0][1]).toEqual value: 'a', scopes: ['source.php', 'variable.other.php']
+    expect(lines[0][2]).toEqual value: ' ', scopes: ['source.php']
+    expect(lines[0][3]).toEqual value: '=', scopes: ['source.php', 'keyword.operator.assignment.php']
+    expect(lines[0][4]).toEqual value: ' ', scopes: ['source.php']
+    expect(lines[0][5]).toEqual value: '<<<', scopes: ['source.php', 'string.unquoted.heredoc.php', 'meta.embedded.css', 'punctuation.section.embedded.begin.php', 'punctuation.definition.string.php']
+    expect(lines[0][6]).toEqual value: 'CSS', scopes: ['source.php', 'string.unquoted.heredoc.php', 'meta.embedded.css', 'punctuation.section.embedded.begin.php', 'keyword.operator.heredoc.php']
+    expect(lines[1][0].value).toEqual 'body'
+    expect(lines[1][0].scopes).toContainAll ['source.php', 'string.unquoted.heredoc.php', 'meta.embedded.css', 'source.css']
+    expect(lines[1][1].value).toEqual '{'
+    expect(lines[1][1].scopes).toContainAll ['source.php', 'string.unquoted.heredoc.php', 'meta.embedded.css', 'source.css']
+    expect(lines[1][2].value).toEqual '}'
+    expect(lines[1][2].scopes).toContainAll ['source.php', 'string.unquoted.heredoc.php', 'meta.embedded.css', 'source.css']
+    expect(lines[2][0]).toEqual value: 'CSS', scopes: ['source.php', 'string.unquoted.heredoc.php', 'meta.embedded.css', 'punctuation.section.embedded.end.php', 'keyword.operator.heredoc.php']
+    expect(lines[2][1]).toEqual value: ';', scopes: ['source.php', 'punctuation.terminator.expression.php']
 
   it 'should tokenize a nowdoc with embedded css correctly', ->
-    waitsForPromise ->
-      atom.packages.activatePackage('language-css')
+    lines = grammar.tokenizeLines '''
+      $a = <<<'CSS'
+      body{}
+      CSS;
+    '''
 
-    runs ->
-      lines = grammar.tokenizeLines '''
-        $a = <<<'CSS'
-        body{}
-        CSS;
-      '''
-
-      expect(lines[0][0]).toEqual value: '$', scopes: ['source.php', 'variable.other.php', 'punctuation.definition.variable.php']
-      expect(lines[0][1]).toEqual value: 'a', scopes: ['source.php', 'variable.other.php']
-      expect(lines[0][2]).toEqual value: ' ', scopes: ['source.php']
-      expect(lines[0][3]).toEqual value: '=', scopes: ['source.php', 'keyword.operator.assignment.php']
-      expect(lines[0][4]).toEqual value: ' ', scopes: ['source.php']
-      expect(lines[0][5]).toEqual value: '<<<', scopes: ['source.php', 'string.unquoted.nowdoc.php', 'meta.embedded.css', 'punctuation.section.embedded.begin.php', 'punctuation.definition.string.php']
-      expect(lines[0][6]).toEqual value: '\'', scopes: ['source.php', 'string.unquoted.nowdoc.php', 'meta.embedded.css', 'punctuation.section.embedded.begin.php']
-      expect(lines[0][7]).toEqual value: 'CSS', scopes: ['source.php', 'string.unquoted.nowdoc.php', 'meta.embedded.css', 'punctuation.section.embedded.begin.php', 'keyword.operator.nowdoc.php']
-      expect(lines[0][8]).toEqual value: '\'', scopes: ['source.php', 'string.unquoted.nowdoc.php', 'meta.embedded.css', 'punctuation.section.embedded.begin.php']
-      expect(lines[1][0].value).toEqual 'body'
-      expect(lines[1][0].scopes).toContainAll ['source.php', 'string.unquoted.nowdoc.php', 'meta.embedded.css', 'source.css']
-      expect(lines[1][1].value).toEqual '{'
-      expect(lines[1][1].scopes).toContainAll ['source.php', 'string.unquoted.nowdoc.php', 'meta.embedded.css', 'source.css']
-      expect(lines[1][2].value).toEqual '}'
-      expect(lines[1][2].scopes).toContainAll ['source.php', 'string.unquoted.nowdoc.php', 'meta.embedded.css', 'source.css']
-      expect(lines[2][0]).toEqual value: 'CSS', scopes: ['source.php', 'string.unquoted.nowdoc.php', 'meta.embedded.css', 'punctuation.section.embedded.end.php', 'keyword.operator.nowdoc.php']
-      expect(lines[2][1]).toEqual value: ';', scopes: ['source.php', 'punctuation.terminator.expression.php']
+    expect(lines[0][0]).toEqual value: '$', scopes: ['source.php', 'variable.other.php', 'punctuation.definition.variable.php']
+    expect(lines[0][1]).toEqual value: 'a', scopes: ['source.php', 'variable.other.php']
+    expect(lines[0][2]).toEqual value: ' ', scopes: ['source.php']
+    expect(lines[0][3]).toEqual value: '=', scopes: ['source.php', 'keyword.operator.assignment.php']
+    expect(lines[0][4]).toEqual value: ' ', scopes: ['source.php']
+    expect(lines[0][5]).toEqual value: '<<<', scopes: ['source.php', 'string.unquoted.nowdoc.php', 'meta.embedded.css', 'punctuation.section.embedded.begin.php', 'punctuation.definition.string.php']
+    expect(lines[0][6]).toEqual value: '\'', scopes: ['source.php', 'string.unquoted.nowdoc.php', 'meta.embedded.css', 'punctuation.section.embedded.begin.php']
+    expect(lines[0][7]).toEqual value: 'CSS', scopes: ['source.php', 'string.unquoted.nowdoc.php', 'meta.embedded.css', 'punctuation.section.embedded.begin.php', 'keyword.operator.nowdoc.php']
+    expect(lines[0][8]).toEqual value: '\'', scopes: ['source.php', 'string.unquoted.nowdoc.php', 'meta.embedded.css', 'punctuation.section.embedded.begin.php']
+    expect(lines[1][0].value).toEqual 'body'
+    expect(lines[1][0].scopes).toContainAll ['source.php', 'string.unquoted.nowdoc.php', 'meta.embedded.css', 'source.css']
+    expect(lines[1][1].value).toEqual '{'
+    expect(lines[1][1].scopes).toContainAll ['source.php', 'string.unquoted.nowdoc.php', 'meta.embedded.css', 'source.css']
+    expect(lines[1][2].value).toEqual '}'
+    expect(lines[1][2].scopes).toContainAll ['source.php', 'string.unquoted.nowdoc.php', 'meta.embedded.css', 'source.css']
+    expect(lines[2][0]).toEqual value: 'CSS', scopes: ['source.php', 'string.unquoted.nowdoc.php', 'meta.embedded.css', 'punctuation.section.embedded.end.php', 'keyword.operator.nowdoc.php']
+    expect(lines[2][1]).toEqual value: ';', scopes: ['source.php', 'punctuation.terminator.expression.php']
 
   it 'should tokenize a heredoc with embedded regex escaped bracket correctly', ->
     lines = grammar.tokenizeLines '''
