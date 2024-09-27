@@ -158,3 +158,12 @@
   '<?php if (…) ?> … <?php endif ?>':
     'prefix': 'if'
     'body': '<?php if (${1:condition}): ?>\n\t$0\n<?php endif; ?>'
+  '$_POST …':
+    'prefix': '_POST[""]'
+    'body': '_POST["${0:INPUT NAME}"];'
+  '$_GET …':
+    'prefix': '_GET[""]'
+    'body': '_GET["${0:INPUT NAME}"];'
+  '$_REQUEST …':
+    'prefix': '_REQUEST[""]'
+    'body': '_REQUEST["${0:INPUT NAME}"];'
